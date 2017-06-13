@@ -18,8 +18,7 @@
 // for older .NET Framework-Versions (C# doesn't support extension-properties).
 
 
-
-#if NET_2_0
+#if NET_2_0_VS2017
 
 
 namespace System.Reflection
@@ -50,7 +49,7 @@ namespace System.Reflection
 
         public string Name => t.Name;
         // public bool IsConstructedGenericType => t.IsConstructedGenericType;
-        public RuntimeTypeHandle TypeHandle { get; }
+        public RuntimeTypeHandle TypeHandle => t.TypeHandle;
         public Type DeclaringType => t.DeclaringType;
 
 

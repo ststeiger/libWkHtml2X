@@ -12,7 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)bidi.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CallsImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CallsPDF.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IntrospectionExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IntrospectionExtensions_VS2013.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IntrospectionExtensions_VS2017.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibraryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MarshalerConstUtf8.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MarshalerUtf8.cs" />
