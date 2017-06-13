@@ -20,7 +20,8 @@ namespace TestWkHtmlToX
 
 
 
-        public static T GetAttribute<T>(System.Reflection.MemberInfo mi)
+        public static T GetAttribute<T>(System.Reflection.MemberInfo mi) 
+            where T : System.Attribute 
         {
             return (T)GetAttribute(mi, typeof(T));
         }
@@ -28,7 +29,8 @@ namespace TestWkHtmlToX
 
         public delegate TResult GetValue_t<in T, out TResult>(T arg1);
 
-        public static TValue GetAttributValue<TAttribute, TValue>(System.Reflection.MemberInfo mi, GetValue_t<TAttribute, TValue> value) where TAttribute : System.Attribute
+        public static TValue GetAttributValue<TAttribute, TValue>(System.Reflection.MemberInfo mi, GetValue_t<TAttribute, TValue> value) 
+            where TAttribute : System.Attribute
         {
             TAttribute[] objAtts = (TAttribute[])mi.GetCustomAttributes(typeof(TAttribute), true);
             TAttribute att = (objAtts == null || objAtts.Length < 1) ? default(TAttribute) : objAtts[0];
