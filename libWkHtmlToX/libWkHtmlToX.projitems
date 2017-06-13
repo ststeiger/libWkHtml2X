@@ -12,9 +12,23 @@
     <Compile Include="$(MSBuildThisFileDirectory)bidi.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CallsImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CallsPDF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IntrospectionExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibraryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MarshalerConstUtf8.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MarshalerUtf8.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\x64\wkhtmltoimage.exe" />
+    <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\x64\wkhtmltopdf.exe" />
+    <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\x64\wkhtmltox.dll" />
+    <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\include\image.h" />
+    <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\include\pdf.h" />
+    <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\x86\wkhtmltoimage.exe" />
+    <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\x86\wkhtmltopdf.exe" />
+    <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\x86\wkhtmltox.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\" />
   </ItemGroup>
 </Project>

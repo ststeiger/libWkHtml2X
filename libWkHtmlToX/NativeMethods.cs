@@ -126,27 +126,27 @@ namespace libWkHtml2X
         private static bool IsMacInternal()
         {
             return System.Runtime.InteropServices.RuntimeInformation
-                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.TODO);
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX);
         }
 
         private static bool IsLinuxInternal()
         {
             return System.Runtime.InteropServices.RuntimeInformation
-                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.TODO);
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux);
         }
 
         private static bool IsUnixInternal()
         {
             if(System.Runtime.InteropServices.RuntimeInformation
-                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                 return false;
 
             if(System.Runtime.InteropServices.RuntimeInformation
-                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.TODO); // Linux
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
                 return false;
 
             if(System.Runtime.InteropServices.RuntimeInformation
-                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.TODO); Mac
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
                 return false;
 
             return true;

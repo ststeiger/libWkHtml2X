@@ -40,6 +40,7 @@
     <Compile Include="bidi.cs" />
     <Compile Include="CallsImage.cs" />
     <Compile Include="CallsPDF.cs" />
+    <Compile Include="IntrospectionExtensions.cs" />
     <Compile Include="LibraryLoader.cs" />
     <Compile Include="MarshalerConstUtf8.cs" />
     <Compile Include="MarshalerUtf8.cs" />
