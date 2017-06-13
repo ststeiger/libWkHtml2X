@@ -42,8 +42,6 @@ namespace TestWkHtmlToX
         }
 
 
-
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -57,6 +55,12 @@ namespace TestWkHtmlToX
 #endif 
             libWkHtml2X.WebPageSpecificSettings wss = new libWkHtml2X.WebPageSpecificSettings();
             System.Type t = typeof(libWkHtml2X.WebPageSpecificSettings);
+
+            System.IntPtr hSO = libWkHtml2X.LibraryLoader.Load("wkhtmltox");
+
+
+            libWkHtml2X.LibraryLoader.Unload(hSO);
+
 
 
             

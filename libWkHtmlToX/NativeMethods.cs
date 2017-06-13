@@ -1,41 +1,34 @@
 ﻿
-using System.Runtime.InteropServices;
+//using System.Runtime.InteropServices;
 
 
 namespace libWkHtml2X
 {
 
 
-    internal class NativeMethods
+    internal static class NativeMethods
     {
-
         internal const string DLL_NAME = "wkhtmltox";
 
-        internal static void Init()
-        {
-            ConstUtf8Marshaler.GetInstance();
-            Utf8Marshaler.GetInstance();
-
-            string dllDirectory = @"C:\PortableApps\wkhtmltopdf\x64\bin"; 
-            if(System.IntPtr.Size * 8 == 32)
-                dllDirectory = @"C:\PortableApps\wkhtmltopdf\x86\bin";
-
-            System.Environment.SetEnvironmentVariable("PATH", System.Environment.GetEnvironmentVariable("PATH") + ";" + dllDirectory);
-        }
+        //[System.Runtime.InteropServices.DllImport("kernel32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
+        //static extern bool SetDllDirectory(string lpPathName);
 
 
-        /*
-        [DllImport("libc")]
+        private static object s_initLock = new object();
+        private static string s_osName = null;
+        private static bool? s_isWindows;
+        private static bool? s_isMac;
+        private static bool? s_isLinux;
+        private static bool? s_isUnix;
+
+#if NET_2_0
+
+        [System.Runtime.InteropServices.DllImport("libc", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         public static extern int uname(System.IntPtr buf);
 
-        private static object _OsNameLock = new object();
-        private static string _OsName = null;
 
         private static string GetOsNameInternal()
         {
-            if (!string.IsNullOrEmpty(_OsName))
-                return _OsName;
-
             if (System.Environment.OSVersion.Platform != System.PlatformID.Unix
                 && System.Environment.OSVersion.Platform != System.PlatformID.MacOSX)
             {
@@ -45,34 +38,204 @@ namespace libWkHtml2X
             System.IntPtr buf = System.IntPtr.Zero;
             try
             {
-                buf = Marshal.AllocHGlobal(8192);
+                buf = System.Runtime.InteropServices.Marshal.AllocHGlobal(8192);
                 // This is a hacktastic way of getting sysname from uname ()
                 if (uname(buf) == 0)
                 {
-                    return Marshal.PtrToStringAnsi(buf);
+                    s_osName = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(buf);
                 }
             }
             catch { }
             finally
             {
-                if (buf != System.IntPtr.Zero) Marshal.FreeHGlobal(buf);
+                if (buf != System.IntPtr.Zero)
+                    System.Runtime.InteropServices.Marshal.FreeHGlobal(buf);
             }
 
-            return null;
+            return s_osName;
         }
 
-        public static string GetOsName()
+
+        private static bool IsWindowsInternal()
         {
-            lock (_OsNameLock)
-            {
-                if (_OsName == null)
-                    _OsName = GetOsNameInternal();
+            return (System.Environment.OSVersion.Platform != System.PlatformID.Unix);
+        }
 
-                return _OsName;
+
+        private static bool IsMacInternal()
+        {
+            if (s_osName != null)
+            {
+                if (System.Environment.OSVersion.Platform == System.PlatformID.Unix) ;
+                {
+                    s_isMac = s_osName.IndexOf("mac", System.StringComparison.OrdinalIgnoreCase) != -1;
+                }
+            }
+
+            return false;
+        }
+
+
+        private static bool IsLinuxInternal()
+        {
+            if (s_osName != null)
+            {
+                if (System.Environment.OSVersion.Platform == System.PlatformID.Unix) ;
+                {
+                    s_isMac = s_osName.IndexOf("Linux", System.StringComparison.OrdinalIgnoreCase) != -1;
+                }
+            }
+
+            return false;
+        }
+
+
+        private static bool IsUnixInternal()
+        {
+            if (s_osName != null)
+            {
+                if (System.Environment.OSVersion.Platform == System.PlatformID.Unix) ;
+                {
+                    if (s_osName.IndexOf("Linux", System.StringComparison.OrdinalIgnoreCase) != -1)
+                        return false;
+
+                    if (s_osName.IndexOf("Mac", System.StringComparison.OrdinalIgnoreCase) != -1)
+                        return false;
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+#else
+
+        // https://stackoverflow.com/questions/38790802/determine-operating-system-in-net-core
+        private static string GetOsNameInternal()
+        {
+            return System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+        }
+
+        private static bool IsWindowsInternal()
+        {
+            return System.Runtime.InteropServices.RuntimeInformation
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
+        }
+
+        private static bool IsMacInternal()
+        {
+            return System.Runtime.InteropServices.RuntimeInformation
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.TODO);
+        }
+
+        private static bool IsLinuxInternal()
+        {
+            return System.Runtime.InteropServices.RuntimeInformation
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.TODO);
+        }
+
+        private static bool IsUnixInternal()
+        {
+            if(System.Runtime.InteropServices.RuntimeInformation
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
+                return false;
+
+            if(System.Runtime.InteropServices.RuntimeInformation
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.TODO); // Linux
+                return false;
+
+            if(System.Runtime.InteropServices.RuntimeInformation
+                .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.TODO); Mac
+                return false;
+
+            return true;
+        }
+
+#endif
+
+
+        static NativeMethods()
+        {
+            lock (s_initLock)
+            {
+                if (s_osName == null)
+                    s_osName = GetOsNameInternal();
+
+                if (!s_isWindows.HasValue)
+                {
+                    s_isWindows = IsWindowsInternal();
+                }
+
+                if (!s_isMac.HasValue)
+                {
+                    s_isMac = IsMacInternal();
+                }
+
+                if (!s_isLinux.HasValue)
+                {
+                    s_isLinux = IsLinuxInternal();
+                }
+
+                if (!s_isUnix.HasValue)
+                {
+                    s_isUnix = IsUnixInternal();
+                }
+
+            } // End lock (s_initLock)
+
+        } // End Constructor 
+
+
+        public static bool IsWindows
+        {
+            get { return s_isWindows.Value; }
+        }
+
+        public static bool IsMac
+        {
+            get { return s_isMac.Value; }
+        }
+
+        public static bool IsLinux
+        {
+            get { return s_isLinux.Value; }
+        }
+
+        public static bool IsUnix
+        {
+            get { return s_isUnix.Value; }
+        }
+
+
+
+        internal static void Init(string dllDirectory)
+        {
+            ConstUtf8Marshaler.GetInstance();
+            Utf8Marshaler.GetInstance();
+
+            System.Environment.SetEnvironmentVariable("PATH", System.Environment.GetEnvironmentVariable("PATH") + ";" + dllDirectory);
+        }
+
+
+        internal static void Init()
+        {
+            string dllDirectory = @"C:\PortableApps\wkhtmltopdf\x64\bin";
+            if (System.IntPtr.Size * 8 == 32)
+                dllDirectory = @"C:\PortableApps\wkhtmltopdf\x86\bin";
+
+            Init(dllDirectory);
+        }
+
+
+        public static string OS_Name
+        {
+            get
+            {
+                return s_osName;
             }
         }
-        */
-        
+
 
     }
 
