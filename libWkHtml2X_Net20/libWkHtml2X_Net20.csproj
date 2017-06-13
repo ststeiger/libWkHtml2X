@@ -40,13 +40,12 @@
     <Compile Include="bidi.cs" />
     <Compile Include="CallsImage.cs" />
     <Compile Include="CallsPDF.cs" />
-    <Compile Include="IntrospectionExtensions_VS2017.cs" />
     <Compile Include="LibraryLoader.cs" />
     <Compile Include="MarshalerConstUtf8.cs" />
     <Compile Include="MarshalerUtf8.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IntrospectionExtensions_VS2013.cs" />
+    <Compile Include="IntrospectionExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -61,9 +61,6 @@ namespace TestWkHtmlToX
 
             libWkHtml2X.LibraryLoader.Unload(hSO);
 
-
-
-            
             System.Reflection.FieldInfo fi = t.GetField("PrintBackground");
             
             // libWkHtml2X.wkHtmlOptionNameAttribute att = (libWkHtml2X.wkHtmlOptionNameAttribute)fi.GetCustomAttributes(typeof(libWkHtml2X.wkHtmlOptionNameAttribute), false)[0];

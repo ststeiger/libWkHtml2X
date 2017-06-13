@@ -1,4 +1,7 @@
 
+#if NET_2_0
+
+
 namespace System.Reflection
 {
 
@@ -915,3 +918,5 @@ namespace System.Reflection
 		}
 	}
 }
+
+#endif 
