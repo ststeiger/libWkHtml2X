@@ -17,6 +17,11 @@ namespace libWkHtml2X
             return s_Loader.LoadLibrary(libraryFileName);
         }
 
+        public static System.IntPtr LoadSymbol(System.IntPtr hSO, string symbol)
+        {
+            return s_Loader.LoadSymbol(hSO, symbol);
+        }
+
         public static bool Unload(System.IntPtr hSO)
         {
             return s_Loader.Unload(hSO);

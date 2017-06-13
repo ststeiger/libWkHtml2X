@@ -8,4 +8,6 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <Import Project="..\libWkHtmlToX\libWkHtmlToX.projitems" Label="Shared" />
+
 </Project>

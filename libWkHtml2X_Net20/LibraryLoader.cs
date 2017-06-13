@@ -17,6 +17,11 @@ namespace libWkHtml2X
             return s_Loader.LoadLibrary(libraryFileName);
         }
 
+        public static System.IntPtr LoadSymbol(System.IntPtr hSO, string symbol)
+        {
+            return s_Loader.LoadSymbol(hSO, symbol);
+        }
+
         public static bool Unload(System.IntPtr hSO)
         {
             return s_Loader.Unload(hSO);
@@ -70,9 +75,9 @@ namespace libWkHtml2X
 
             if (hSO == System.IntPtr.Zero)
             {
-                throw new System.InvalidOperationException("Cannot open library \"" 
+                throw new System.InvalidOperationException("Cannot open library \""
                     + libraryFileName + "\"."
-                    , new System.Exception( dlerror() )
+                    , new System.Exception(dlerror())
                 );
             } // End if (hSO == IntPtr.Zero)
 
@@ -127,7 +132,7 @@ namespace libWkHtml2X
             catch (System.Exception ex)
             {
                 throw new System.InvalidOperationException("Cannot unload handle '" + hSO.ToInt64().ToString() + "'", ex);
-            }         
+            }
 
             return bError;
         }
@@ -136,7 +141,7 @@ namespace libWkHtml2X
     }
 
 
-    public class WindowsLoader: AbstractLibraryLoader
+    public class WindowsLoader : AbstractLibraryLoader
     {
 
         public WindowsLoader() : base()
@@ -173,7 +178,7 @@ namespace libWkHtml2X
             } // End if (hSO == IntPtr.Zero)
 
             this.m_dictionary.Add(libraryFileName, hSO);
-            
+
             return hSO;
         }
 
@@ -248,7 +253,7 @@ namespace libWkHtml2X
         public virtual void UnloadAllLoadedDlls()
         {
             System.Collections.Generic.List<System.Exception> ls = new System.Collections.Generic.List<System.Exception>();
-            
+
             foreach (string strKey in this.m_dictionary.Keys)
             {
                 try
@@ -283,7 +288,7 @@ namespace libWkHtml2X
                 return new WindowsLoader();
 #endif
 
-            return new  PosixLoader();
+            return new PosixLoader();
         }
 
 
