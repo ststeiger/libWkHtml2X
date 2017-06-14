@@ -6,7 +6,7 @@ namespace libWkHtml2X
     public delegate TResult GetValue_t<in T, out TResult>(T arg1);
 
 
-    internal class AttributeHelper
+    public class AttributeHelper
     {
 
 

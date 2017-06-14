@@ -3,7 +3,6 @@ namespace libWkHtml2X
 {
 
 
-
     public class wkHtmlOptionNameAttribute : System.Attribute
     {
         public string Name;
@@ -64,256 +63,297 @@ namespace libWkHtml2X
     }
 
 
-    // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html
-    public class ImageOptions
-    {
-
-        private System.Collections.Generic.Dictionary<string, string> m_properties =
-            new System.Collections.Generic.Dictionary<string, string>(System.StringComparer.OrdinalIgnoreCase);
-
-
-        // crop.left  - X
-        // crop.top top/y
-        // crop.width
-        // crop.height
-
-        public System.Collections.Generic.Dictionary<string, string> AllProperties
-        {
-            get
-            {
-                return this.m_properties;
-            }
-            set
-            {
-                this.m_properties = value;
-            }
-        }
-
-
-        const string cl = "crop.left";
-
-
-        [wkHtmlOptionName("crop.left")]
-        public double CropLeft
-        {
-
-            get
-            {
-                if (this.m_properties.ContainsKey(cl))
-                {
-                    return double.Parse(this.m_properties[cl], System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                return 0.0;
-            }
-            set { this.m_properties[cl] = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-        }
-
-        const string ct = "crop.top";
-        [wkHtmlOptionName("crop.top")]
-        public double CropTop
-        {
-
-            get
-            {
-                if (this.m_properties.ContainsKey(ct))
-                {
-                    return double.Parse(this.m_properties[ct], System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                return 0.0;
-            }
-            set { this.m_properties[ct] = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-        }
-
-        const string cw = "crop.width";
-
-        [wkHtmlOptionName("crop.width")]
-        public double CropWidth
-        {
-
-            get
-            {
-                if (this.m_properties.ContainsKey(cw))
-                {
-                    return double.Parse(this.m_properties[cw], System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                return 0.0;
-            }
-            set { this.m_properties[cw] = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-        }
-
-        const string ch = "crop.height";
-
-        [wkHtmlOptionName("crop.height")]
-        public double CropHeight
-        {
-
-            get
-            {
-                if (this.m_properties.ContainsKey(ch))
-                {
-                    return double.Parse(this.m_properties[ch], System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                return 0.0;
-            }
-            set { this.m_properties[ch] = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-        }
-
-
-        const string load_cookiejar = "load.cookieJar";
-
-        //load.cookieJar Path of file used to load and store cookies.
-        [wkHtmlOptionName("load.cookieJar")]
-        public string CookieJar
-        {
-            get
-            {
-                if (this.m_properties.ContainsKey(load_cookiejar))
-                    return this.m_properties[load_cookiejar];
-                return null;
-            }
-            set { this.m_properties[load_cookiejar] = value; }
-        }
-
-        // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageLoad
-        // load.*
-
-        // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageWeb
-        // web.*
-
-        [wkHtmlOptionName("transparent")]
-        public bool Transparent; // When outputting a PNG or SVG, make the white background transparent. Must be either "true" or "false"
-
-        [wkHtmlOptionName("in")]
-        public string InputFileUrl; // The URL or path of the input file, if "-" stdin is used. E.g. "http://google.com"
-
-        [wkHtmlOptionName("out")]
-        public string OutputFileUrl;
-
-
-        const string format = "fmt";
-        [wkHtmlOptionName("fmt")]
-        public SupportedFormat SupportedFormat
-        {
-            get
-            {
-                if (this.m_properties.ContainsKey(format))
-                {
-                    string fmt = this.m_properties[format];
-                    return (SupportedFormat)System.Enum.Parse(typeof(SupportedFormat), fmt);
-                }
-
-
-                return SupportedFormat.NONE;
-            }
-            set
-            {
-                if (value == SupportedFormat.NONE)
-                {
-                    this.m_properties[format] = "";
-                    return;
-                }
-                this.m_properties[format] = value.ToString();
-            }
-        }
-
-
-
-        const string sw = "screenWidth";
-        [wkHtmlOptionName("screenWidth")]
-        public int ScreenWidth
-        {
-
-            get
-            {
-                if (this.m_properties.ContainsKey(sw))
-                {
-                    return int.Parse(this.m_properties[sw], System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                return 0;
-            }
-            set { this.m_properties[sw] = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-        }
-
-
-        const string sm = "smartWidth";
-        [wkHtmlOptionName("smartWidth")]
-        public int SmartWidth
-        {
-
-            get
-            {
-                if (this.m_properties.ContainsKey(sm))
-                {
-                    return int.Parse(this.m_properties[sm], System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                return 0;
-            }
-            set { this.m_properties[sm] = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-        }
-
-        const string qa = "quality";
-        [wkHtmlOptionName("quality")]
-        public int Quality
-        {
-
-            get
-            {
-                if (this.m_properties.ContainsKey(qa))
-                {
-                    return int.Parse(this.m_properties[qa], System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                return 0;
-            }
-            set { this.m_properties[qa] = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-        }
-
-    }
-
-
-    public class HeaderFooterSettings
-    {
-        // header.*
-        int fontSize; // The font size to use for the header, e.g. "13"
-        string fontName; // The name of the font to use for the header. e.g. "times"
-        string left; // The text to print in the center part of the header. With replacements
-        string center; // The text to print in the center part of the header.
-        string right; // The text to print in the center part of the header.
-        bool line; // Whether a line should be printed under the header (either "true" or "false").
-        double spacing;// The amount of space to put between the header and the content, e.g. "1.8". Be aware that if this is too large the header will be printed outside the pdf document. This can be corrected with the margin.top setting.
-        string htmlUrl; // Url for a HTML document to use for the header
-    }
-
-
     // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageLoad
     public class LoadSettings
     {
         // load.*
+        [wkHtmlOptionName("load.username")]
         public string username;
+
+        [wkHtmlOptionName("load.password")]
         public string password;
 
-        public ulong jsdelay;
-        public double zoomFactor;
+        [wkHtmlOptionName("load.jsdelay")]
+        public ulong? jsdelay;
+
+        [wkHtmlOptionName("load.zoomFactor")]
+        public double? zoomFactor;
+
+        [wkHtmlOptionName("load.customHeaders")]
         public object customHeaders;
+
+        [wkHtmlOptionName("load.repertCustomHeaders")]
         public string repertCustomHeaders;
 
+        [wkHtmlOptionName("load.cookies")]
         public object cookies;
+
+        [wkHtmlOptionName("load.post")]
         public object post;
 
-        public bool blockLocalFileAccess;
-        public bool stopSlowScript;
-        public bool debugJavascript;
-        public ErrorBehaviour loadErrorHandling;
+        [wkHtmlOptionName("load.blockLocalFileAccess")]
+        public bool? blockLocalFileAccess;
+
+        [wkHtmlOptionName("load.stopSlowScript")]
+        public bool? stopSlowScript;
+
+        [wkHtmlOptionName("load.debugJavascript")]
+        public bool? debugJavascript;
+
+        [wkHtmlOptionName("load.loadErrorHandling")]
+        public ErrorBehaviour? loadErrorHandling;
+
+        [wkHtmlOptionName("load.proxy")]
         public string proxy;
 
+        [wkHtmlOptionName("load.runScript")]
         public object runScript;
     }
+
+
+
+    public class HeaderSettings
+    {
+
+        [wkHtmlOptionName("header.fontSize")]
+        public int? fontSize; // The font size to use for the header, e.g. "13"
+
+        [wkHtmlOptionName("header.fontName")]
+        public string fontName; // The name of the font to use for the header. e.g. "times"
+
+        [wkHtmlOptionName("header.left")]
+        public string left; // The text to print in the center part of the header. With replacements
+
+        [wkHtmlOptionName("header.center")]
+        public string center; // The text to print in the center part of the header.
+
+        [wkHtmlOptionName("header.right")]
+        public string right; // The text to print in the center part of the header.
+
+        [wkHtmlOptionName("header.line")]
+        public bool? line; // Whether a line should be printed under the header (either "true" or "false").
+
+        [wkHtmlOptionName("header.spacing")]
+        public double? spacing;// The amount of space to put between the header and the content, e.g. "1.8". Be aware that if this is too large the header will be printed outside the pdf document. This can be corrected with the margin.top setting.
+
+        [wkHtmlOptionName("header.htmlUrl")]
+        public string htmlUrl; // Url for a HTML document to use for the header
+    }
+
+
+    public class FooterSettings
+    {
+
+        [wkHtmlOptionName("footer.fontSize")]
+        public int? fontSize; // The font size to use for the footer, e.g. "13"
+
+        [wkHtmlOptionName("footer.fontName")]
+        public string fontName; // The name of the font to use for the footer. e.g. "times"
+
+        [wkHtmlOptionName("footer.left")]
+        public string left; // The text to print in the center part of the footer. With replacements
+
+        [wkHtmlOptionName("footer.center")]
+        public string center; // The text to print in the center part of the footer.
+
+        [wkHtmlOptionName("footer.right")]
+        public string right; // The text to print in the center part of the footer.
+
+        [wkHtmlOptionName("footer.line")]
+        public bool? line; // Whether a line should be printed under the footer (either "true" or "false").
+
+        [wkHtmlOptionName("footer.spacing")]
+        public double? spacing;// The amount of space to put between the footer and the content, e.g. "1.8". Be aware that if this is too large the footer will be printed outside the pdf document. This can be corrected with the margin.top setting.
+
+        [wkHtmlOptionName("footer.htmlUrl")]
+        public string htmlUrl; // Url for a HTML document to use for the footer
+    }
+
+
+    public class PdfGlobalSettings
+    {
+
+        // The paper size of the output document, e.g. "A4".
+        [wkHtmlOptionName("size.pageSize")]
+        public string pageSize; 
+
+        // The width of the output document, e.g. "4cm".
+        [wkHtmlOptionName("size.width")]
+        public double? width; 
+
+        // The height  of the output document, e.g. "12In".
+        [wkHtmlOptionName("size.height")]
+        public double? height; 
+
+        // The orientation of the output document, must be either "Landscape" or "Portrait".
+        [wkHtmlOptionName("orientation")]
+        public Orientation? orientation; 
+
+
+        // Should the output be printed in color or gray scale, must be either "Color" or "Grayscale"
+        [wkHtmlOptionName("colorMode")]
+        public ColorMode? ColorMode;
+
+
+        // Most likely has no effect.
+        [wkHtmlOptionName("resolution")]
+        public string Resolution;
+
+        // What dpi should we use when printing, e.g. "80".
+        [wkHtmlOptionName("dpi")]
+        public int? DPI;
+
+        // A number that is added to all page numbers when printing headers, footers and table of content.
+        [wkHtmlOptionName("pageOffset")]
+        public int? PageOffset; 
+
+        // How many copies should we print?. e.g. "2".
+        [wkHtmlOptionName("copies")]
+        public int? Copies; 
+
+        // Should the copies be collated? Must be either "true" or "false".
+        [wkHtmlOptionName("collate")]
+        public bool? Collate; 
+
+        //  Should a outline (table of content in the sidebar) be generated and put into the PDF? Must be either "true" or false".
+        [wkHtmlOptionName("outline")]
+        public bool? Outline; 
+
+        //  The maximal depth of the outline, e.g. "4".
+        [wkHtmlOptionName("outlineDepth")]
+        public int? OutlineDepth; 
+
+        // If not set to the empty string a XML representation of the outline is dumped to this file.
+        [wkHtmlOptionName("dumpOutline")]
+        public string DumpOutline; 
+
+        // The path of the output file, if "-" output is sent to stdout, if empty the output is stored in a buffer.
+        [wkHtmlOptionName("out")]
+        public string OutputFilePath; 
+
+        // The title of the PDF document.
+        [wkHtmlOptionName("documentTitle")]
+        public string DocumentTitle; 
+
+        // Should we use loss less compression when creating the pdf file? Must be either "true" or "false".
+        [wkHtmlOptionName("useCompression")]
+        public bool? UseCompression; 
+
+        // margin.top Size of the top margin, e.g. "2cm"
+        [wkHtmlOptionName("margin.top")]
+        public string MarginTop; 
+
+        // Size of the bottom margin, e.g. "2cm"
+        [wkHtmlOptionName("margin.bottom")]
+        public string MarginBottom; 
+
+        // margin.left Size of the left margin, e.g. "2cm"
+        [wkHtmlOptionName("margin.left")]
+        public string MarginLeft ; 
+
+        // margin.right Size of the right margin, e.g. "2cm"
+        [wkHtmlOptionName("margin.right")]
+        public string MarginRight; 
+
+        // The maximal DPI to use for images in the pdf document.
+        [wkHtmlOptionName("imageDPI")]
+        public int? ImageDPI; 
+
+        // The jpeg compression factor to use when producing the pdf document, e.g. "92".
+        [wkHtmlOptionName("imageQuality")]
+        public int? imageQuality;
+
+        // Path of file used to load and store cookies.
+        [wkHtmlOptionName("load.cookieJar")]
+        public string CookieJar;
+    }
+
+
+
+    public class PdfObjectSettings
+    {
+
+        // Should we use a dotted line when creating a table of content? Must be either "true" or "false".
+        [wkHtmlOptionName("toc.useDottedLines")]
+        public string TocUseDottedLines;
+
+        // The caption to use when creating a table of content.
+        [wkHtmlOptionName("toc.captionText")]
+        public string TocCaptionText;
+
+        // Should we create links from the table of content into the actual content? Must be either "true or "false.
+        [wkHtmlOptionName("toc.forwardLinks")]
+        public string TocForwardLinks;
+
+        //  Should we link back from the content to this table of content.
+        [wkHtmlOptionName("toc.backLinks")]
+        public string TocBackLinks;
+
+        //  The indentation used for every table of content level, e.g. "2em".
+        [wkHtmlOptionName("toc.indentation")]
+        public string TocIndentation;
+
+        // How much should we scale down the font for every toc level? E.g. "0.8"
+        [wkHtmlOptionName("toc.fontScale")]
+        public string TocFontScale;
+
+        // The URL or path of the web page to convert, if "-" input is read from stdin.
+        [wkHtmlOptionName("page")]
+        public string Page;
+
+        // page.*
+        // header.*
+        // footer.*
+
+
+        // Should external links in the HTML document be converted into external pdf links? Must be either "true" or "false.
+        [wkHtmlOptionName("useExternalLinks")]
+        public string UseExternalLinks;
+
+        // Should internal links in the HTML document be converted into pdf references? Must be either "true" or "false"
+        [wkHtmlOptionName("useLocalLinks")]
+        public string UseLocalLinks;
+
+        // TODO     
+        [wkHtmlOptionName("replacements")]
+        public string Replacements;
+
+        // Should we turn HTML forms into PDF forms? Must be either "true" or file".
+        [wkHtmlOptionName("produceForms")]
+        public string ProduceForms;
+        
+        
+        //load.* Page specific settings related to loading content, see Object Specific loading settings.
+        //web.* See Web page specific settings.
+
+
+        // Should the sections from this document be included in the outline and table of content?
+        [wkHtmlOptionName("includeInOutline")]
+        public string IncludeInOutline;
+
+        // Should we count the pages of this document, in the counter used for TOC, headers and footers?
+        [wkHtmlOptionName("pagesCount")]
+        public string PagesCount;
+
+        // If not empty this object is a table of content object, "page" is ignored and this xsl style sheet is used to convert the outline XML into a table of content.
+        [wkHtmlOptionName("tocXsl")]
+        public string TocXsl;
+
+   
+    }
+
+
+    public enum ColorMode 
+    {
+        Color, Grayscale
+    }
+
+
+    public enum Orientation
+    {
+        Landscape, Portrait
+    }
+
 
     public enum ErrorBehaviour
     {
@@ -325,5 +365,153 @@ namespace libWkHtml2X
     {
         BMP, JPG, PNG, NONE
     }
+
+
+
+    // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html
+    public class ImageSettings
+    {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ImageSettings SetCookieJar(string cookieDir)
+        {
+            return this;
+        }
+
+
+        /// <summary>
+        /// left/x coordinate of the window to capture in pixels. E.g. "200"
+        /// </summary>
+        [wkHtmlOptionName("crop.left")]
+        public double? CropLeft; // X
+
+        /// <summary>
+        /// top/y coordinate of the window to capture in pixels. E.g. "200"
+        /// </summary>
+        [wkHtmlOptionName("crop.top")]
+        public double? CropTop; // Y
+
+        /// <summary>
+        /// Width of the window to capture in pixels. E.g. "200"
+        /// </summary>
+        [wkHtmlOptionName("crop.width")]
+        public double? CropWidth;
+
+        /// <summary>
+        /// Height of the window to capture in pixels. E.g. "200"
+        /// </summary>
+        [wkHtmlOptionName("crop.height")]
+        public double? CropHeight;
+
+        
+        /// <summary>
+        /// Path of file used to load and store cookies.
+        /// </summary>
+        [wkHtmlOptionName("load.cookieJar")]
+        public string CookieJar;
+
+
+
+        
+        /// <summary>
+        /// load.*    Page specific settings related to loading content, see https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageLoad
+        /// </summary>
+        LoadSettings Load = new LoadSettings();
+        
+
+        // 
+        /// <summary>
+        /// web.* https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageWeb
+        /// </summary>
+        WebPageSpecificSettings Web = new WebPageSpecificSettings();
+
+        /// <summary>
+        /// When outputting a PNG or SVG, make the white background transparent. Must be either "true" or "false"
+        /// </summary>
+        [wkHtmlOptionName("transparent")]
+        public bool? Transparent; 
+
+        /// <summary>
+        /// The URL or path of the input file, if "-" stdin is used. E.g. "http://google.com"
+        /// </summary>
+        [wkHtmlOptionName("in")]
+        public string InputFileUrl; 
+
+
+        /// <summary>
+        /// The path of the output file, if "-" stdout is used, if empty the content is stored to a internalBuffer.
+        /// </summary>
+        [wkHtmlOptionName("out")]
+        public string OutputFileUrl;
+
+        /// <summary>
+        /// The output format to use, must be either "", "jpg", "png", "bmp" or "svg".
+        /// </summary>
+        [wkHtmlOptionName("fmt")]
+        public SupportedFormat? SupportedFormat;
+
+        /// <summary>
+        /// The with of the screen used to render is pixels, e.g "800".
+        /// </summary>
+        [wkHtmlOptionName("screenWidth")]
+        public int? ScreenWidth;
+
+        
+        /// <summary>
+        /// Should we expand the screenWidth if the content does not fit? must be either "true" or "false".
+        /// </summary>
+        [wkHtmlOptionName("smartWidth")]
+        public int? SmartWidth;
+
+        /// <summary>
+        /// The compression factor to use when outputting a JPEG image. E.g. "94"
+        /// </summary>
+        [wkHtmlOptionName("quality")]
+        public int? Quality;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void foo(System.Type t)
+        {
+            System.Reflection.FieldInfo[] fis = t.GetFields();
+
+            for (int i = 0; i < fis.Length; ++i)
+            {
+                if (System.StringComparer.Ordinal.Equals(fis[i].Name, "Load"))
+                {
+                    foo(typeof(LoadSettings));
+                    continue;
+                }
+
+                if (System.StringComparer.Ordinal.Equals(fis[i].Name, "Web"))
+                {
+                    foo(typeof(WebPageSpecificSettings));
+                    continue;
+                }
+
+                // Set Value
+                // libWkHtml2X.
+                
+            }
+
+        }
+
+           /// <summary>
+        /// 
+        /// </summary>
+        public void foo()
+        { 
+            foo(typeof(ImageSettings));
+        }
+
+
+
+    }
+
+
 
 }
