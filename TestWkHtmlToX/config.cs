@@ -475,7 +475,7 @@ namespace libWkHtml2X
         /// <summary>
         /// 
         /// </summary>
-        private void foo(System.Type t)
+        private void SetConfigValues(System.Type t)
         {
             System.Reflection.FieldInfo[] fis = t.GetFields();
 
@@ -483,13 +483,13 @@ namespace libWkHtml2X
             {
                 if (System.StringComparer.Ordinal.Equals(fis[i].Name, "Load"))
                 {
-                    foo(typeof(LoadSettings));
+                    SetConfigValues(typeof(LoadSettings));
                     continue;
                 }
 
                 if (System.StringComparer.Ordinal.Equals(fis[i].Name, "Web"))
                 {
-                    foo(typeof(WebPageSpecificSettings));
+                    SetConfigValues(typeof(WebPageSpecificSettings));
                     continue;
                 }
 
@@ -503,9 +503,9 @@ namespace libWkHtml2X
            /// <summary>
         /// 
         /// </summary>
-        public void foo()
-        { 
-            foo(typeof(ImageSettings));
+        public void SetConfigValues()
+        {
+            SetConfigValues(typeof(ImageSettings));
         }
 
 
