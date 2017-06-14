@@ -93,7 +93,7 @@ namespace libWkHtml2X
 
             if (!withExtension)
             {
-                if (libraryFileName.EndsWith(".so", System.StringComparison.OrdinalIgnoreCase))
+                if (!libraryFileName.EndsWith(".so", System.StringComparison.OrdinalIgnoreCase))
                     libraryFileName += ".so";
             }
 
@@ -192,7 +192,7 @@ namespace libWkHtml2X
 
             if (!withExtension)
             {
-                if (libraryFileName.EndsWith(".dylib", System.StringComparison.OrdinalIgnoreCase))
+                if (!libraryFileName.EndsWith(".dylib", System.StringComparison.OrdinalIgnoreCase))
                     libraryFileName += ".dylib";
             }
 
@@ -249,8 +249,8 @@ namespace libWkHtml2X
 
             if (!withExtension)
             {
-                if (libraryFileName.EndsWith(".so", System.StringComparison.OrdinalIgnoreCase))
-                    libraryFileName += ".so";
+                if (!libraryFileName.EndsWith(".dll", System.StringComparison.OrdinalIgnoreCase))
+                    libraryFileName += ".dll";
             }
 
             System.IntPtr hSO = System.IntPtr.Zero;
@@ -266,7 +266,9 @@ namespace libWkHtml2X
 
             if (hSO == System.IntPtr.Zero)
             {
-                throw new System.InvalidOperationException("Cannot open libary \"" + libraryFileName + "\".");
+                System.Exception ex = new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
+                
+                throw new System.InvalidOperationException("Cannot open libary \"" + libraryFileName + "\".", ex);
             } // End if (hSO == IntPtr.Zero)
 
             this.m_dictionary.Add(libraryFileName, hSO);
@@ -350,7 +352,7 @@ namespace libWkHtml2X
 
         public virtual System.Delegate LoadSymbol(System.IntPtr module, System.IntPtr symbol, System.Type type)
         {
-            if(System.Reflection.IntrospectionExtensions.GetTypeInfo(type)
+            if(!System.Reflection.IntrospectionExtensions.GetTypeInfo(type)
                 .IsSubclassOf(typeof(System.Delegate)))
             {
                 throw new System.InvalidOperationException(type.Name + " is not a delegate type");
@@ -370,7 +372,7 @@ namespace libWkHtml2X
         public virtual T LoadSymbol<T>(System.IntPtr module, System.IntPtr symbol) 
             // where T : System.Delegate
         {
-            if (System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(T))
+            if (!System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(T))
                 .IsSubclassOf(typeof(System.Delegate)))
             {
                 throw new System.InvalidOperationException(typeof(T).Name + " is not a delegate type");

@@ -9,6 +9,7 @@
     <Import_RootNamespace>libWkHtmlToX</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AttributeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)bidi.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CallsImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CallsPDF.cs" />

@@ -7,8 +7,11 @@ namespace wkHtmlToXCore
     {
 
 
+        [System.STAThread()]
         static void Main(string[] args)
         {
+            // System.Threading.Thread.CurrentThread.SetApartmentState(System.Threading.ApartmentState.STA);
+
             // System.IO.Compression.DeflateStream
             // System.IO.Compression.GZipStream
 
@@ -27,7 +30,7 @@ namespace wkHtmlToXCore
 ";
 
             TestPDF.CreatePdf(htmlData);
-            TestPDF.CreatePdf(htmlData);
+            // TestPDF.CreatePdf(htmlData);
 
 
             // TestImage.CreateImg(htmlData);

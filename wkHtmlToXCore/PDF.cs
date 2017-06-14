@@ -8,6 +8,7 @@ namespace wkHtmlToXCore
     {
 
 
+        [System.STAThread()]
         public static void CreatePdf(string htmlData)
         {
             // System.IO.File.WriteAllText(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.htm", htmlData, System.Text.Encoding.UTF8);
