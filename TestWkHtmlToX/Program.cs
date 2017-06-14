@@ -55,6 +55,15 @@ background-color: red !important;
 </html>
 ";
 
+            libWkHtml2X.ImageSettings imgset = new libWkHtml2X.ImageSettings();
+            imgset.CookieJar = "fo";
+            imgset.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
+            imgset.Load.jsdelay = 100;
+
+            imgset.SetConfigValues();
+
+
+
             wkHtmlToXCore.TestPDF.CreatePdf(htmlData);
 
 

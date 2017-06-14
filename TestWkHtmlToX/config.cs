@@ -13,7 +13,7 @@ namespace libWkHtml2X
         {
             this.Name = name;
         }
-    }
+    } // End Class wkHtmlOptionNameAttribute 
 
 
     public class WebPageSpecificSettings
@@ -60,7 +60,7 @@ namespace libWkHtml2X
         // Enabling this will have limited success
         [wkHtmlOptionName("web.enablePlugins")]
         public bool? EnablePlugins;
-    }
+    } // End Class WebPageSpecificSettings  
 
 
     // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageLoad
@@ -68,47 +68,49 @@ namespace libWkHtml2X
     {
         // load.*
         [wkHtmlOptionName("load.username")]
-        public string username;
+        public string UserName;
 
         [wkHtmlOptionName("load.password")]
-        public string password;
+        public string Password;
 
+        // The mount of time in milliseconds to wait after a page has done loading until it is actually printed. E.g. "1200". We will wait this amount of time or until, javascript calls window.print().
         [wkHtmlOptionName("load.jsdelay")]
-        public ulong? jsdelay;
+        public ulong? JsDelay;
 
         [wkHtmlOptionName("load.zoomFactor")]
-        public double? zoomFactor;
+        public double? ZoomFactor;
 
         [wkHtmlOptionName("load.customHeaders")]
-        public object customHeaders;
+        public object CustomHeaders;
 
+        // Should the custom headers be sent all elements loaded instead of only the main page? Must be either "true" or "false".
         [wkHtmlOptionName("load.repertCustomHeaders")]
-        public string repertCustomHeaders;
+        public bool? RepertCustomHeaders;
 
         [wkHtmlOptionName("load.cookies")]
-        public object cookies;
+        public object Cookies;
 
         [wkHtmlOptionName("load.post")]
-        public object post;
+        public object Post;
 
         [wkHtmlOptionName("load.blockLocalFileAccess")]
-        public bool? blockLocalFileAccess;
+        public bool? BlockLocalFileAccess;
 
         [wkHtmlOptionName("load.stopSlowScript")]
-        public bool? stopSlowScript;
+        public bool? StopSlowScript;
 
         [wkHtmlOptionName("load.debugJavascript")]
-        public bool? debugJavascript;
+        public bool? DebugJavascript;
 
         [wkHtmlOptionName("load.loadErrorHandling")]
-        public ErrorBehaviour? loadErrorHandling;
+        public ErrorBehaviour? LoadErrorHandling;
 
         [wkHtmlOptionName("load.proxy")]
-        public string proxy;
+        public string Proxy;
 
         [wkHtmlOptionName("load.runScript")]
-        public object runScript;
-    }
+        public object RunScript;
+    } // End Class LoadSettings 
 
 
 
@@ -116,58 +118,60 @@ namespace libWkHtml2X
     {
 
         [wkHtmlOptionName("header.fontSize")]
-        public int? fontSize; // The font size to use for the header, e.g. "13"
+        public int? FontSize; // The font size to use for the header, e.g. "13"
 
         [wkHtmlOptionName("header.fontName")]
-        public string fontName; // The name of the font to use for the header. e.g. "times"
+        public string FontName; // The name of the font to use for the header. e.g. "times"
 
         [wkHtmlOptionName("header.left")]
-        public string left; // The text to print in the center part of the header. With replacements
+        public string Left; // The text to print in the center part of the header. With replacements
 
         [wkHtmlOptionName("header.center")]
-        public string center; // The text to print in the center part of the header.
+        public string Center; // The text to print in the center part of the header.
 
         [wkHtmlOptionName("header.right")]
-        public string right; // The text to print in the center part of the header.
+        public string Right; // The text to print in the center part of the header.
 
         [wkHtmlOptionName("header.line")]
-        public bool? line; // Whether a line should be printed under the header (either "true" or "false").
+        public bool? Line; // Whether a line should be printed under the header (either "true" or "false").
 
         [wkHtmlOptionName("header.spacing")]
-        public double? spacing;// The amount of space to put between the header and the content, e.g. "1.8". Be aware that if this is too large the header will be printed outside the pdf document. This can be corrected with the margin.top setting.
+        public double? Spacing;// The amount of space to put between the header and the content, e.g. "1.8". Be aware that if this is too large the header will be printed outside the pdf document. This can be corrected with the margin.top setting.
 
         [wkHtmlOptionName("header.htmlUrl")]
-        public string htmlUrl; // Url for a HTML document to use for the header
-    }
+        public string HtmlUrl; // Url for a HTML document to use for the header
+    } // End Class HeaderSettings 
 
 
     public class FooterSettings
     {
 
         [wkHtmlOptionName("footer.fontSize")]
-        public int? fontSize; // The font size to use for the footer, e.g. "13"
+        public int? FontSize; // The font size to use for the footer, e.g. "13"
 
         [wkHtmlOptionName("footer.fontName")]
-        public string fontName; // The name of the font to use for the footer. e.g. "times"
+        public string FontName; // The name of the font to use for the footer. e.g. "times"
 
         [wkHtmlOptionName("footer.left")]
-        public string left; // The text to print in the center part of the footer. With replacements
+        public string Left; // The text to print in the center part of the footer. With replacements
 
         [wkHtmlOptionName("footer.center")]
-        public string center; // The text to print in the center part of the footer.
+        public string Center; // The text to print in the center part of the footer.
 
         [wkHtmlOptionName("footer.right")]
-        public string right; // The text to print in the center part of the footer.
+        public string Right; // The text to print in the center part of the footer.
 
         [wkHtmlOptionName("footer.line")]
-        public bool? line; // Whether a line should be printed under the footer (either "true" or "false").
+        public bool? Line; // Whether a line should be printed under the footer (either "true" or "false").
 
         [wkHtmlOptionName("footer.spacing")]
-        public double? spacing;// The amount of space to put between the footer and the content, e.g. "1.8". Be aware that if this is too large the footer will be printed outside the pdf document. This can be corrected with the margin.top setting.
+        public double? Spacing;// The amount of space to put between the footer and the content, e.g. "1.8". Be aware that if this is too large the footer will be printed outside the pdf document. This can be corrected with the margin.top setting.
 
         [wkHtmlOptionName("footer.htmlUrl")]
-        public string htmlUrl; // Url for a HTML document to use for the footer
-    }
+        public string HtmlUrl; // Url for a HTML document to use for the footer
+
+    } // End Class FooterSettings 
+
 
 
     public class PdfGlobalSettings
@@ -175,25 +179,23 @@ namespace libWkHtml2X
 
         // The paper size of the output document, e.g. "A4".
         [wkHtmlOptionName("size.pageSize")]
-        public string pageSize; 
+        public string PageSize; 
 
         // The width of the output document, e.g. "4cm".
         [wkHtmlOptionName("size.width")]
-        public double? width; 
+        public double? Width; 
 
         // The height  of the output document, e.g. "12In".
         [wkHtmlOptionName("size.height")]
-        public double? height; 
+        public double? Height; 
 
         // The orientation of the output document, must be either "Landscape" or "Portrait".
         [wkHtmlOptionName("orientation")]
-        public Orientation? orientation; 
-
+        public Orientation? Orientation; 
 
         // Should the output be printed in color or gray scale, must be either "Color" or "Grayscale"
         [wkHtmlOptionName("colorMode")]
         public ColorMode? ColorMode;
-
 
         // Most likely has no effect.
         [wkHtmlOptionName("resolution")]
@@ -261,12 +263,12 @@ namespace libWkHtml2X
 
         // The jpeg compression factor to use when producing the pdf document, e.g. "92".
         [wkHtmlOptionName("imageQuality")]
-        public int? imageQuality;
+        public int? ImageQuality;
 
         // Path of file used to load and store cookies.
         [wkHtmlOptionName("load.cookieJar")]
         public string CookieJar;
-    }
+    } // End Class PdfGlobalSettings 
 
 
 
@@ -301,9 +303,12 @@ namespace libWkHtml2X
         [wkHtmlOptionName("page")]
         public string Page;
 
-        // page.*
-        // header.*
-        // footer.*
+
+        // header.* Header specific settings see Header and footer settings. https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageHeaderFooter
+        public HeaderSettings Header;
+
+        // footer.*   Footer specific settings see Header and footer settings. https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageHeaderFooter
+        public FooterSettings Footer;
 
 
         // Should external links in the HTML document be converted into external pdf links? Must be either "true" or "false.
@@ -323,8 +328,18 @@ namespace libWkHtml2X
         public string ProduceForms;
         
         
-        //load.* Page specific settings related to loading content, see Object Specific loading settings.
-        //web.* See Web page specific settings.
+        
+        /// <summary>
+        /// load.*    Page specific settings related to loading content, see https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageLoad
+        /// </summary>
+        public LoadSettings Load = new LoadSettings();
+
+
+        // 
+        /// <summary>
+        /// web.*   See Web page specific settings. https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageWeb
+        /// </summary>
+        public WebPageSpecificSettings Web = new WebPageSpecificSettings();
 
 
         // Should the sections from this document be included in the outline and table of content?
@@ -339,8 +354,7 @@ namespace libWkHtml2X
         [wkHtmlOptionName("tocXsl")]
         public string TocXsl;
 
-   
-    }
+    } // End Class PdfObjectSettings 
 
 
     public enum ColorMode 
@@ -418,14 +432,14 @@ namespace libWkHtml2X
         /// <summary>
         /// load.*    Page specific settings related to loading content, see https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageLoad
         /// </summary>
-        LoadSettings Load = new LoadSettings();
+        public LoadSettings Load = new LoadSettings();
         
 
         // 
         /// <summary>
         /// web.* https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageWeb
         /// </summary>
-        WebPageSpecificSettings Web = new WebPageSpecificSettings();
+        public WebPageSpecificSettings Web = new WebPageSpecificSettings();
 
         /// <summary>
         /// When outputting a PNG or SVG, make the white background transparent. Must be either "true" or "false"
@@ -475,7 +489,7 @@ namespace libWkHtml2X
         /// <summary>
         /// 
         /// </summary>
-        private void SetConfigValues(System.Type t)
+        private void SetConfigValues(System.Type t, object instance)
         {
             System.Reflection.FieldInfo[] fis = t.GetFields();
 
@@ -485,36 +499,36 @@ namespace libWkHtml2X
 
                 if (System.StringComparer.Ordinal.Equals(fi.Name, "Load"))
                 {
-                    SetConfigValues(typeof(LoadSettings));
+                    SetConfigValues(typeof(LoadSettings), this.Load);
                     continue;
-                }
+                } // End if (System.StringComparer.Ordinal.Equals(fi.Name, "Load")) 
 
                 if (System.StringComparer.Ordinal.Equals(fi.Name, "Web"))
                 {
-                    SetConfigValues(typeof(WebPageSpecificSettings));
+                    SetConfigValues(typeof(WebPageSpecificSettings), this.Web);
                     continue;
-                }
+                } // End if (System.StringComparer.Ordinal.Equals(fi.Name, "Web")) 
 
                 // Set Value
                 string attName = libWkHtml2X.AttributeHelper.GetAttributValue<libWkHtml2X.wkHtmlOptionNameAttribute, string>(fi, a => a.Name);
-                object objVal = fi.GetValue(this);
-                System.Console.WriteLine(objVal);
-            }
+                object objVal = fi.GetValue(instance);
 
-        }
+                if(objVal != null)
+                    System.Console.WriteLine(objVal);
+            } // Next i 
+
+        } // End Sub SetConfigValues 
 
            /// <summary>
         /// 
         /// </summary>
         public void SetConfigValues()
         {
-            SetConfigValues(typeof(ImageSettings));
-        }
+            SetConfigValues(typeof(ImageSettings), this);
+        } // End Sub SetConfigValues 
 
 
-
-    }
-
+    } // End Class ImageSettings 
 
 
-}
+} // End Namespace 
