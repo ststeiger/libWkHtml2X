@@ -36,6 +36,16 @@ namespace TestWkHtmlToX
 <html>
 <head>
 <title>Test</title>
+<script type=""text/javascript"">
+</script>
+
+<style type=""text/css"" media=""all"">
+
+div{
+background-color: red !important;
+}
+
+</style>
 </head>
 <body>
 

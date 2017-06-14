@@ -6,11 +6,18 @@ namespace wkHtmlToXCore
     class Program
     {
 
+        
 
         [System.STAThread()]
         static void Main(string[] args)
         {
             // System.Threading.Thread.CurrentThread.SetApartmentState(System.Threading.ApartmentState.STA);
+            // System.Threading.Thread.CurrentThread.ApartmentState = System.Threading.ApartmentState.STA;
+
+            long coInit = CoInitHelper.CoInitialize();
+            // long oleInit = CoInitHelper.InitOle();
+            // System.Console.WriteLine(coInit);
+            // System.Console.WriteLine(oleInit);
 
             // System.IO.Compression.DeflateStream
             // System.IO.Compression.GZipStream
@@ -20,6 +27,17 @@ namespace wkHtmlToXCore
 <html>
 <head>
 <title>Test</title>
+<script type=""text/javascript"">
+</script>
+
+<style type=""text/css"" media=""all"">
+
+div
+{
+    background-color: red !important;
+}
+
+</style>
 </head>
 <body>
 
@@ -29,11 +47,13 @@ namespace wkHtmlToXCore
 </html>
 ";
 
-            TestPDF.CreatePdf(htmlData);
+
+            // https://stackoverflow.com/questions/20525554/pyside-qt-could-not-initialize-ole-error-80010106
+            // TestPDF.CreatePdf(htmlData);
             // TestPDF.CreatePdf(htmlData);
 
 
-            // TestImage.CreateImg(htmlData);
+            TestImage.CreateImg(htmlData);
 
 
             System.Console.WriteLine(System.Environment.NewLine);

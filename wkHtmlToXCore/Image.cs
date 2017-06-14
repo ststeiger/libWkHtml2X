@@ -22,7 +22,7 @@ namespace wkHtmlToXCore
             string format = "svg";
             format = "jpg";
             format = "png";
-            format = "bmp";
+            // format = "bmp";
             // format = ""; // nothingness
 
 
