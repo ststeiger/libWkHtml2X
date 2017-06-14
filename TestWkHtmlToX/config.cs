@@ -496,8 +496,7 @@ namespace libWkHtml2X
                 }
 
                 // Set Value
-
-                //string attName = libWkHtml2X.AttributeHelper.GetAttributValue<libWkHtml2X.wkHtmlOptionNameAttribute, string>(fi, a => a.Name);
+                string attName = libWkHtml2X.AttributeHelper.GetAttributValue<libWkHtml2X.wkHtmlOptionNameAttribute, string>(fi, a => a.Name);
                 object objVal = fi.GetValue(this);
                 System.Console.WriteLine(objVal);
             }
