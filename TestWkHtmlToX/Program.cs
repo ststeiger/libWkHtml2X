@@ -21,6 +21,7 @@ namespace TestWkHtmlToX
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             System.Windows.Forms.Application.Run(new Form1());
 #endif
+
             //libWkHtml2X.NativeMethods.Init();
             //System.IntPtr hSO = libWkHtml2X.LibraryLoader.Load("wkhtmltox");
             //wkhtmltopdf_version_t getVersion = libWkHtml2X.LibraryLoader.LoadSymbol<wkhtmltopdf_version_t>(hSO, "wkhtmltopdf_version");
@@ -58,7 +59,7 @@ background-color: red !important;
             libWkHtml2X.ImageSettings imgset = new libWkHtml2X.ImageSettings();
             imgset.CookieJar = "fo";
             imgset.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
-            imgset.Load.jsdelay = 100;
+            imgset.Load.JsDelay = 100;
 
             imgset.SetConfigValues();
 

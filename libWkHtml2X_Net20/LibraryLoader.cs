@@ -27,17 +27,17 @@ namespace libWkHtml2X
             return s_Loader.LoadSymbol(hSO, symbol);
         }
 
-        public static T LoadSymbol<T>(System.IntPtr module, string symbol)
-        // where T : System.Delegate
+        public static T LoadSymbol<T>(System.IntPtr module, string symbol) 
+            // where T : System.Delegate
         {
             return s_Loader.LoadSymbol<T>(module, symbol);
         }
 
-        public static T LoadSymbol<T>(System.IntPtr module, System.IntPtr symbol)
-        // where T : System.Delegate
+        public static T LoadSymbol<T>(System.IntPtr module, System.IntPtr symbol) 
+            // where T : System.Delegate
         {
             return s_Loader.LoadSymbol<T>(module, symbol);
-        }
+        } 
 
         public static System.Delegate LoadSymbol(System.IntPtr module, string symbol, System.Type type)
         {
@@ -93,7 +93,7 @@ namespace libWkHtml2X
 
             if (!withExtension)
             {
-                if (libraryFileName.EndsWith(".so", System.StringComparison.OrdinalIgnoreCase))
+                if (!libraryFileName.EndsWith(".so", System.StringComparison.OrdinalIgnoreCase))
                     libraryFileName += ".so";
             }
 
@@ -110,9 +110,9 @@ namespace libWkHtml2X
 
             if (hSO == System.IntPtr.Zero)
             {
-                throw new System.InvalidOperationException("Cannot open library \""
+                throw new System.InvalidOperationException("Cannot open library \"" 
                     + libraryFileName + "\"."
-                    , new System.Exception(dlerror())
+                    , new System.Exception( dlerror() )
                 );
             } // End if (hSO == IntPtr.Zero)
 
@@ -167,7 +167,7 @@ namespace libWkHtml2X
             catch (System.Exception ex)
             {
                 throw new System.InvalidOperationException("Cannot unload handle '" + hSO.ToInt64().ToString() + "'", ex);
-            }
+            }         
 
             return bError;
         } // End Function Unload 
@@ -192,7 +192,7 @@ namespace libWkHtml2X
 
             if (!withExtension)
             {
-                if (libraryFileName.EndsWith(".dylib", System.StringComparison.OrdinalIgnoreCase))
+                if (!libraryFileName.EndsWith(".dylib", System.StringComparison.OrdinalIgnoreCase))
                     libraryFileName += ".dylib";
             }
 
@@ -224,7 +224,7 @@ namespace libWkHtml2X
     } // End Class MacLoader 
 
 
-    public class WindowsLoader : AbstractLibraryLoader
+    public class WindowsLoader: AbstractLibraryLoader
     {
 
         public WindowsLoader() : base()
@@ -249,8 +249,8 @@ namespace libWkHtml2X
 
             if (!withExtension)
             {
-                if (libraryFileName.EndsWith(".so", System.StringComparison.OrdinalIgnoreCase))
-                    libraryFileName += ".so";
+                if (!libraryFileName.EndsWith(".dll", System.StringComparison.OrdinalIgnoreCase))
+                    libraryFileName += ".dll";
             }
 
             System.IntPtr hSO = System.IntPtr.Zero;
@@ -266,11 +266,13 @@ namespace libWkHtml2X
 
             if (hSO == System.IntPtr.Zero)
             {
-                throw new System.InvalidOperationException("Cannot open libary \"" + libraryFileName + "\".");
+                System.Exception ex = new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
+                
+                throw new System.InvalidOperationException("Cannot open libary \"" + libraryFileName + "\".", ex);
             } // End if (hSO == IntPtr.Zero)
 
             this.m_dictionary.Add(libraryFileName, hSO);
-
+            
             return hSO;
         } // End Function LoadLibrary 
 
@@ -342,7 +344,7 @@ namespace libWkHtml2X
         {
             return this.LoadLibrary(libraryFileName, false);
         }
-
+        
 
         public abstract bool Unload(System.IntPtr hSO);
         public abstract System.IntPtr LoadSymbol(System.IntPtr hModule, string symbol);
@@ -350,7 +352,7 @@ namespace libWkHtml2X
 
         public virtual System.Delegate LoadSymbol(System.IntPtr module, System.IntPtr symbol, System.Type type)
         {
-            if (System.Reflection.IntrospectionExtensions.GetTypeInfo(type)
+            if(!System.Reflection.IntrospectionExtensions.GetTypeInfo(type)
                 .IsSubclassOf(typeof(System.Delegate)))
             {
                 throw new System.InvalidOperationException(type.Name + " is not a delegate type");
@@ -367,10 +369,10 @@ namespace libWkHtml2X
         } // End Function LoadSymbol 
 
         // LoadSymbol<T>(...).DynamicInvoke("a", "b", "c");
-        public virtual T LoadSymbol<T>(System.IntPtr module, System.IntPtr symbol)
-        // where T : System.Delegate
+        public virtual T LoadSymbol<T>(System.IntPtr module, System.IntPtr symbol) 
+            // where T : System.Delegate
         {
-            if (System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(T))
+            if (!System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(T))
                 .IsSubclassOf(typeof(System.Delegate)))
             {
                 throw new System.InvalidOperationException(typeof(T).Name + " is not a delegate type");
@@ -386,8 +388,8 @@ namespace libWkHtml2X
 #endif
         } // End Function LoadSymbol 
 
-        public virtual T LoadSymbol<T>(System.IntPtr module, string symbol)
-        // where T : System.Delegate
+        public virtual T LoadSymbol<T>(System.IntPtr module, string symbol) 
+            // where T : System.Delegate
         {
             System.IntPtr ptrSymbol = this.LoadSymbol(module, symbol);
             return LoadSymbol<T>(module, ptrSymbol);
@@ -399,7 +401,7 @@ namespace libWkHtml2X
         public virtual void UnloadAllLoadedDlls()
         {
             System.Collections.Generic.List<System.Exception> ls = new System.Collections.Generic.List<System.Exception>();
-
+            
             foreach (string strKey in this.m_dictionary.Keys)
             {
                 try
@@ -433,7 +435,7 @@ namespace libWkHtml2X
             if (NativeMethods.IsMac)
                 return new MacLoader();
 
-            return new PosixLoader();
+            return new  PosixLoader();
         } // End Function CreateInstance 
 
 

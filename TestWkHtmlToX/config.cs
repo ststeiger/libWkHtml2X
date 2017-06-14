@@ -3,19 +3,6 @@ namespace libWkHtml2X
 {
 
 
-    public class wkHtmlOptionNameAttribute : System.Attribute
-    {
-        public string Name;
-
-        // public wkHtmlOptionNameAttribute() { }
-
-        public wkHtmlOptionNameAttribute(string name)
-        {
-            this.Name = name;
-        }
-    } // End Class wkHtmlOptionNameAttribute 
-
-
     public class WebPageSpecificSettings
     {
 
@@ -486,45 +473,12 @@ namespace libWkHtml2X
         public int? Quality;
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void SetConfigValues(System.Type t, object instance)
-        {
-            System.Reflection.FieldInfo[] fis = t.GetFields();
-
-            for (int i = 0; i < fis.Length; ++i)
-            {
-                System.Reflection.FieldInfo fi = fis[i];
-
-                if (System.StringComparer.Ordinal.Equals(fi.Name, "Load"))
-                {
-                    SetConfigValues(typeof(LoadSettings), this.Load);
-                    continue;
-                } // End if (System.StringComparer.Ordinal.Equals(fi.Name, "Load")) 
-
-                if (System.StringComparer.Ordinal.Equals(fi.Name, "Web"))
-                {
-                    SetConfigValues(typeof(WebPageSpecificSettings), this.Web);
-                    continue;
-                } // End if (System.StringComparer.Ordinal.Equals(fi.Name, "Web")) 
-
-                // Set Value
-                string attName = libWkHtml2X.AttributeHelper.GetAttributValue<libWkHtml2X.wkHtmlOptionNameAttribute, string>(fi, a => a.Name);
-                object objVal = fi.GetValue(instance);
-
-                if(objVal != null)
-                    System.Console.WriteLine(objVal);
-            } // Next i 
-
-        } // End Sub SetConfigValues 
-
            /// <summary>
         /// 
         /// </summary>
         public void SetConfigValues()
         {
-            SetConfigValues(typeof(ImageSettings), this);
+            // SetConfigValues(this);
         } // End Sub SetConfigValues 
 
 

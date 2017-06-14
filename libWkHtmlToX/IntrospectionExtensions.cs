@@ -1,6 +1,5 @@
 
-#if NET_2_0
-
+#if NET_2_0  
 
 namespace System.Reflection
 {
@@ -27,7 +26,17 @@ namespace System.Reflection
         }
 
 
-        // public bool IsConstructedGenericType => t.IsConstructedGenericType;
+#if SOMETHING_MORE_THAN_NET_2_0
+        public bool IsConstructedGenericType
+        {
+            get
+            {
+                return t.IsConstructedGenericType;
+            }
+        }
+#endif
+
+
 
         public RuntimeTypeHandle TypeHandle
         {
@@ -157,7 +166,18 @@ namespace System.Reflection
             }
         }
 
-        // public Type[] GenericTypeArguments => t.GenericTypeArguments;
+
+#if SOMETHING_MORE_THAN_NET_2_0
+        public System.Type[] GenericTypeArguments
+        {
+            get
+            {
+                return t.GenericTypeArguments;
+            }
+        }
+#endif 
+
+
 
 
         public MemberTypes MemberType
@@ -679,10 +699,27 @@ namespace System.Reflection
             return this.t.GetElementType();
         }
 
-        // public string GetEnumName(object value) => t.GetEnumName(value);
-        // public string[] GetEnumNames() => t.GetEnumNames();
-        // public Type GetEnumUnderlyingType() => t.GetEnumUnderlyingType();
-        // public Array GetEnumValues() => t.GetEnumValues();
+#if SOMETHING_MORE_THAN_NET_2_0
+        public string GetEnumName(object value)
+        {
+            return t.GetEnumName(value);
+        }
+
+        public string[] GetEnumNames()
+        {
+            return t.GetEnumNames();
+        }
+
+        public System.Type GetEnumUnderlyingType()
+        {
+            return t.GetEnumUnderlyingType();
+        }
+
+        public System.Array GetEnumValues()
+        {
+            return t.GetEnumValues();
+        }
+#endif
 
         public EventInfo GetEvent(string name)
         {
@@ -879,8 +916,17 @@ namespace System.Reflection
             return this.t.IsAssignableFrom(typeInfo.t);
         }
 
-        // public bool IsEnumDefined(object value) => t.IsEnumDefined(value);
-        // public bool IsEquivalentTo(Type other) => t.IsEquivalentTo(other);
+#if SOMETHING_MORE_THAN_NET_2_0
+        public virtual bool IsEnumDefined(object value)
+        {
+            return t.IsEnumDefined(value);
+        }
+
+        public virtual bool IsEquivalentTo(System.Type other)
+        {
+            return t.IsEquivalentTo(other);
+        }
+#endif
 
         public bool IsInstanceOfType(object o)
         {

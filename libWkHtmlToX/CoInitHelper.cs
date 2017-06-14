@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace wkHtmlToXCore
+﻿
+namespace libWkHtml2X
 {
-    class CoInitHelper
+
+
+    // https://msdn.microsoft.com/en-us/library/windows/desktop/aa383751(v=vs.85).aspx
+    public class CoInitHelper
     {
+
+
         private enum RpcAuthnLevel
         {
             Default = 0,
@@ -46,15 +48,13 @@ namespace wkHtmlToXCore
         }
 
 
-
-
-        // https://msdn.microsoft.com/en-us/library/windows/desktop/aa383751(v=vs.85).aspx
-
+        
         [System.Runtime.InteropServices.DllImport("ole32.dll")]
-        private static extern long CoInitializeSecurity(System.IntPtr pVoid, int
-    cAuthSvc, System.IntPtr asAuthSvc, System.IntPtr pReserved1, RpcAuthnLevel level,
-    RpcImpLevel impers, System.IntPtr pAuthList, EoAuthnCap dwCapabilities, System.IntPtr
-    pReserved3);
+        private static extern long CoInitializeSecurity(System.IntPtr pVoid
+            , int cAuthSvc, System.IntPtr asAuthSvc, System.IntPtr pReserved1
+            , RpcAuthnLevel level, RpcImpLevel impers, System.IntPtr pAuthList
+            , EoAuthnCap dwCapabilities, System.IntPtr pReserved3);
+
 
         public static long CoInitializeSecurity()
         {
@@ -65,8 +65,8 @@ namespace wkHtmlToXCore
             return coInit;
         }
 
-        // // Note: PreserveSig=false allows .NET interop to handle processing the returned HRESULT and throw an exception on failure
-        public enum COINIT : uint //tagCOINIT
+        // Note: PreserveSig=false allows .NET interop to handle processing the returned HRESULT and throw an exception on failure
+        private enum COINIT : uint 
         {
             COINIT_MULTITHREADED = 0x0, //Initializes the thread for multi-threaded object concurrency.
             COINIT_APARTMENTTHREADED = 0x2, //Initializes the thread for apartment-threaded object concurrency
@@ -74,26 +74,37 @@ namespace wkHtmlToXCore
             COINIT_SPEED_OVER_MEMORY = 0x8, //Trade memory for speed
         }
 
-        [System.Runtime.InteropServices.DllImport("ole32.dll"
-            , CharSet = System.Runtime.InteropServices.CharSet.Ansi
-            , SetLastError = true
+        [System.Runtime.InteropServices.DllImport("ole32.dll", SetLastError = true
+            , CharSet = System.Runtime.InteropServices.CharSet.Ansi, EntryPoint = "CoInitializeEx"
             , CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         private static extern int CoInitializeEx(
-    [System.Runtime.InteropServices.In, System.Runtime.InteropServices.Optional] IntPtr pvReserved,
-    [System.Runtime.InteropServices.In]  COINIT dwCoInit //DWORD
-    );
-
+            [System.Runtime.InteropServices.In, System.Runtime.InteropServices.Optional]
+            System.IntPtr pvReserved,
+            [System.Runtime.InteropServices.In]
+            COINIT dwCoInit //DWORD
+        );
 
         public static long CoInitialize()
         {
             int ret = CoInitializeEx(System.IntPtr.Zero, COINIT.COINIT_APARTMENTTHREADED);
             return ret;
-        }
+        } // End Function CoInitialize 
+
+
+        [System.Runtime.InteropServices.DllImport("ole32.dll", SetLastError = true
+            , CharSet = System.Runtime.InteropServices.CharSet.Ansi, EntryPoint = "CoUninitialize"
+            , CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        private static extern void internal_CoUninitialize();
+
+        public static void CoUninitialize()
+        {
+            internal_CoUninitialize();
+        } // End Function CoUninitialize 
 
 
 
         [System.Runtime.InteropServices.DllImport("ole32.dll", PreserveSig = false)]
-        private static extern long OleInitialize(IntPtr pvReserved);
+        private static extern long OleInitialize(System.IntPtr pvReserved);
 
         [System.Runtime.InteropServices.DllImport("ole32.dll", PreserveSig = true)]
         private static extern void OleUninitialize();
@@ -102,8 +113,10 @@ namespace wkHtmlToXCore
         public static long InitOle()
         {
             return OleInitialize(System.IntPtr.Zero);
-        }
+        } // End Function InitOle 
 
 
-        }
-}
+    } // End Class CoInitHelper
+
+
+} // End Namespace wkHtmlToXCore 

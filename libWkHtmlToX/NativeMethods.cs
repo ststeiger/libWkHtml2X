@@ -1,7 +1,4 @@
 ﻿
-//using System.Runtime.InteropServices;
-
-
 namespace libWkHtml2X
 {
 
@@ -20,6 +17,8 @@ namespace libWkHtml2X
         private static bool? s_isMac;
         private static bool? s_isLinux;
         private static bool? s_isUnix;
+        private static bool? s_isNetCore;
+        private static bool? s_CoInitialized;
 
 #if NET_2_0
 
@@ -153,8 +152,7 @@ namespace libWkHtml2X
         }
 
 #endif
-
-
+        
         static NativeMethods()
         {
             lock (s_initLock)
@@ -182,6 +180,20 @@ namespace libWkHtml2X
                     s_isUnix = IsUnixInternal();
                 }
 
+                if (!s_isNetCore.HasValue)
+                {
+                    System.Type tIntroSpec = System.Type.GetType("System.Reflection.IntrospectionExtensions, System.Private.CoreLib", false);
+                    s_isNetCore = tIntroSpec != null;
+                }
+
+                if (!s_CoInitialized.HasValue)
+                {
+                    if (IsWindows && IsNetCore)
+                        CoInitHelper.CoInitialize();
+
+                    s_CoInitialized = true;
+                }
+
             } // End lock (s_initLock)
 
         } // End Constructor 
@@ -207,14 +219,17 @@ namespace libWkHtml2X
             get { return s_isUnix.Value; }
         }
 
-
+        public static bool IsNetCore
+        {
+            get { return s_isNetCore.Value; }
+        }
 
         internal static void Init(string dllDirectory)
         {
+            System.Environment.SetEnvironmentVariable("PATH", System.Environment.GetEnvironmentVariable("PATH") + ";" + dllDirectory);
+
             ConstUtf8Marshaler.GetInstance();
             Utf8Marshaler.GetInstance();
-
-            System.Environment.SetEnvironmentVariable("PATH", System.Environment.GetEnvironmentVariable("PATH") + ";" + dllDirectory);
         }
 
 
@@ -237,7 +252,7 @@ namespace libWkHtml2X
         }
 
 
-    }
+    } // End Class NativeMethods 
 
 
-}
+} // End Namespace libWkHtml2X 
