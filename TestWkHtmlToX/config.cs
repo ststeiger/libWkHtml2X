@@ -481,21 +481,24 @@ namespace libWkHtml2X
 
             for (int i = 0; i < fis.Length; ++i)
             {
-                if (System.StringComparer.Ordinal.Equals(fis[i].Name, "Load"))
+                System.Reflection.FieldInfo fi = fis[i];
+
+                if (System.StringComparer.Ordinal.Equals(fi.Name, "Load"))
                 {
                     SetConfigValues(typeof(LoadSettings));
                     continue;
                 }
 
-                if (System.StringComparer.Ordinal.Equals(fis[i].Name, "Web"))
+                if (System.StringComparer.Ordinal.Equals(fi.Name, "Web"))
                 {
                     SetConfigValues(typeof(WebPageSpecificSettings));
                     continue;
                 }
 
                 // Set Value
-                // libWkHtml2X.
-                
+                string attName = libWkHtml2X.AttributeHelper.GetAttributValue<libWkHtml2X.wkHtmlOptionNameAttribute, string>(fi, a => a.Name);
+                object objVal = fi.GetValue(this);
+                System.Console.WriteLine(objVal);
             }
 
         }
