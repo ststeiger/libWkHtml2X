@@ -478,7 +478,7 @@ namespace libWkHtml2X
         /// </summary>
         public void SetConfigValues()
         {
-            // SetConfigValues(this);
+            libWkHtml2X.ConfigValueHelper.SetConfigValues(this);
         } // End Sub SetConfigValues 
 
 

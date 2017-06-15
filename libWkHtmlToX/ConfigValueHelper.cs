@@ -10,7 +10,7 @@ namespace libWkHtml2X
         /// <summary>
         /// 
         /// </summary>
-        private void SetConfigValues(object instance)
+        public static void SetConfigValues(object instance)
         {
             System.Type t = instance.GetType();
 
