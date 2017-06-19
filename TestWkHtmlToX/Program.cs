@@ -16,6 +16,7 @@ namespace TestWkHtmlToX
         [System.STAThread]
         static void Main()
         {
+
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
