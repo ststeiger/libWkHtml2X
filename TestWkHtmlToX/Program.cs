@@ -56,9 +56,15 @@ background-color: red !important;
 </html>
 ";
 
+            string inputSvg = System.IO.Path.GetFullPath(System.IO.Path.Combine(System.IO.Path.Combine(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location), "../..")
+                , "TestFiles"), "TestBug.svg"));
+
+            htmlData = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
+
+
             libWkHtml2X.ImageSettings imgset = new libWkHtml2X.ImageSettings();
             imgset.CookieJar = "fo";
-            imgset.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
+            // imgset.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
             imgset.Load.JsDelay = 100;
 
             imgset.SetConfigValues();

@@ -63,6 +63,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Libs\LibsOld.rar" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -73,6 +74,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libs\Win\x86-64\wkhtmltox.dll" />
+    <Content Include="Libs\Win\x86-32\wkhtmltox.dll" />
+    <Content Include="TestFiles\TestBug.svg" />
+    <Content Include="TestFiles\TestFixed.svg" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\libWkHtmlToX\libWkHtmlToX.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

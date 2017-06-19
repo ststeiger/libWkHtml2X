@@ -13,6 +13,13 @@ namespace wkHtmlToXCore
         {
             // System.IO.File.WriteAllText(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.htm", htmlData, System.Text.Encoding.UTF8);
 
+
+            string dllDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(typeof(TestPDF).Assembly.Location)
+                , "../../Libs/Win"), "x86-" + (System.IntPtr.Size *8).ToString()));
+
+            libWkHtml2X.NativeMethods.Init(dllDirectory);
+
+
             string ver = libWkHtml2X.CallsPDF.wkhtmltopdf_version();
             int init = libWkHtml2X.CallsPDF.wkhtmltopdf_init(0);
 
@@ -30,11 +37,15 @@ namespace wkHtmlToXCore
             libWkHtml2X.CallsPDF.wkhtmltopdf_convert(converter);
 
             byte[] output = libWkHtml2X.CallsPDF.wkhtmltopdf_get_output(converter);
-            System.IO.File.WriteAllBytes(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.pdf", output);
+            //System.IO.File.WriteAllBytes(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.pdf", output);
+            System.IO.File.WriteAllBytes(@"D:\ricotest.pdf", output);
 
             libWkHtml2X.CallsPDF.wkhtmltopdf_destroy_converter(converter);
-            libWkHtml2X.CallsPDF.wkhtmltopdf_destroy_global_settings(globalSettings);
-            libWkHtml2X.CallsPDF.wkhtmltopdf_destroy_object_settings(objectSettings);
+
+            // if destructor 
+            // libWkHtml2X.CallsPDF.wkhtmltopdf_destroy_global_settings(globalSettings);
+            // if destructor 
+            // libWkHtml2X.CallsPDF.wkhtmltopdf_destroy_object_settings(objectSettings);
 
             int deinitSuccess = libWkHtml2X.CallsPDF.wkhtmltopdf_deinit();
 
