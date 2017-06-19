@@ -426,7 +426,7 @@ namespace libWkHtml2X
         /// <summary>
         /// web.* https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageWeb
         /// </summary>
-        public WebPageSpecificSettings ebW = new WebPageSpecificSettings();
+        public WebPageSpecificSettings Web = new WebPageSpecificSettings();
 
         /// <summary>
         /// When outputting a PNG or SVG, make the white background transparent. Must be either "true" or "false"

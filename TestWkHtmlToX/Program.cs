@@ -64,7 +64,7 @@ background-color: red !important;
 
             libWkHtml2X.ImageSettings imgset = new libWkHtml2X.ImageSettings();
             imgset.CookieJar = "fo";
-            // imgset.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
+            imgset.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
             imgset.Load.JsDelay = 100;
 
             imgset.SetConfigValues();
