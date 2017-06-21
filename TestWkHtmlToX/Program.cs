@@ -23,6 +23,9 @@ namespace TestWkHtmlToX
             System.Windows.Forms.Application.Run(new Form1());
 #endif
 
+            TestDiffMatchPatch.Test();
+
+
             //libWkHtml2X.NativeMethods.Init();
             //System.IntPtr hSO = libWkHtml2X.LibraryLoader.Load("wkhtmltox");
             //wkhtmltopdf_version_t getVersion = libWkHtml2X.LibraryLoader.LoadSymbol<wkhtmltopdf_version_t>(hSO, "wkhtmltopdf_version");
@@ -78,6 +81,9 @@ background-color: red !important;
 
             libWkHtml2X.WebPageSpecificSettings wss = new libWkHtml2X.WebPageSpecificSettings();
             System.Type t = typeof(libWkHtml2X.WebPageSpecificSettings);
+
+            
+
 
             
 
