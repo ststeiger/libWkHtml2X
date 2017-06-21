@@ -15,6 +15,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)CallsPDF.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoInitHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConfigValueHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\DiffMatchPatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\DiffMatchPatchTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\HttpUtility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\NUnitSubstitute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\TestDiffMatchPatch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrospectionExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibraryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LZMA\Common\CommandLineParser.cs" />
@@ -53,5 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)DiffMatchPatch\diff.htm" />
   </ItemGroup>
 </Project>
