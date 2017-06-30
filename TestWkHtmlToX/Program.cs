@@ -16,7 +16,8 @@ namespace TestWkHtmlToX
         [System.STAThread]
         static void Main()
         {
-
+            // TestAsyncMethod.EntryPoint();
+            libWkHtml2X.TestScheduler.Test();
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);

@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CallsPDF.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoInitHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConfigValueHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scheduler\ConversionTask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\DiffMatchPatch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\DiffMatchPatchTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\HttpUtility.cs" />
@@ -44,6 +45,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)MarshalerConstUtf8.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MarshalerUtf8.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scheduler\Scheduler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scheduler\TestScheduler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)wkHtmlOptionNameAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Scheduler\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)DiffMatchPatch\diff.htm" />

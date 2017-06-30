@@ -11,4 +11,8 @@
 
   <Import Project="..\libWkHtmlToX\libWkHtmlToX.projitems" Label="Shared" />
 
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+  </ItemGroup>
+
 </Project>
