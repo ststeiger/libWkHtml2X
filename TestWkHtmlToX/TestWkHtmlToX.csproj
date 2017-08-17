@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="config.cs" />
     <Compile Include="ConversionTask.cs" />
+    <Compile Include="Trash\ImageImport.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

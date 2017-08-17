@@ -16,6 +16,7 @@ namespace TestWkHtmlToX
         [System.STAThread]
         static void Main()
         {
+
             // TestAsyncMethod.EntryPoint();
             libWkHtml2X.TestScheduler.Test();
 #if false

@@ -59,6 +59,7 @@ namespace TestWkHtmlToX
             byte[] data = null;
 
             ConversionTask ct = QueueConversion(html, id);
+            System.Diagnostics.Trace.WriteLine("testetest");
             System.Console.WriteLine("Queued YOUR item #" + System.Convert.ToString(ct.Id)
                 + " as qid[" + System.Convert.ToString(ct.QueueId) + "]"
             );
