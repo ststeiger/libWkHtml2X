@@ -19,7 +19,10 @@ namespace wkHtmlToXCore
 
             // System.IO.Compression.DeflateStream
             // System.IO.Compression.GZipStream
-            
+
+
+            libWkHtml2X.TestScheduler.Test();
+
 
             string htmlData = @"<!doctype html>
 <html>
