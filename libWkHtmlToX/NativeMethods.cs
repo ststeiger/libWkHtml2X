@@ -235,9 +235,22 @@ namespace libWkHtml2X
 
         internal static void Init()
         {
-            string dllDirectory = @"C:\PortableApps\wkhtmltopdf\x64\bin";
-            if (System.IntPtr.Size * 8 == 32)
-                dllDirectory = @"C:\PortableApps\wkhtmltopdf\x86\bin";
+            string dllDirectory = @"C:\PortableApps\wkhtmltopdf\x" + (System.IntPtr.Size * 8).ToString() + @"\bin";
+
+            if (System.StringComparer.OrdinalIgnoreCase.Equals("COR", System.Environment.UserDomainName))
+            {
+                dllDirectory = System.IO.Path.GetFullPath(
+                    System.IO.Path.Combine(
+                        System.IO.Path.Combine(
+                            System.IO.Path.GetDirectoryName(typeof(NativeMethods).Assembly.Location)
+                            , "../../Libs/Win")
+                        , "x86-" + (System.IntPtr.Size * 8).ToString()
+                    )
+                );
+
+            }
+
+            dllDirectory = @"D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\Libs\Win\old\x86-64";
 
             Init(dllDirectory);
         }

@@ -66,17 +66,13 @@ namespace libWkHtml2X
         }
 
 
-
-
         [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
         public static extern System.IntPtr wkhtmltopdf_create_global_settings();
         // CAPI(wkhtmltopdf_global_settings *) wkhtmltopdf_create_global_settings();
 
-
         [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
         public static extern void wkhtmltopdf_destroy_global_settings(System.IntPtr globalSettings);
         // ///////// CAPI(void) wkhtmltopdf_destroy_global_settings(wkhtmltopdf_global_settings *);
-
 
         [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
         public static extern System.IntPtr wkhtmltopdf_create_object_settings();
@@ -85,7 +81,6 @@ namespace libWkHtml2X
         [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
         public static extern void wkhtmltopdf_destroy_object_settings(System.IntPtr objectSettings);
         // //////// CAPI(void) wkhtmltopdf_destroy_object_settings(wkhtmltopdf_object_settings *);
-
 
         [DllImport(DLL_NAME, EntryPoint = "wkhtmltopdf_set_global_setting"
         , CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]

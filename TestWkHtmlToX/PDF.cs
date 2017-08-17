@@ -14,12 +14,6 @@ namespace wkHtmlToXCore
             // System.IO.File.WriteAllText(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.htm", htmlData, System.Text.Encoding.UTF8);
 
 
-            string dllDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(typeof(TestPDF).Assembly.Location)
-                , "../../Libs/Win"), "x86-" + (System.IntPtr.Size *8).ToString()));
-
-            libWkHtml2X.NativeMethods.Init(dllDirectory);
-
-
             string ver = libWkHtml2X.CallsPDF.wkhtmltopdf_version();
             int init = libWkHtml2X.CallsPDF.wkhtmltopdf_init(0);
 

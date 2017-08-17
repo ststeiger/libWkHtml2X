@@ -18,7 +18,7 @@ namespace TestWkHtmlToX
         {
 
             // TestAsyncMethod.EntryPoint();
-            libWkHtml2X.TestScheduler.Test();
+            //////// libWkHtml2X.TestScheduler.Test();
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
@@ -59,8 +59,16 @@ background-color: red !important;
 </html>
 ";
 
-            string inputSvg = System.IO.Path.GetFullPath(System.IO.Path.Combine(System.IO.Path.Combine(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location), "../..")
-                , "TestFiles"), "TestBug.svg"));
+            string inputSvg = System.IO.Path.GetFullPath(
+                System.IO.Path.Combine(
+                    System.IO.Path.Combine(
+                        System.IO.Path.Combine(
+                            System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location)
+                            , "../..")
+                    , "TestFiles"
+                )
+                , "TestBug.svg")
+            );
 
             htmlData = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
 
