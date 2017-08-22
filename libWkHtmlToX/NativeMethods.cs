@@ -235,14 +235,18 @@ namespace libWkHtml2X
 
         internal static void Init()
         {
-            string dllDirectory = @"C:\PortableApps\wkhtmltopdf\x" + (System.IntPtr.Size * 8).ToString() + @"\bin";
+            // string dllDirectory = @"C:\PortableApps\wkhtmltopdf\x" + (System.IntPtr.Size * 8).ToString() + @"\bin";
+            string dllDirectory = @"C:\PortableApps\wkhtmltopdf\0.12.4\x" + (System.IntPtr.Size * 8).ToString() + @"\bin";
 
-            if (System.StringComparer.OrdinalIgnoreCase.Equals("COR", System.Environment.UserDomainName))
+
+            if (System.StringComparer.OrdinalIgnoreCase.Equals("COR", System.Environment.GetEnvironmentVariable("USERDOMAIN")))
             {
                 dllDirectory = System.IO.Path.GetFullPath(
                     System.IO.Path.Combine(
                         System.IO.Path.Combine(
-                            System.IO.Path.GetDirectoryName(typeof(NativeMethods).Assembly.Location)
+                            System.IO.Path.GetDirectoryName(
+                                System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(NativeMethods)).Assembly.Location
+                            )
                             , "../../Libs/Win")
                         , "x86-" + (System.IntPtr.Size * 8).ToString()
                     )
@@ -250,7 +254,7 @@ namespace libWkHtml2X
 
             }
 
-            dllDirectory = @"D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\Libs\Win\old\x86-64";
+            // dllDirectory = @"D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\Libs\Win\old\x86-64";
 
             Init(dllDirectory);
         }
