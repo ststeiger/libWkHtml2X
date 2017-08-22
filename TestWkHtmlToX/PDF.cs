@@ -32,7 +32,7 @@ namespace wkHtmlToXCore
 
             byte[] output = libWkHtml2X.CallsPDF.wkhtmltopdf_get_output(converter);
             //System.IO.File.WriteAllBytes(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.pdf", output);
-            System.IO.File.WriteAllBytes(@"D:\ricotest.pdf", output);
+            System.IO.File.WriteAllBytes(@"D:\Test_Lines.pdf", output);
 
             libWkHtml2X.CallsPDF.wkhtmltopdf_destroy_converter(converter);
 

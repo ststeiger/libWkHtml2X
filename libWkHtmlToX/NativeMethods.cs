@@ -247,14 +247,16 @@ namespace libWkHtml2X
                             System.IO.Path.GetDirectoryName(
                                 System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(NativeMethods)).Assembly.Location
                             )
-                            , "../../Libs/Win")
+#if VER_NEU
+                            , "../../Libs/0.13.0-alpha/Win")
+#else
+                            , "../../Libs/0.12.4/Win")
+#endif
                         , "x86-" + (System.IntPtr.Size * 8).ToString()
                     )
                 );
 
             }
-
-            // dllDirectory = @"D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\Libs\Win\old\x86-64";
 
             Init(dllDirectory);
         }

@@ -18,12 +18,38 @@ namespace TestWkHtmlToX
         {
 
             // TestAsyncMethod.EntryPoint();
-            //////// libWkHtml2X.TestScheduler.Test();
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             System.Windows.Forms.Application.Run(new Form1());
 #endif
+
+            libWkHtml2X.TestScheduler.Test();
+
+
+
+            libWkHtml2X.PdfGlobalSettings gs = new libWkHtml2X.PdfGlobalSettings();
+            libWkHtml2X.PdfObjectSettings os = new libWkHtml2X.PdfObjectSettings();
+
+            gs.ImageDPI = 300;
+            gs.MarginBottom = "0";
+            gs.MarginTop = "0";
+            gs.MarginLeft = "0";
+            gs.MarginRight = "0";
+
+            gs.DocumentTitle = "Legende";
+            gs.Copies = 1;
+
+            gs.ImageQuality = 100;
+            gs.UseCompression = false;
+            gs.ImageDPI = 15200;
+
+            gs.Outline = true;
+            gs.DPI = 14200;
+            
+            gs.Orientation = libWkHtml2X.Orientation.Portrait;
+            gs.PageSize = "width height";
+
 
             //libWkHtml2X.NativeMethods.Init();
             //System.IntPtr hSO = libWkHtml2X.LibraryLoader.Load("wkhtmltox");
@@ -67,7 +93,8 @@ background-color: red !important;
                             , "../..")
                     , "TestFiles"
                 )
-                , "TestBug.svg")
+                //, "TestBug.svg")
+                , "TestFixed.svg")
             );
 
             htmlData = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
@@ -89,10 +116,6 @@ background-color: red !important;
             libWkHtml2X.WebPageSpecificSettings wss = new libWkHtml2X.WebPageSpecificSettings();
             System.Type t = typeof(libWkHtml2X.WebPageSpecificSettings);
 
-            
-
-
-            
 
 
 
