@@ -13,6 +13,11 @@ namespace TestWkHtmlToX
         public Form1()
         {
             InitializeComponent();
+
+            var bm = new System.Drawing.Bitmap(1, 1);
+            System.Console.WriteLine(bm.HorizontalResolution);
+            System.Console.WriteLine(bm.VerticalResolution);
+
         }
     }
 }

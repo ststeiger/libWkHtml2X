@@ -26,5 +26,11 @@ namespace libWkHtml2X
         BMP, JPG, PNG, NONE
     }
 
+    public enum OutputFormat_t
+    {
+        pdf, ps
+    }
+
+
 
 }

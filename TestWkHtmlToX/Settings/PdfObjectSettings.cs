@@ -36,10 +36,10 @@ namespace libWkHtml2X
 
 
         // header.* Header specific settings see Header and footer settings. https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageHeaderFooter
-        public HeaderSettings Header;
+        public HeaderSettings Header = new HeaderSettings();
 
         // footer.*   Footer specific settings see Header and footer settings. https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageHeaderFooter
-        public FooterSettings Footer;
+        public FooterSettings Footer = new FooterSettings();
 
 
         // Should external links in the HTML document be converted into external pdf links? Must be either "true" or "false.
@@ -84,6 +84,16 @@ namespace libWkHtml2X
         // If not empty this object is a table of content object, "page" is ignored and this xsl style sheet is used to convert the outline XML into a table of content.
         [wkHtmlOptionName("tocXsl")]
         public string TocXsl;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetConfigValues(System.IntPtr config)
+        {
+            libWkHtml2X.ConfigValueHelper.SetConfigValues(config, this, libWkHtml2X.CallsPDF.wkhtmltopdf_set_object_setting);
+        } // End Sub SetConfigValues 
+
 
     } // End Class PdfObjectSettings 
 

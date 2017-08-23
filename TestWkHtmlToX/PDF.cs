@@ -11,21 +11,37 @@ namespace wkHtmlToXCore
         // https://wkhtmltopdf.org/libwkhtmltox/
         public static void CreatePdf(string htmlData)
         {
+            CreatePdf(htmlData, null, null);
+        }
+
+
+        public static void CreatePdf(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings)
+        {
             // System.IO.File.WriteAllText(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.htm", htmlData, System.Text.Encoding.UTF8);
 
 
             string ver = libWkHtml2X.CallsPDF.wkhtmltopdf_version();
             int init = libWkHtml2X.CallsPDF.wkhtmltopdf_init(0);
 
-            System.IntPtr globalSettings = libWkHtml2X.CallsPDF.wkhtmltopdf_create_global_settings();
-            // libWkHtml2X.CallsPDF.wkhtmltopdf_set_global_setting(globalSettings, "", "");
+            System.IntPtr ptrGlobalSettings = libWkHtml2X.CallsPDF.wkhtmltopdf_create_global_settings();
+            // libWkHtml2X.CallsPDF.wkhtmltopdf_set_global_setting(ptrGlobalSettings, "", "");
+            if (globalSettings != null)
+            {
+                globalSettings.SetConfigValues(ptrGlobalSettings);
+            }
 
-            System.IntPtr objectSettings = libWkHtml2X.CallsPDF.wkhtmltopdf_create_object_settings();
-            // libWkHtml2X.CallsPDF.wkhtmltopdf_set_object_setting(objectSettings, "", "");
 
 
-            System.IntPtr converter = libWkHtml2X.CallsPDF.wkhtmltopdf_create_converter(globalSettings);
-            libWkHtml2X.CallsPDF.wkhtmltopdf_add_object(converter, objectSettings, htmlData);
+            System.IntPtr ptrObjectSettings = libWkHtml2X.CallsPDF.wkhtmltopdf_create_object_settings();
+            // libWkHtml2X.CallsPDF.wkhtmltopdf_set_object_setting(ptrObjectSettings, "", "");
+            if (objectSettings != null)
+            {
+                objectSettings.SetConfigValues(ptrObjectSettings);
+            }
+
+
+            System.IntPtr converter = libWkHtml2X.CallsPDF.wkhtmltopdf_create_converter(ptrGlobalSettings);
+            libWkHtml2X.CallsPDF.wkhtmltopdf_add_object(converter, ptrObjectSettings, htmlData);
 
 
             libWkHtml2X.CallsPDF.wkhtmltopdf_convert(converter);

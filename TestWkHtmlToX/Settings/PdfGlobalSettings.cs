@@ -12,11 +12,11 @@ namespace libWkHtml2X
 
         // The width of the output document, e.g. "4cm".
         [wkHtmlOptionName("size.width")]
-        public double? Width; 
+        public string Width; 
 
         // The height  of the output document, e.g. "12In".
         [wkHtmlOptionName("size.height")]
-        public double? Height; 
+        public string Height; 
 
         // The orientation of the output document, must be either "Landscape" or "Portrait".
         [wkHtmlOptionName("orientation")]
@@ -84,7 +84,11 @@ namespace libWkHtml2X
 
         // margin.right Size of the right margin, e.g. "2cm"
         [wkHtmlOptionName("margin.right")]
-        public string MarginRight; 
+        public string MarginRight;
+
+
+        [wkHtmlOptionName("outputFormat")]
+        public OutputFormat_t? OutputFormat; 
 
         // The maximal DPI to use for images in the pdf document.
         [wkHtmlOptionName("imageDPI")]
@@ -97,6 +101,17 @@ namespace libWkHtml2X
         // Path of file used to load and store cookies.
         [wkHtmlOptionName("load.cookieJar")]
         public string CookieJar;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetConfigValues(System.IntPtr config)
+        {
+            libWkHtml2X.ConfigValueHelper.SetConfigValues(config, this, libWkHtml2X.CallsPDF.wkhtmltopdf_set_global_setting);
+        } // End Sub SetConfigValues 
+
+
     } // End Class PdfGlobalSettings 
 
 

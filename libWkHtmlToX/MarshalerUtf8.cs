@@ -1,8 +1,4 @@
 ﻿
-using System.Runtime.InteropServices;
-using System.Text;
-
-
 namespace libWkHtml2X
 {
 
@@ -21,16 +17,18 @@ namespace libWkHtml2X
                 return System.IntPtr.Zero;
             
             // not null terminated
-            byte[] strbuf = Encoding.UTF8.GetBytes(managedObj);
-            System.IntPtr buffer = Marshal.AllocHGlobal(strbuf.Length + 1);
-            Marshal.Copy(strbuf, 0, buffer, strbuf.Length);
+            byte[] strbuf = System.Text.Encoding.UTF8.GetBytes(managedObj);
+            
+
+            System.IntPtr buffer = System.Runtime.InteropServices.Marshal.AllocHGlobal(strbuf.Length + 1);
+            System.Runtime.InteropServices.Marshal.Copy(strbuf, 0, buffer, strbuf.Length);
 
             // write the terminating null
             //Marshal.WriteByte(buffer + strbuf.Length, 0);
 
             long lngPosEnd = buffer.ToInt64() + strbuf.Length;
             System.IntPtr ptrPosEnd = new System.IntPtr(lngPosEnd);
-            Marshal.WriteByte(ptrPosEnd, 0);
+            System.Runtime.InteropServices.Marshal.WriteByte(ptrPosEnd, 0);
 
             return buffer;
         }
@@ -54,16 +52,16 @@ namespace libWkHtml2X
 
             // skip the trailing null
             //Marshal.Copy(pNativeData, strbuf, 0, length - 1);
-            Marshal.Copy(pNativeData, strbuf, 0, length);
+            System.Runtime.InteropServices.Marshal.Copy(pNativeData, strbuf, 0, length);
 
-            string data = Encoding.UTF8.GetString(strbuf);
+            string data = System.Text.Encoding.UTF8.GetString(strbuf);
             return data;
         }
 
 
         public void CleanUpNativeData(System.IntPtr pNativeData)
         {
-            Marshal.FreeHGlobal(pNativeData);
+            System.Runtime.InteropServices.Marshal.FreeHGlobal(pNativeData);
         }
 
 

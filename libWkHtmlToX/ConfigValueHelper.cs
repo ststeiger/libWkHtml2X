@@ -3,15 +3,22 @@ namespace libWkHtml2X
 {
 
 
+    public delegate int set_config_value_t(System.IntPtr settings, string name, string value);
+
+
     public class ConfigValueHelper
     {
+        
 
 
         /// <summary>
         /// 
         /// </summary>
-        public static void SetConfigValues(object instance)
+        public static void SetConfigValues(System.IntPtr config, object instance, set_config_value_t setter)
         {
+            if (config == System.IntPtr.Zero)
+                throw new System.ArgumentNullException("config");
+
             System.Type t = instance.GetType();
 
             System.Reflection.FieldInfo[] fis = System.Reflection.IntrospectionExtensions.GetTypeInfo(t).GetFields();
@@ -25,13 +32,19 @@ namespace libWkHtml2X
 
                 if (attName == null)
                 {
-                    SetConfigValues(objVal);
+                    SetConfigValues(config, objVal, setter);
                     continue;
                 } // End if (attName == null)
 
                 // Set Value
                 if (objVal != null)
-                    System.Console.WriteLine(objVal);
+                {
+                    string strValue = System.Convert.ToString(objVal, System.Globalization.CultureInfo.InvariantCulture);
+                    // System.Console.WriteLine(attName);
+                    // System.Console.WriteLine(objVal);
+                    // System.Console.WriteLine(strValue);
+                    setter(config, attName, strValue);
+                }
             } // Next i 
 
         } // End Sub SetConfigValues 

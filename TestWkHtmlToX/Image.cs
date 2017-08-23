@@ -9,7 +9,7 @@ namespace wkHtmlToXCore
 
 
         // https://wkhtmltopdf.org/libwkhtmltox/
-        public static void CreateImg(string htmlData)
+        public static void CreateImg(string htmlData, libWkHtml2X.ImageSettings imageSettings)
         {
             string ver = libWkHtml2X.CallsImage.wkhtmltoimage_version();
 
@@ -17,18 +17,28 @@ namespace wkHtmlToXCore
 
 
             System.IntPtr globalSettings = libWkHtml2X.CallsImage.wkhtmltoimage_create_global_settings();
+            imageSettings.SetConfigValues(globalSettings);
 
-            string format = "svg";
-            format = "jpg";
-            format = "png";
-            format = "bmp";
+
+            // string format = "svg";
+            // format = "jpg";
+            // format = "png";
+            // format = "bmp";
             // format = ""; // nothingness
+            // libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting(globalSettings, "fmt", format);
+
+            // libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting(globalSettings, "screen 0", "5024x5768x24");
+
+            
 
 
-            libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting(globalSettings, "fmt", format);
             // libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting(globalSettings, "in", "https://www.google.com/");
 
             // libWkHtml2X.CallsImage.wkhtmltoimage_get_global_setting(globalSettings, "", "", 0);
+
+
+
+
 
 
             // System.IntPtr data = System.IntPtr.Zero;
@@ -40,8 +50,12 @@ namespace wkHtmlToXCore
             int res = libWkHtml2X.CallsImage.wkhtmltoimage_convert(converter);
 
             byte[] imgBytes = libWkHtml2X.CallsImage.wkhtmltoimage_get_output(converter);
-            System.IO.File.WriteAllBytes(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file." + format, imgBytes);
 
+            string fn = @"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\Test.";
+            fn = @"D:\username\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\Libs\0.12.4\Win\x86-64\Test.";
+
+            System.IO.File.WriteAllBytes(fn + imageSettings.SupportedFormat.ToString().ToLowerInvariant(), imgBytes);
+            
 
 
             libWkHtml2X.CallsImage.wkhtmltoimage_destroy_converter(converter);

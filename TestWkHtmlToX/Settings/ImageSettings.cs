@@ -110,9 +110,9 @@ namespace libWkHtml2X
         /// <summary>
         /// 
         /// </summary>
-        public void SetConfigValues()
+        public void SetConfigValues(System.IntPtr config)
         {
-            libWkHtml2X.ConfigValueHelper.SetConfigValues(this);
+            libWkHtml2X.ConfigValueHelper.SetConfigValues(config, this, libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting);
         } // End Sub SetConfigValues 
 
 
