@@ -44,14 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Settings\FooterSettings.cs" />
-    <Compile Include="Settings\HeaderSettings.cs" />
-    <Compile Include="Settings\ImageSettings.cs" />
-    <Compile Include="Settings\LoadSettings.cs" />
-    <Compile Include="Settings\PdfGlobalSettings.cs" />
-    <Compile Include="Settings\PdfObjectSettings.cs" />
-    <Compile Include="Settings\_SomeEnums.cs" />
-    <Compile Include="Settings\WebPageSpecificSettings.cs" />
     <Compile Include="Trash\ImageImport.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

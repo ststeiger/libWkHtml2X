@@ -47,6 +47,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Scheduler\Scheduler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Scheduler\TestScheduler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\FooterSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\HeaderSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\ImageSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\LoadSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\PdfGlobalSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\PdfObjectSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\WebPageSpecificSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\_SomeEnums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)wkHtmlOptionNameAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
