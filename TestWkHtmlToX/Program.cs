@@ -169,26 +169,31 @@ background-color: red !important;
             htmlData = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
             htmlData = @"<?xml version=""1.0"" encoding=""utf-8""?>" + System.Environment.NewLine + htmlData;
            
-            wkHtmlToXCore.TestPDF.CreatePdf(htmlData, gs, os);
+            // wkHtmlToXCore.TestPDF.CreatePdf(htmlData, gs, os);
 
-            /*
+            
             libWkHtml2X.ImageSettings imageSettings = new libWkHtml2X.ImageSettings();
 
-            imageSettings.Quality = 100;
+            imageSettings.Quality = 50;
             imageSettings.Web.PrintBackground = true;
             imageSettings.Web.EnableIntelligentShrinking = false;
             imageSettings.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
             imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
+            
+
 
             // imageSettings.ScreenWidth = 5000;
 
 
             double factor = 5.5;
-            htmlData = htmlData.Replace(@"width=""1380""", @"width=""" + ((int) System.Math.Ceiling(1380 * factor)).ToString() + @"""")
-                .Replace(@"height=""950""", @"height=""" + ((int)System.Math.Ceiling((950 * factor))).ToString() + @"""");
+            htmlData = htmlData
+                .Replace(@"width=""1380""", @"width=""" + ((int) System.Math.Ceiling(1380 * factor)).ToString() 
+                + @"""")
+                .Replace(@"height=""950""", @"height=""" + ((int)System.Math.Ceiling((950 * factor))).ToString() 
+                + @"""");
 
             wkHtmlToXCore.TestImage.CreateImg(htmlData, imageSettings);
-            */ 
+            /**/ 
 
 
             System.Console.WriteLine(System.Environment.NewLine);
