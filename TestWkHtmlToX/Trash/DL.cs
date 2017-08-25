@@ -38,20 +38,21 @@ namespace TestWkHtmlToX.Trash
                 //wc.Headers.Add("Connection", "keep-alive");
                 
                 wc.Headers.Add("Cookie", "lang=1");
-                // wc.Headers.Add("Host", "file35.watchers.to");
+                // wc.Headers.Add("Host", "file22.coders.to");
                 wc.Headers.Add("Range", "bytes=0-");
-                wc.Headers.Add("Referer", "http://watchers.to/42bmt3g2c6k7");
+                wc.Headers.Add("Referer", "http://coders.to/dsfjajsdfl"); // 12 random chars
                 wc.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
 
-                string url = "http://file35.watchers.to/f4c6nqyxsskrkhrboonp3hvsrhffbkbciepjvyuolmvctyk7ro6mmrmzmawa/v.mp4";
+                // 60 random chars
+                string url = "http://file22.coders.to/asfdasdfadsfadsf/f.zip";
 
-                // wc.DownloadFile(url, @"lol.mp4");
 
+                // wc.DownloadFile(url, @"lol.zip");
 
                 wc.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadFileCallback2);
                 // Specify a progress notification handler.
                 wc.DownloadProgressChanged += new System.Net.DownloadProgressChangedEventHandler(DownloadProgressCallback);
-                wc.DownloadFileAsync( new System.Uri(url, System.UriKind.RelativeOrAbsolute), "asyncLoL.mp4");
+                wc.DownloadFileAsync( new System.Uri(url, System.UriKind.RelativeOrAbsolute), "asyncLoL.zip");
             }
 
         }
