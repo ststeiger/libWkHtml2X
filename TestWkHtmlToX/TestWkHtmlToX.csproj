@@ -58,6 +58,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Trash\TestAsyncMethod.cs" />
+    <Compile Include="XmlHelper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -78,6 +79,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="TestFiles\omg_sals.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libs\0.12.4\Win\x86-32\msvcp140.dll" />
@@ -96,6 +98,10 @@
     <Content Include="Libs\0.13.0-alpha\Win\x86-64\wkhtmltoimage.exe" />
     <Content Include="Libs\0.13.0-alpha\Win\x86-64\wkhtmltopdf.exe" />
     <Content Include="Libs\0.13.0-alpha\Win\x86-64\wkhtmltox.dll" />
+    <Content Include="TestFiles\1503497977772.svg" />
+    <Content Include="TestFiles\1503647812149.svg" />
+    <Content Include="TestFiles\1503666084152.svg" />
+    <Content Include="TestFiles\1503666154395.svg" />
     <Content Include="TestFiles\TestBug.svg" />
     <Content Include="TestFiles\TestFixed.svg" />
   </ItemGroup>

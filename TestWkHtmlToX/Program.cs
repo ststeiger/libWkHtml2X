@@ -107,7 +107,7 @@ namespace TestWkHtmlToX
             os.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
             os.Web.PrintBackground = true;
             os.Web.EnableIntelligentShrinking = false;
-
+            
 
 
 
@@ -163,14 +163,116 @@ background-color: red !important;
             inputSvg = @"D:/Stefan.Steiger/Documents/Downloads/1503497977772.svg";
 
 
+            // wkhtmltopdf --page-size Letter -B 0 -L 0 -R 0 -T 0 input.html output.pdf
+            // https://stackoverflow.com/questions/6394905/wkhtmltopdf-what-paper-sizes-are-valid
+            // 96dpi/2.54cmpi = 37.7952755906 dpcm
             
 
             htmlData = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
             htmlData = @"<?xml version=""1.0"" encoding=""utf-8""?>" + System.Environment.NewLine + htmlData;
-           
-            // wkHtmlToXCore.TestPDF.CreatePdf(htmlData, gs, os);
+            
+            // A document must not contain both a meta element with an http-equiv attribute in the encoding declaration state and a meta element with the charset attribute present.
+            // XHTML: <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            // XHTML5: <meta charset="utf-8" />
+
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+
+            doc.XmlResolver = null; // https://stackoverflow.com/questions/4445348/net-prevent-xmldocument-loadxml-from-retrieving-dtd
+            doc.PreserveWhitespace = true;
+
+            doc.LoadXml(htmlData);
+
+
+
+            System.Xml.XmlNamespaceManager nsmgr = libWkHtml2X.XmlHelper.GetNamespaceManager(doc);
+            string realDefaultNamespace = nsmgr.LookupNamespace("dft");
+
+            // if (viewbox_width.EndsWith("px", System.StringComparison.InvariantCultureIgnoreCase))
+                // viewbox_width = viewbox_width.Substring(0, viewbox_width.Length - 2);
+
+            System.Xml.XmlAttribute awidth = doc.DocumentElement.Attributes["width"];
+            double dw = -1;
+            double.TryParse(awidth.Value, out dw);
+            int w = (int)System.Math.Ceiling(dw);
+
+            System.Xml.XmlAttribute aheight = doc.DocumentElement.Attributes["height"];
+            double dh = -1;
+            double.TryParse(aheight.Value, out dh);
+            int h = (int)System.Math.Ceiling(dh);
+
+            System.Xml.XmlAttribute aviewBox = doc.DocumentElement.Attributes["viewBox"];
+            string[] sv = aviewBox.Value.Split( new char[]{' ', ','}, System.StringSplitOptions.RemoveEmptyEntries);
+            double[] dv = new double[sv.Length];
+            int[] v = new int[sv.Length];
+            for (int i = 0; i < sv.Length; ++i) double.TryParse(sv[i], out dv[i]);
+            for (int i = 0; i < sv.Length; ++i) v[i] = (int) System.Math.Ceiling(dv[i]);
+
+
+            System.Console.WriteLine("w: " + w + " ,h: " + h + " ,v: " + string.Join(" ", sv) + v.ToString());
+
 
             
+
+
+            // 96/2.54 - 37.7952755906
+
+            // doc.DocumentElement.Attributes.Remove(doc.DocumentElement.Attributes["viewBox"]);
+            // doc.DocumentElement.Attributes["viewBox"].Value = w.ToString() + "0cm 0cm 2098.04cm 2363.85cm";
+            // doc.DocumentElement.Attributes["width"].Value = w.ToString() + "cm";
+            // doc.DocumentElement.Attributes["height"].Value = h.ToString() + "cm";
+
+            gs.Width = doc.DocumentElement.Attributes["width"].Value + "px";
+            gs.Height = doc.DocumentElement.Attributes["height"].Value + "px";
+
+
+            gs.ImageDPI = 150;
+            gs.DPI = 100;
+            gs.ImageDPI = gs.DPI;
+
+            // double ddd = 1.0 / 39.37; System.Console.WriteLine(ddd); = 25.400050800101603
+
+
+            gs.Width = (1380 * 2).ToString() + "px";
+            gs.Height = (950 * 2).ToString() + "px";
+
+            // 2098.04 2363.85"
+            gs.Width = (1380.0 / (gs.DPI / 25.4)).ToString() + "mm";
+            gs.Height = (950.0 / (gs.DPI / 25.4)).ToString() + "mm";
+
+            // wxh 233.5x160.9
+
+            System.Console.WriteLine(gs.Width);
+            System.Console.WriteLine(gs.Height);
+
+            double viewbox_dblwidth = dv[2];
+            double viewbox_dblHeight = dv[3];
+
+            double r1 = 21.0 / viewbox_dblwidth;
+            double r2 = 29.7 / viewbox_dblHeight;
+            double r = System.Math.Min(r1, r2);
+
+            double neww = viewbox_dblwidth * r;
+            double newh = viewbox_dblHeight * r;
+
+
+            // doc.DocumentElement.Attributes["width"].Value = neww.ToString("N8", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+            // doc.DocumentElement.Attributes["height"].Value = newh.ToString("N8", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+
+
+            gs.Width = "21.0cm";
+            gs.Height = "29.7cm";
+
+            string xml = doc.OuterXml;
+
+            System.IO.File.WriteAllText(@"d:\test_lines.svg", xml, new System.Text.UTF8Encoding(false));
+            // System.Console.WriteLine(xml);
+
+
+
+            wkHtmlToXCore.TestPDF.CreatePdf(xml, gs, os);
+
+#if DO_IMAGE
+
             libWkHtml2X.ImageSettings imageSettings = new libWkHtml2X.ImageSettings();
 
             imageSettings.Quality = 50;
@@ -179,10 +281,7 @@ background-color: red !important;
             imageSettings.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
             imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
             
-
-
             // imageSettings.ScreenWidth = 5000;
-
 
             double factor = 5.5;
             htmlData = htmlData
@@ -191,10 +290,11 @@ background-color: red !important;
                 .Replace(@"height=""950""", @"height=""" + ((int)System.Math.Ceiling((950 * factor))).ToString() 
                 + @"""");
 
+            // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
+            // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
             wkHtmlToXCore.TestImage.CreateImg(htmlData, imageSettings);
-            /**/ 
-
-
+#endif
+            
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();
