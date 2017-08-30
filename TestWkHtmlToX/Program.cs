@@ -10,12 +10,36 @@ namespace TestWkHtmlToX
         private delegate System.IntPtr wkhtmltopdf_version_t();
 
 
+
+        public static string MapSolutionPath(string file)
+        {
+            file = file.Replace("/", System.IO.Path.DirectorySeparatorChar.ToString()).Replace(@"\", System.IO.Path.DirectorySeparatorChar.ToString());
+            string dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            dir = System.IO.Path.Combine(System.IO.Path.Combine(dir, ".."), "..");
+            dir = System.IO.Path.GetFullPath(dir);
+
+            if (file.StartsWith("~"))
+            {
+                file = file.Substring(1);
+
+                if (file.StartsWith(System.IO.Path.DirectorySeparatorChar.ToString()) )
+                    file = file.Substring(1);
+
+                
+                file = System.IO.Path.Combine(dir, file);
+                return file;
+            }
+
+            return file;
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [System.STAThread]
         static void Main()
         {
+
             // TestAsyncMethod.EntryPoint();
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
@@ -159,10 +183,13 @@ background-color: red !important;
             );
 
 
-            inputSvg = "D:/Stefan.Steiger/Documents/Downloads/1503492416014.svg";
-            inputSvg = @"D:/Stefan.Steiger/Documents/Downloads/1503497977772.svg";
-
-
+            inputSvg = MapSolutionPath(@"~/TestFiles/1503497977772.svg");
+            // inputSvg = MapSolutionPath(@"~/TestFiles/1503647812149.svg");
+            // inputSvg = MapSolutionPath(@"~/TestFiles/1503666084152.svg");
+            // inputSvg = MapSolutionPath(@"~/TestFiles/1503666154395.svg");
+            // inputSvg = MapSolutionPath(@"~/TestFiles/TestBug.svg");
+            // inputSvg = MapSolutionPath(@"~/TestFiles/TestFixed.svg");
+            
             // wkhtmltopdf --page-size Letter -B 0 -L 0 -R 0 -T 0 input.html output.pdf
             // https://stackoverflow.com/questions/6394905/wkhtmltopdf-what-paper-sizes-are-valid
             // 96dpi/2.54cmpi = 37.7952755906 dpcm
@@ -190,6 +217,7 @@ background-color: red !important;
             // if (viewbox_width.EndsWith("px", System.StringComparison.InvariantCultureIgnoreCase))
                 // viewbox_width = viewbox_width.Substring(0, viewbox_width.Length - 2);
 
+            /*
             System.Xml.XmlAttribute awidth = doc.DocumentElement.Attributes["width"];
             double dw = -1;
             double.TryParse(awidth.Value, out dw);
@@ -206,14 +234,66 @@ background-color: red !important;
             int[] v = new int[sv.Length];
             for (int i = 0; i < sv.Length; ++i) double.TryParse(sv[i], out dv[i]);
             for (int i = 0; i < sv.Length; ++i) v[i] = (int) System.Math.Ceiling(dv[i]);
-
-
+             
             System.Console.WriteLine("w: " + w + " ,h: " + h + " ,v: " + string.Join(" ", sv) + v.ToString());
+            */
 
 
-            
+
+            System.Xml.XmlAttribute awidth = doc.DocumentElement.Attributes["width"];
+            System.Xml.XmlAttribute aheight = doc.DocumentElement.Attributes["height"];
+            System.Xml.XmlAttribute aviewBox = doc.DocumentElement.Attributes["viewBox"];
+
+            double width = -1;
+            double.TryParse(awidth.Value, out width);
+
+            double height = -1;
+            double.TryParse(aheight.Value, out height);
+
+            string[] sv = aviewBox.Value.Split(new char[] { ' ', ',' }, System.StringSplitOptions.RemoveEmptyEntries);
+            double[] dv = new double[sv.Length];
+            int[] v = new int[sv.Length];
+            for (int i = 0; i < sv.Length; ++i) double.TryParse(sv[i], out dv[i]);
+
+            double viewbox_width = dv[2];
+            double viewbox_height = dv[3];
 
 
+            double r1 = width / viewbox_width;
+            double r2 = height / viewbox_height;
+            double factor = System.Math.Min(r1, r2);
+
+            double newWidth = factor * viewbox_width;
+            double newHeight = factor * viewbox_height;
+
+            double f1 = 21.0 / newWidth;
+            double f2 = 29.7 / newHeight;
+            double f = System.Math.Min(f1, f2);
+
+            double ff1 = newWidth * f;
+            double ff2 = newHeight * f;
+
+            awidth.Value = ff1.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+            aheight.Value = ff2.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+
+
+            gs.Width = "21.0cm";
+            gs.Height = "29.7cm";
+
+
+            gs.Width = awidth.Value;
+            gs.Height = aheight.Value;
+
+
+
+            gs.PageSize = gs.Width + " " + gs.Height;
+
+
+
+            gs.DPI = 96;
+            gs.ImageDPI = gs.DPI;
+
+            /*
             // 96/2.54 - 37.7952755906
 
             // doc.DocumentElement.Attributes.Remove(doc.DocumentElement.Attributes["viewBox"]);
@@ -221,13 +301,16 @@ background-color: red !important;
             // doc.DocumentElement.Attributes["width"].Value = w.ToString() + "cm";
             // doc.DocumentElement.Attributes["height"].Value = h.ToString() + "cm";
 
-            gs.Width = doc.DocumentElement.Attributes["width"].Value + "px";
-            gs.Height = doc.DocumentElement.Attributes["height"].Value + "px";
+            // gs.Width = doc.DocumentElement.Attributes["width"].Value + "px";
+            // gs.Height = doc.DocumentElement.Attributes["height"].Value + "px";
 
 
-            gs.ImageDPI = 150;
-            gs.DPI = 100;
+            // gs.ImageDPI = 150;
+            gs.DPI = 1300;
             gs.ImageDPI = gs.DPI;
+
+            // gs.Resolution = "1024x768";
+            // gs.Resolution = "1280x1024";
 
             // double ddd = 1.0 / 39.37; System.Console.WriteLine(ddd); = 25.400050800101603
 
@@ -238,29 +321,10 @@ background-color: red !important;
             // 2098.04 2363.85"
             gs.Width = (1380.0 / (gs.DPI / 25.4)).ToString() + "mm";
             gs.Height = (950.0 / (gs.DPI / 25.4)).ToString() + "mm";
+            */
+            
+            
 
-            // wxh 233.5x160.9
-
-            System.Console.WriteLine(gs.Width);
-            System.Console.WriteLine(gs.Height);
-
-            double viewbox_dblwidth = dv[2];
-            double viewbox_dblHeight = dv[3];
-
-            double r1 = 21.0 / viewbox_dblwidth;
-            double r2 = 29.7 / viewbox_dblHeight;
-            double r = System.Math.Min(r1, r2);
-
-            double neww = viewbox_dblwidth * r;
-            double newh = viewbox_dblHeight * r;
-
-
-            // doc.DocumentElement.Attributes["width"].Value = neww.ToString("N8", System.Globalization.CultureInfo.InvariantCulture) + "cm";
-            // doc.DocumentElement.Attributes["height"].Value = newh.ToString("N8", System.Globalization.CultureInfo.InvariantCulture) + "cm";
-
-
-            gs.Width = "21.0cm";
-            gs.Height = "29.7cm";
 
             string xml = doc.OuterXml;
 
