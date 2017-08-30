@@ -263,6 +263,7 @@ background-color: red !important;
             double r2 = height / viewbox_height;
             double factor = System.Math.Min(r1, r2);
 
+            // Adjust width & height so it fits viewbox by aspect-ratio 
             double newWidth = factor * viewbox_width;
             double newHeight = factor * viewbox_height;
 
@@ -270,6 +271,7 @@ background-color: red !important;
             double f2 = 29.7 / newHeight;
             double f = System.Math.Min(f1, f2);
 
+            // Adjust width & height so it fits onto a A4/custom page 
             double ff1 = newWidth * f;
             double ff2 = newHeight * f;
 
@@ -285,8 +287,16 @@ background-color: red !important;
             gs.Height = aheight.Value;
 
 
+            //gs.Width = aheight.Value;
+            //gs.Height = awidth.Value;
 
-            gs.PageSize = gs.Width + " " + gs.Height;
+            //gs.Width = "1cm";
+            //gs.Height = "5cm";
+
+
+
+            System.Console.WriteLine(gs.PageSize);
+            // gs.PageSize = gs.Width + " " + gs.Height;
 
 
 

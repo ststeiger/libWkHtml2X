@@ -249,7 +249,12 @@ namespace libWkHtml2X
                             )
 #if VER_NEU
                             , "../../Libs/0.13.0-alpha/Win")
+
+#elif true 
+                            , "../../Libs/0.12.1.2/Win")
 #else
+
+
                             , "../../Libs/0.12.4/Win")
 #endif
                         , "x86-" + (System.IntPtr.Size * 8).ToString()

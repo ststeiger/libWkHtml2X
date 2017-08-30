@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libs\0.12.1.2\Win\info.txt" />
     <Compile Include="Trash\DL.cs" />
     <Compile Include="Trash\ImageImport.cs" />
     <Compile Include="Form1.cs">
@@ -82,6 +83,12 @@
     <None Include="TestFiles\omg_sals.xlsx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libs\0.12.1.2\Win\x86-32\wkhtmltoimage.exe" />
+    <Content Include="Libs\0.12.1.2\Win\x86-32\wkhtmltopdf.exe" />
+    <Content Include="Libs\0.12.1.2\Win\x86-32\wkhtmltox.dll" />
+    <Content Include="Libs\0.12.1.2\Win\x86-64\wkhtmltoimage.exe" />
+    <Content Include="Libs\0.12.1.2\Win\x86-64\wkhtmltopdf.exe" />
+    <Content Include="Libs\0.12.1.2\Win\x86-64\wkhtmltox.dll" />
     <Content Include="Libs\0.12.4\Win\x86-32\msvcp140.dll" />
     <Content Include="Libs\0.12.4\Win\x86-32\vcruntime140.dll" />
     <Content Include="Libs\0.12.4\Win\x86-32\wkhtmltoimage.exe" />
