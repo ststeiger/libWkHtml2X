@@ -33,12 +33,150 @@ namespace TestWkHtmlToX
             return file;
         }
 
+        public static string gc()
+        {
+            System.Data.SqlClient.SqlConnectionStringBuilder csb = new System.Data.SqlClient.SqlConnectionStringBuilder();
+            csb.DataSource = System.Environment.MachineName;
+            csb.InitialCatalog = "GeoData";
+            
+            csb.IntegratedSecurity = true;
+            if (!csb.IntegratedSecurity)
+            {
+                csb.UserID = "";
+                csb.Password = "";
+            }
+
+            csb.PersistSecurityInfo = false;
+            csb.PacketSize = 4096;
+
+            return csb.ConnectionString;
+        }
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [System.STAThread]
         static void Main()
         {
+            string fn = @"C:\Users\anonymous\Downloads\CH\CH_semicolon.csv";
+
+            // System.Collections.Generic.List<System.Collections.Generic.List<string>> dl = Trash.CsvParser.Parse(fn);
+            // System.Console.WriteLine(dl);
+
+            System.Collections.Generic.IEnumerable<System.Collections.Generic.List<string>> dl = Trash.CsvParser2.Parse(fn);
+            System.Console.WriteLine(dl);
+
+
+            System.Data.DataTable dt = new System.Data.DataTable();
+
+            using (System.Data.Common.DbDataAdapter da = new System.Data.SqlClient.SqlDataAdapter("SELECT * FROM geoname WHERE (1=2)", gc()))
+            {
+                System.Data.Common.DbCommandBuilder cb = new System.Data.SqlClient.SqlCommandBuilder();
+                cb.DataAdapter = da;
+                da.DeleteCommand = cb.GetDeleteCommand();
+                da.InsertCommand = cb.GetInsertCommand();
+                da.UpdateCommand = cb.GetUpdateCommand();
+
+
+
+                da.Fill(dt);
+
+                System.Console.WriteLine(dt.Columns.Count);
+
+
+
+                foreach (System.Collections.Generic.List<string> lsColumns in dl)
+                {
+                    System.Data.DataRow dr = dt.NewRow();
+
+                    for (int j = 0; j < lsColumns.Count; ++j)
+                    {
+                        string item = lsColumns[j];
+                        // System.Console.WriteLine(item);
+
+                        if (j >= dt.Columns.Count)
+                            continue;
+
+                        System.Type tt = dt.Columns[j].DataType;
+
+                        if (object.ReferenceEquals(tt, typeof(string)))
+                        {
+                            dr[j] = item;
+                        }
+                        else if (object.ReferenceEquals(tt, typeof(int)))
+                        {
+                            int a = -1;
+                            int.TryParse(item, out a);
+                            dr[j] = a;
+                        }
+                        else if (object.ReferenceEquals(tt, typeof(decimal)))
+                        {
+                            decimal a = -1;
+                            decimal.TryParse(item, out a);
+                            dr[j] = a;
+                        }
+                        else if (object.ReferenceEquals(tt, typeof(System.DateTime)))
+                        {
+                            System.DateTime a = System.DateTime.MinValue;
+                            System.DateTime.TryParse(item, out a);
+                            dr[j] = a;
+                        }
+                        else
+                            System.Console.WriteLine(tt);
+                    } // Next j 
+
+                    dt.Rows.Add(dr);
+                }
+
+                /*
+                for (int i = 0; i < dl.c; ++i)
+                {
+                    System.Data.DataRow dr = dt.NewRow();
+
+                    for (int j = 0; j < dl[i].Count; ++j)
+                    {
+                        string item = dl[i][j];
+                        // System.Console.WriteLine(item);
+
+                        if (j >= dt.Columns.Count)
+                            continue;
+
+                        System.Type tt = dt.Columns[j].DataType;
+
+                        if (object.ReferenceEquals(tt, typeof(string)))
+                        {
+                            dr[j] = item;
+                        }
+                        else if (object.ReferenceEquals(tt, typeof(int)))
+                        {
+                            int a = -1;
+                            int.TryParse(item, out a);
+                            dr[j] = a;
+                        }
+                        else if (object.ReferenceEquals(tt, typeof(decimal)))
+                        {
+                            decimal a = -1;
+                            decimal.TryParse(item, out a);
+                            dr[j] = a;
+                        }
+                        else if (object.ReferenceEquals(tt, typeof(System.DateTime)))
+                        {
+                            System.DateTime a = System.DateTime.MinValue;
+                            System.DateTime.TryParse(item, out a);
+                            dr[j] = a;
+                        }
+                        else
+                            System.Console.WriteLine(tt);
+                    } // Next j 
+
+                    dt.Rows.Add(dr);
+                } // Next i 
+                */
+
+                da.Update(dt);
+            } // End Using da 
+
 
             // TestAsyncMethod.EntryPoint();
 #if false
@@ -49,9 +187,71 @@ namespace TestWkHtmlToX
 
             // libWkHtml2X.TestScheduler.Test();
 
+            const int bufferSize = 1024;
+            char[] buffer = new char[bufferSize];
+
+            //new System.IO.FileStream("path", System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
+
+            bool lastCharFieldDelimiter = false;
+            bool insideField = false;
+
+            using (System.IO.FileStream csvFile = System.IO.File.OpenRead(@"C:\Users\anonymous\Downloads\CH\CH_semicolon.csv"))
+            {
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(csvFile, System.Text.Encoding.UTF8))
+                {
+                    int toRead;
+                    while ((toRead = sr.Read(buffer, 0, bufferSize)) > 0)
+                    {
+                        string fx = new string(buffer);
+                        System.Console.WriteLine(fx);
+
+                        for (int i = 0; i < toRead; ++i)
+                        {
+                            if (buffer[i] == '"')
+                            {
+                                lastCharFieldDelimiter = true;
+                                continue;
+                            }
+
+                            if (lastCharFieldDelimiter)
+                            {
+                                lastCharFieldDelimiter = false;
+
+                                if (buffer[i] == '"')
+                                {
+                                    
+                                }
+                                else
+                                    insideField = !insideField;
+                            }
+
+                            if (!insideField)
+                            {
+
+                                if (buffer[i] == ',')
+                                {
+                                    // Next field
+                                }
+
+                                if (buffer[i] == '\r' || buffer[i] == '\n')
+                                {
+                                    // AddRow
+                                }
+                            }
+
+                        }
 
 
-            libWkHtml2X.PdfGlobalSettings gs = new libWkHtml2X.PdfGlobalSettings();
+                        // sb.Append(buffer, 0, count);
+                    }
+
+                }
+
+            }
+
+
+
+                libWkHtml2X.PdfGlobalSettings gs = new libWkHtml2X.PdfGlobalSettings();
             libWkHtml2X.PdfObjectSettings os = new libWkHtml2X.PdfObjectSettings();
 
             
