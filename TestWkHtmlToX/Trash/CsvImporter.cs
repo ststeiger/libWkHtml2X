@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace TestWkHtmlToX.Trash
 {
-    class CsvImporter
+
+
+    public class CsvImporter
     {
 
-        private static string gc()
+
+        private static string GetConnectionString()
         {
             System.Data.SqlClient.SqlConnectionStringBuilder csb = new System.Data.SqlClient.SqlConnectionStringBuilder();
             csb.DataSource = System.Environment.MachineName;
@@ -33,7 +33,9 @@ namespace TestWkHtmlToX.Trash
             using (System.Data.DataTable dt = new System.Data.DataTable())
             {
 
-                using (System.Data.Common.DbDataAdapter da = new System.Data.SqlClient.SqlDataAdapter("SELECT * FROM geoname WHERE (1=2)", gc()))
+                using (System.Data.Common.DbDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(
+                    "SELECT * FROM geoname WHERE (1=2)", GetConnectionString())
+                    )
                 {
                     System.Data.Common.DbCommandBuilder cb = new System.Data.SqlClient.SqlCommandBuilder();
                     cb.DataAdapter = da;

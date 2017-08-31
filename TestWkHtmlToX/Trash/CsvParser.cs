@@ -52,7 +52,7 @@ namespace TestWkHtmlToX.Trash
 
                     string item = dl[i][j];
                     // System.Console.WriteLine(item);
-                    
+
                     System.Type columnType = dt.Columns[j].DataType;
 
                     if (object.ReferenceEquals(columnType, typeof(string)))
@@ -62,80 +62,142 @@ namespace TestWkHtmlToX.Trash
                     else if (object.ReferenceEquals(columnType, typeof(bool)))
                     {
                         bool a = false;
-                        if (!bool.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to bool.");
 
-                        dr[j] = a;
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!bool.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to bool.");
+
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(char)))
                     {
                         char a = '\0';
-                        if (!char.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to char.");
+                        
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!char.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to char.");
 
-                        dr[j] = a;
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(int)))
                     {
                         int a = 0;
-                        if (!int.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to int.");
 
-                        dr[j] = a;
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!int.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to int.");
+
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(uint)))
                     {
                         uint a = 0;
-                        if (!uint.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to uint.");
 
-                        dr[j] = a;
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!uint.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to uint.");
+
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(long)))
                     {
                         long a = 0;
-                        if (!long.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to long.");
 
-                        dr[j] = a;
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!long.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to long.");
+
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(ulong)))
                     {
                         ulong a = 0;
-                        if (!ulong.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to ulong.");
 
-                        dr[j] = a;
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!ulong.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to ulong.");
+
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(float)))
                     {
                         float a = 0;
-                        if (!float.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to float.");
 
-                        dr[j] = a;
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!float.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to float.");
+
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(double)))
                     {
                         double a = 0;
-                        if (!double.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to float.");
+                        
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!double.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to double.");
 
-                        dr[j] = a;
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(decimal)))
                     {
                         decimal a = 0;
-                        if (!decimal.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to decimal.");
-                        dr[j] = a;
+
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!decimal.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to decimal.");
+
+                            dr[j] = a;
+                        }
                     }
                     else if (object.ReferenceEquals(columnType, typeof(System.DateTime)))
                     {
                         System.DateTime a = System.DateTime.MinValue;
-                        if (!System.DateTime.TryParse(item, out a))
-                            throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to System.DateTime.");
-                        dr[j] = a;
+
+                        if (string.IsNullOrEmpty(item))
+                            dr[j] = System.DBNull.Value;
+                        else
+                        {
+                            if (!System.DateTime.TryParse(item, out a))
+                                throw new System.IO.InvalidDataException("Could not cast \"" + item + "\" to System.DateTime.");
+
+                            dr[j] = a;
+                        }
                     }
                     else
                         throw new System.NotImplementedException("DataType \"" + columnType.FullName + "\" has not been implemented, yet.");
