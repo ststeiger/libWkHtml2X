@@ -61,10 +61,7 @@ namespace TestWkHtmlToX
         {
             string fn = @"C:\Users\anonymous\Downloads\CH\CH_semicolon.csv";
 
-            // System.Collections.Generic.List<System.Collections.Generic.List<string>> dl = Trash.CsvParser.Parse(fn);
-            // System.Console.WriteLine(dl);
-
-            System.Collections.Generic.IEnumerable<System.Collections.Generic.List<string>> dl = Trash.CsvParser2.Parse(fn);
+            System.Collections.Generic.List<System.Collections.Generic.List<string>> dl = Trash.CsvParser.Parse(fn);
             System.Console.WriteLine(dl);
 
 
@@ -85,7 +82,7 @@ namespace TestWkHtmlToX
                 System.Console.WriteLine(dt.Columns.Count);
 
 
-
+                /*
                 foreach (System.Collections.Generic.List<string> lsColumns in dl)
                 {
                     System.Data.DataRow dr = dt.NewRow();
@@ -95,8 +92,7 @@ namespace TestWkHtmlToX
                         string item = lsColumns[j];
                         // System.Console.WriteLine(item);
 
-                        if (j >= dt.Columns.Count)
-                            continue;
+                        // if (j >= dt.Columns.Count) continue;
 
                         System.Type tt = dt.Columns[j].DataType;
 
@@ -128,19 +124,19 @@ namespace TestWkHtmlToX
 
                     dt.Rows.Add(dr);
                 }
+                */
+                
 
-                /*
-                for (int i = 0; i < dl.c; ++i)
+                for (int i = 0; i < dl.Count; ++i)
                 {
                     System.Data.DataRow dr = dt.NewRow();
 
                     for (int j = 0; j < dl[i].Count; ++j)
                     {
                         string item = dl[i][j];
-                        // System.Console.WriteLine(item);
 
-                        if (j >= dt.Columns.Count)
-                            continue;
+                        // System.Console.WriteLine(item);
+                        // if (j >= dt.Columns.Count) continue;
 
                         System.Type tt = dt.Columns[j].DataType;
 
@@ -172,8 +168,7 @@ namespace TestWkHtmlToX
 
                     dt.Rows.Add(dr);
                 } // Next i 
-                */
-
+                
                 da.Update(dt);
             } // End Using da 
 

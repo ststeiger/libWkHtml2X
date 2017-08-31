@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+
+
 namespace TestWkHtmlToX.Trash
 {
 
@@ -10,6 +13,7 @@ namespace TestWkHtmlToX.Trash
         {
             return Parse(path, ';', '"');
         }
+
 
         public static System.Collections.Generic.List<System.Collections.Generic.List<string>> Parse
             (string path, char delimiter, char qualifier)
@@ -26,21 +30,48 @@ namespace TestWkHtmlToX.Trash
 
             return records;
         }
-        
 
-        public static System.Collections.Generic.List<System.Collections.Generic.List<string>> Parse
-            (System.IO.TextReader reader, char delimiter, char qualifier)
+
+        /*
+        private static Tuple<T, IEnumerable<T>> HeadAndTail<T>(this IEnumerable<T> source)
         {
-            bool inQuote = false;
-            System.Collections.Generic.List<System.Collections.Generic.List<string>> records = 
-                new System.Collections.Generic.List<System.Collections.Generic.List<string>>();
+            if (source == null)
+                throw new ArgumentNullException("source");
+            var en = source.GetEnumerator();
+            en.MoveNext();
+            return Tuple.Create(en.Current, EnumerateTail(en));
+        }
 
-            System.Collections.Generic.List<string> record = new System.Collections.Generic.List<string>();
+        private static IEnumerable<T> EnumerateTail<T>(IEnumerator<T> en)
+        {
+            while (en.MoveNext()) yield return en.Current;
+        }
+
+        public static IEnumerable<IList<string>> Parse(string content, char delimiter, char qualifier)
+        {
+            using (var reader = new System.IO.StringReader(content))
+                return Parse(reader, delimiter, qualifier);
+        }
+
+        public static Tuple<IList<string>, IEnumerable<IList<string>>> ParseHeadAndTail(
+            System.IO.TextReader reader, char delimiter, char qualifier)
+        {
+            return HeadAndTail(Parse(reader, delimiter, qualifier));
+        }
+        */
+
+
+        public static List<List<string>> Parse(System.IO.TextReader reader, char delimiter, char qualifier)
+        {
+            List<List<string>> records = new List<List<string>>();
+
+            bool inQuote = false;
+            List<string> record = new List<string>();
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
             while (reader.Peek() != -1)
             {
-                char readChar = (char)reader.Read();
+                var readChar = (char)reader.Read();
 
                 if (readChar == '\n' || (readChar == '\r' && (char)reader.Peek() == '\n'))
                 {
@@ -59,22 +90,15 @@ namespace TestWkHtmlToX.Trash
                         if (record.Count > 0 || sb.Length > 0)
                         {
                             record.Add(sb.ToString());
-                            // sb.Clear();
+                            //sb.Clear();
                             sb.Length = 0;
                         }
 
                         if (record.Count > 0)
-                        {
-                            // yield return record;
                             records.Add(record);
-                            if (record.Count == 100)
-                                break;
+                            //yield return record;
 
-
-                            continue;
-                        }
-                        
-                        record = new System.Collections.Generic.List<string>(record.Count);
+                        record = new List<string>(record.Count);
                     }
                 }
                 else if (sb.Length == 0 && !inQuote)
@@ -84,7 +108,7 @@ namespace TestWkHtmlToX.Trash
                     else if (readChar == delimiter)
                     {
                         record.Add(sb.ToString());
-                        // sb.Clear();
+                        //sb.Clear();
                         sb.Length = 0;
                     }
                     else if (char.IsWhiteSpace(readChar))
@@ -101,8 +125,8 @@ namespace TestWkHtmlToX.Trash
                     else
                     {
                         record.Add(sb.ToString());
+                        // sb.Clear();
                         sb.Length = 0;
-                        //sb.Clear();
                     }
                 }
                 else if (readChar == qualifier)
@@ -122,19 +146,16 @@ namespace TestWkHtmlToX.Trash
                 }
                 else
                     sb.Append(readChar);
-            }
+            } // Whend 
 
             if (record.Count > 0 || sb.Length > 0)
                 record.Add(sb.ToString());
 
             if (record.Count > 0)
-                // yield return record;
+                //yield return record;
                 records.Add(record);
 
             return records;
-        } // End Function Parse
-
-    } // End Class CsvParser
-
-
-} // End Namespace TestWkHtmlToX.Trash
+        }
+    }
+}
