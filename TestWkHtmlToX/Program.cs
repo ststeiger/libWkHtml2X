@@ -33,25 +33,6 @@ namespace TestWkHtmlToX
             return file;
         }
 
-        public static string gc()
-        {
-            System.Data.SqlClient.SqlConnectionStringBuilder csb = new System.Data.SqlClient.SqlConnectionStringBuilder();
-            csb.DataSource = System.Environment.MachineName;
-            csb.InitialCatalog = "GeoData";
-            
-            csb.IntegratedSecurity = true;
-            if (!csb.IntegratedSecurity)
-            {
-                csb.UserID = "";
-                csb.Password = "";
-            }
-
-            csb.PersistSecurityInfo = false;
-            csb.PacketSize = 4096;
-
-            return csb.ConnectionString;
-        }
-
 
         /// <summary>
         /// The main entry point for the application.
@@ -59,120 +40,6 @@ namespace TestWkHtmlToX
         [System.STAThread]
         static void Main()
         {
-            string fn = @"C:\Users\anonymous\Downloads\CH\CH_semicolon.csv";
-
-            System.Collections.Generic.List<System.Collections.Generic.List<string>> dl = Trash.CsvParser.Parse(fn);
-            System.Console.WriteLine(dl);
-
-
-            System.Data.DataTable dt = new System.Data.DataTable();
-
-            using (System.Data.Common.DbDataAdapter da = new System.Data.SqlClient.SqlDataAdapter("SELECT * FROM geoname WHERE (1=2)", gc()))
-            {
-                System.Data.Common.DbCommandBuilder cb = new System.Data.SqlClient.SqlCommandBuilder();
-                cb.DataAdapter = da;
-                da.DeleteCommand = cb.GetDeleteCommand();
-                da.InsertCommand = cb.GetInsertCommand();
-                da.UpdateCommand = cb.GetUpdateCommand();
-
-
-
-                da.Fill(dt);
-
-                System.Console.WriteLine(dt.Columns.Count);
-
-
-                /*
-                foreach (System.Collections.Generic.List<string> lsColumns in dl)
-                {
-                    System.Data.DataRow dr = dt.NewRow();
-
-                    for (int j = 0; j < lsColumns.Count; ++j)
-                    {
-                        string item = lsColumns[j];
-                        // System.Console.WriteLine(item);
-
-                        // if (j >= dt.Columns.Count) continue;
-
-                        System.Type tt = dt.Columns[j].DataType;
-
-                        if (object.ReferenceEquals(tt, typeof(string)))
-                        {
-                            dr[j] = item;
-                        }
-                        else if (object.ReferenceEquals(tt, typeof(int)))
-                        {
-                            int a = -1;
-                            int.TryParse(item, out a);
-                            dr[j] = a;
-                        }
-                        else if (object.ReferenceEquals(tt, typeof(decimal)))
-                        {
-                            decimal a = -1;
-                            decimal.TryParse(item, out a);
-                            dr[j] = a;
-                        }
-                        else if (object.ReferenceEquals(tt, typeof(System.DateTime)))
-                        {
-                            System.DateTime a = System.DateTime.MinValue;
-                            System.DateTime.TryParse(item, out a);
-                            dr[j] = a;
-                        }
-                        else
-                            System.Console.WriteLine(tt);
-                    } // Next j 
-
-                    dt.Rows.Add(dr);
-                }
-                */
-                
-
-                for (int i = 0; i < dl.Count; ++i)
-                {
-                    System.Data.DataRow dr = dt.NewRow();
-
-                    for (int j = 0; j < dl[i].Count; ++j)
-                    {
-                        string item = dl[i][j];
-
-                        // System.Console.WriteLine(item);
-                        // if (j >= dt.Columns.Count) continue;
-
-                        System.Type tt = dt.Columns[j].DataType;
-
-                        if (object.ReferenceEquals(tt, typeof(string)))
-                        {
-                            dr[j] = item;
-                        }
-                        else if (object.ReferenceEquals(tt, typeof(int)))
-                        {
-                            int a = -1;
-                            int.TryParse(item, out a);
-                            dr[j] = a;
-                        }
-                        else if (object.ReferenceEquals(tt, typeof(decimal)))
-                        {
-                            decimal a = -1;
-                            decimal.TryParse(item, out a);
-                            dr[j] = a;
-                        }
-                        else if (object.ReferenceEquals(tt, typeof(System.DateTime)))
-                        {
-                            System.DateTime a = System.DateTime.MinValue;
-                            System.DateTime.TryParse(item, out a);
-                            dr[j] = a;
-                        }
-                        else
-                            System.Console.WriteLine(tt);
-                    } // Next j 
-
-                    dt.Rows.Add(dr);
-                } // Next i 
-                
-                da.Update(dt);
-            } // End Using da 
-
-
             // TestAsyncMethod.EntryPoint();
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
@@ -182,71 +49,7 @@ namespace TestWkHtmlToX
 
             // libWkHtml2X.TestScheduler.Test();
 
-            const int bufferSize = 1024;
-            char[] buffer = new char[bufferSize];
-
-            //new System.IO.FileStream("path", System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
-
-            bool lastCharFieldDelimiter = false;
-            bool insideField = false;
-
-            using (System.IO.FileStream csvFile = System.IO.File.OpenRead(@"C:\Users\anonymous\Downloads\CH\CH_semicolon.csv"))
-            {
-                using (System.IO.StreamReader sr = new System.IO.StreamReader(csvFile, System.Text.Encoding.UTF8))
-                {
-                    int toRead;
-                    while ((toRead = sr.Read(buffer, 0, bufferSize)) > 0)
-                    {
-                        string fx = new string(buffer);
-                        System.Console.WriteLine(fx);
-
-                        for (int i = 0; i < toRead; ++i)
-                        {
-                            if (buffer[i] == '"')
-                            {
-                                lastCharFieldDelimiter = true;
-                                continue;
-                            }
-
-                            if (lastCharFieldDelimiter)
-                            {
-                                lastCharFieldDelimiter = false;
-
-                                if (buffer[i] == '"')
-                                {
-                                    
-                                }
-                                else
-                                    insideField = !insideField;
-                            }
-
-                            if (!insideField)
-                            {
-
-                                if (buffer[i] == ',')
-                                {
-                                    // Next field
-                                }
-
-                                if (buffer[i] == '\r' || buffer[i] == '\n')
-                                {
-                                    // AddRow
-                                }
-                            }
-
-                        }
-
-
-                        // sb.Append(buffer, 0, count);
-                    }
-
-                }
-
-            }
-
-
-
-                libWkHtml2X.PdfGlobalSettings gs = new libWkHtml2X.PdfGlobalSettings();
+            libWkHtml2X.PdfGlobalSettings gs = new libWkHtml2X.PdfGlobalSettings();
             libWkHtml2X.PdfObjectSettings os = new libWkHtml2X.PdfObjectSettings();
 
             
@@ -379,9 +182,9 @@ background-color: red !important;
 
 
             inputSvg = MapSolutionPath(@"~/TestFiles/1503497977772.svg");
-            // inputSvg = MapSolutionPath(@"~/TestFiles/1503647812149.svg");
-            // inputSvg = MapSolutionPath(@"~/TestFiles/1503666084152.svg");
-            // inputSvg = MapSolutionPath(@"~/TestFiles/1503666154395.svg");
+            inputSvg = MapSolutionPath(@"~/TestFiles/1503647812149.svg");
+            inputSvg = MapSolutionPath(@"~/TestFiles/1503666084152.svg");
+            inputSvg = MapSolutionPath(@"~/TestFiles/1503666154395.svg");
             // inputSvg = MapSolutionPath(@"~/TestFiles/TestBug.svg");
             // inputSvg = MapSolutionPath(@"~/TestFiles/TestFixed.svg");
             
@@ -391,7 +194,7 @@ background-color: red !important;
             
 
             htmlData = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
-            htmlData = @"<?xml version=""1.0"" encoding=""utf-8""?>" + System.Environment.NewLine + htmlData;
+            //htmlData = @"<?xml version=""1.0"" encoding=""utf-8""?>" + System.Environment.NewLine + htmlData;
             
             // A document must not contain both a meta element with an http-equiv attribute in the encoding declaration state and a meta element with the charset attribute present.
             // XHTML: <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -480,6 +283,8 @@ background-color: red !important;
 
             gs.Width = awidth.Value;
             gs.Height = aheight.Value;
+            // gs.Height = "23.79cm"; 
+            // gs.Height = "23.9cm"; // 23.66cm
 
 
             //gs.Width = aheight.Value;
@@ -495,10 +300,10 @@ background-color: red !important;
 
 
 
-            gs.DPI = 96;
-            gs.ImageDPI = gs.DPI;
-
             /*
+
+            gs.DPI = 1500;
+            gs.ImageDPI = gs.DPI;
             // 96/2.54 - 37.7952755906
 
             // doc.DocumentElement.Attributes.Remove(doc.DocumentElement.Attributes["viewBox"]);
@@ -533,14 +338,59 @@ background-color: red !important;
 
             string xml = doc.OuterXml;
 
+            string simplePage2 = MapSolutionPath(@"~/TestFiles/simplePage2.htm");
+            simplePage2 = System.IO.File.ReadAllText(simplePage2, System.Text.Encoding.UTF8);
+            xml = string.Format(simplePage2, xml);
+
             System.IO.File.WriteAllText(@"d:\test_lines.svg", xml, new System.Text.UTF8Encoding(false));
+            System.IO.File.WriteAllText(@"d:\test_lines.htm", xml, new System.Text.UTF8Encoding(false));
+
             // System.Console.WriteLine(xml);
 
+            /*
+            inputSvg = MapSolutionPath(@"~/TestFiles/simplePage.htm");
+            xml = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
+
+            gs = new libWkHtml2X.PdfGlobalSettings();
+
+            gs.Orientation = libWkHtml2X.Orientation.Portrait;
+            gs.Width = "20cm";
+            gs.Height = "30cm";
+
+            gs.MarginBottom = "0px";
+            gs.MarginTop = "0px";
+            gs.MarginLeft = "0px";
+            gs.MarginRight = "0px";
+            */
+
+            gs.ImageDPI = 600;
+            gs.DPI = 96;
+            
+            // gs.PageSize = "20cm 10cm";
+            // gs.Resolution = "2000x1000";
+
+            // os.Header.Spacing = 0;
+            // os.Footer.Spacing = 0;
 
 
-            wkHtmlToXCore.TestPDF.CreatePdf(xml, gs, os);
 
-#if DO_IMAGE
+            os = new libWkHtml2X.PdfObjectSettings();
+            os.Web.EnableIntelligentShrinking = false;
+            //os.Web.PrintMediaType = true;
+            // os.Load.ZoomFactor = 1.0;
+
+            // https://github.com/wkhtmltopdf/wkhtmltopdf/blob/master/docs/usage/wkhtmltopdf.txt
+            // https://stackoverflow.com/questions/6057781/wkhtmltopdf-with-full-page-background
+            // https://stackoverflow.com/questions/4550612/wkhtmltopdf-cannot-convert-local-file
+            // https://github.com/wkhtmltopdf/wkhtmltopdf/issues/2590
+            // https://stackoverflow.com/questions/37454957/wkhtmltopdf-fit-output-to-whole-page-width
+            // https://stackoverflow.com/questions/33528780/any-way-to-reduce-file-size-using-wkhtmltopdf
+
+            // wkHtmlToXCore.TestPDF.CreatePdf(xml, gs, os);
+
+#if true // DO_IMAGE 
+
+            htmlData = xml;
 
             libWkHtml2X.ImageSettings imageSettings = new libWkHtml2X.ImageSettings();
 
@@ -551,13 +401,25 @@ background-color: red !important;
             imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
             
             // imageSettings.ScreenWidth = 5000;
-
-            double factor = 5.5;
+            /*
+            double stretch_factor = 5.5;
             htmlData = htmlData
-                .Replace(@"width=""1380""", @"width=""" + ((int) System.Math.Ceiling(1380 * factor)).ToString() 
+                .Replace(@"width=""1380""", @"width=""" + ((int) System.Math.Ceiling(1380 * stretch_factor)).ToString() 
                 + @"""")
-                .Replace(@"height=""950""", @"height=""" + ((int)System.Math.Ceiling((950 * factor))).ToString() 
+                .Replace(@"height=""950""", @"height=""" + ((int)System.Math.Ceiling((950 * stretch_factor))).ToString() 
                 + @"""");
+            */
+            
+            double stretch_factor = 1.0;
+            htmlData = htmlData
+                .Replace(@"width=""21.00cm""", @"width=""" + ((int)System.Math.Ceiling(2100 * stretch_factor)).ToString()
+                + @"""")
+                .Replace(@"height=""23.66cm""", @"height=""" + ((int)System.Math.Ceiling((2366 * stretch_factor))).ToString()
+                + @"""");
+            
+
+
+
 
             // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
             // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 

@@ -39,7 +39,25 @@ namespace libWkHtml2X
                 // Set Value
                 if (objVal != null)
                 {
-                    string strValue = System.Convert.ToString(objVal, System.Globalization.CultureInfo.InvariantCulture);
+                    System.Type tField = fi.FieldType;
+                    bool isSystemNullableType = (tField.IsGenericType && object.ReferenceEquals(tField.GetGenericTypeDefinition(), typeof(System.Nullable<>)));
+                    if(isSystemNullableType)
+                        tField = System.Nullable.GetUnderlyingType(tField);
+
+                    string strValue = null;
+
+                    if (object.ReferenceEquals(tField, typeof(bool)))
+                    {
+                        strValue = System.Convert.ToString(objVal, System.Globalization.CultureInfo.InvariantCulture).ToLowerInvariant();
+                    }
+                    else if (object.ReferenceEquals(tField, typeof(double)))
+                    {
+                        double dblVal = (double)objVal;
+                        strValue = dblVal.ToString("N2", System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    else
+                        strValue = System.Convert.ToString(objVal, System.Globalization.CultureInfo.InvariantCulture);
+
                     // System.Console.WriteLine(attName);
                     // System.Console.WriteLine(objVal);
                     // System.Console.WriteLine(strValue);
