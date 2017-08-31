@@ -33,7 +33,7 @@ namespace TestWkHtmlToX.Trash
             string fn = @"C:\Users\anonymous\Downloads\CH\CH_semicolon.csv";
 
             System.Collections.Generic.List<System.Collections.Generic.List<string>> dl = Trash.CsvParser.Parse(fn);
-            System.Console.WriteLine(dl);
+            System.Console.WriteLine(dl.Count);
 
 
             System.Data.DataTable dt = new System.Data.DataTable();

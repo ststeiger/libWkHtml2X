@@ -40,7 +40,14 @@ namespace libWkHtml2X
                 if (objVal != null)
                 {
                     System.Type tField = fi.FieldType;
-                    bool isSystemNullableType = (tField.IsGenericType && object.ReferenceEquals(tField.GetGenericTypeDefinition(), typeof(System.Nullable<>)));
+
+                    
+
+
+                    bool isSystemNullableType = (System.Reflection.IntrospectionExtensions.GetTypeInfo(tField).IsGenericType 
+                        && object.ReferenceEquals(tField.GetGenericTypeDefinition(), typeof(System.Nullable<>))
+                    );
+
                     if(isSystemNullableType)
                         tField = System.Nullable.GetUnderlyingType(tField);
 

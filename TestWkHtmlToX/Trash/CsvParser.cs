@@ -32,36 +32,12 @@ namespace TestWkHtmlToX.Trash
         }
 
 
-        /*
-        private static Tuple<T, IEnumerable<T>> HeadAndTail<T>(this IEnumerable<T> source)
-        {
-            if (source == null)
-                throw new ArgumentNullException("source");
-            var en = source.GetEnumerator();
-            en.MoveNext();
-            return Tuple.Create(en.Current, EnumerateTail(en));
-        }
-
-        private static IEnumerable<T> EnumerateTail<T>(IEnumerator<T> en)
-        {
-            while (en.MoveNext()) yield return en.Current;
-        }
-
-        public static IEnumerable<IList<string>> Parse(string content, char delimiter, char qualifier)
-        {
-            using (var reader = new System.IO.StringReader(content))
-                return Parse(reader, delimiter, qualifier);
-        }
-
-        public static Tuple<IList<string>, IEnumerable<IList<string>>> ParseHeadAndTail(
-            System.IO.TextReader reader, char delimiter, char qualifier)
-        {
-            return HeadAndTail(Parse(reader, delimiter, qualifier));
-        }
-        */
-
-
         public static List<List<string>> Parse(System.IO.TextReader reader, char delimiter, char qualifier)
+        {
+            return Parse(reader, 0, delimiter, qualifier);
+        }
+
+        public static List<List<string>> Parse(System.IO.TextReader reader, int maxNum, char delimiter, char qualifier)
         {
             List<List<string>> records = new List<List<string>>();
 
@@ -95,8 +71,15 @@ namespace TestWkHtmlToX.Trash
                         }
 
                         if (record.Count > 0)
-                            records.Add(record);
+                        {
                             //yield return record;
+                            records.Add(record);
+
+                            // return if maxNum is reached - fetch all if maxNum = 0
+                            if (maxNum == 0 && records.Count == maxNum)
+                                return records;
+                        }
+
 
                         record = new List<string>(record.Count);
                     }
