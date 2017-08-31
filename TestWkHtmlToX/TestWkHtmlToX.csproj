@@ -63,6 +63,7 @@
     <Compile Include="Trash\myCSV.cs" />
     <Compile Include="Trash\TestAsyncMethod.cs" />
     <Compile Include="XmlHelper.cs" />
+    <Content Include="Trash\wkhtml_commands.txt" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

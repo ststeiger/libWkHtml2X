@@ -1,0 +1,45 @@
+wkhtmltopdf.exe --page-size A4 -L 0 -R 0 -T 0 -B 0 .\testsize.html testsize.pdf
+wkhtmltopdf --viewport-size 1280x1024 --orientation Landscape http://site_name.com file_name.pdf
+/wkhtmltopdf -T 6 -B 6 -L 6 -R 6 --dpi 36 'https://en.m.wikipedia.org/wiki/Game_of_Thrones' 'got.pdf'
+
+wkhtmltopdf -T 0 -B 0 -L 0 -R 0 --zoom 1.0 --disable-smart-shrinking --dpi 300 'https://en.m.wikipedia.org/wiki/Game_of_Thrones' 'got.pdf'
+
+
+wkhtmltopdf -T 0 -B 0 -L 0 -R 0 --zoom 1.0 --disable-smart-shrinking --dpi 300 'file:///D:/Stefan.Steiger/Documents/Visual%20Studio%202013/Projects/libWkHtml2X/TestWkHtmlToX/TestFiles/simplePage.htm' 'simpleP.pdf'
+
+
+
+wkhtmltopdf -T 0 -B 0 -L 0 -R 0 --zoom 1.0 --disable-smart-shrinking --dpi 300 'D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\TestFiles\simplePage.htm' 'simpleP.pdf'
+
+
+
+type "D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\TestFiles\simplePage.htm" | wkhtmltopdf --page-width 20cm  --page-height 30.01cm -T 0 -B 0 -L 0 -R 0 --zoom 1.0 --disable-smart-shrinking --dpi 300 - "simpleP.pdf" 
+
+
+
+#type "D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\TestFiles\simplePage.htm" | wkhtmltopdf --page-width 20cm  --page-height 30.01cm -T 0 -B 0 -L 0 -R 0 --zoom 1.0  --dpi 300 - "simpleP.pdf" 
+
+
+
+type "D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\TestFiles\simplePage.htm" | wkhtmltopdf --page-width 20cm  --page-height 30cm -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 300 - "simpleP.pdf" 
+
+
+
+type "D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\TestFiles\simplePage.htm" | wkhtmltopdf --page-width 20cm  --page-height 30cm -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking - "simpleP.pdf" 
+
+
+type "D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\TestFiles\simplePage.htm" | wkhtmltopdf --page-height 30cm --page-width 20cm  -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 96 --image-dpi 300 - "simpleP.pdf" 
+
+
+
+type "D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\TestFiles\simplePage.htm" | wkhtmltopdf --page-height 30cm --page-width 20cm  -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 300 - "simpleP.pdf" 
+
+
+
+type "D:\test_lines.svg" | wkhtmltopdf --page-width 21cm --page-height 23.66cm   -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 96 - "page.pdf" 
+type "D:\test_lines.svg" | wkhtmltopdf --page-width 21cm --page-height 23.9cm   -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 96 - "page.pdf" 
+
+
+
+d:
+cd "D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\Libs\0.12.4\Win\x86-64"
