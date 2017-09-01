@@ -10,7 +10,6 @@ namespace TestWkHtmlToX
         private delegate System.IntPtr wkhtmltopdf_version_t();
 
 
-
         public static string MapSolutionPath(string file)
         {
             file = file.Replace("/", System.IO.Path.DirectorySeparatorChar.ToString()).Replace(@"\", System.IO.Path.DirectorySeparatorChar.ToString());
@@ -25,13 +24,33 @@ namespace TestWkHtmlToX
                 if (file.StartsWith(System.IO.Path.DirectorySeparatorChar.ToString()) )
                     file = file.Substring(1);
 
-                
                 file = System.IO.Path.Combine(dir, file);
                 return file;
-            }
+            } // End if (file.StartsWith("~")) 
 
             return file;
-        }
+        } // End Function MapSolutionPath 
+
+
+
+
+
+
+        // F*** Win 8.1
+        private static System.Globalization.NumberFormatInfo CreateWebNumberFormat()
+        {
+            //System.Globalization.NumberFormatInfo nfi = (System.Globalization.NumberFormatInfo)System.Globalization.CultureInfo.InvariantCulture.NumberFormat.Clone();
+            System.Globalization.NumberFormatInfo nfi = new System.Globalization.NumberFormatInfo();
+            nfi.NumberGroupSeparator = "";
+            nfi.NumberDecimalSeparator = ".";
+
+            nfi.CurrencyGroupSeparator = "";
+            nfi.CurrencyDecimalSeparator = ".";
+            nfi.CurrencySymbol = "";
+
+            return nfi;
+        } // End Function SetupNumberFormatInfo
+
 
 
         /// <summary>
@@ -40,6 +59,8 @@ namespace TestWkHtmlToX
         [System.STAThread]
         static void Main()
         {
+            System.Globalization.NumberFormatInfo nfi = CreateWebNumberFormat();
+
             // TestAsyncMethod.EntryPoint();
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
@@ -183,8 +204,8 @@ background-color: red !important;
 
             inputSvg = MapSolutionPath(@"~/TestFiles/1503497977772.svg");
             inputSvg = MapSolutionPath(@"~/TestFiles/1503647812149.svg");
-            inputSvg = MapSolutionPath(@"~/TestFiles/1503666084152.svg");
-            inputSvg = MapSolutionPath(@"~/TestFiles/1503666154395.svg");
+            // inputSvg = MapSolutionPath(@"~/TestFiles/1503666084152.svg");
+            // inputSvg = MapSolutionPath(@"~/TestFiles/1503666154395.svg");
             // inputSvg = MapSolutionPath(@"~/TestFiles/TestBug.svg");
             // inputSvg = MapSolutionPath(@"~/TestFiles/TestFixed.svg");
             
@@ -273,8 +294,14 @@ background-color: red !important;
             double ff1 = newWidth * f;
             double ff2 = newHeight * f;
 
-            awidth.Value = ff1.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
-            aheight.Value = ff2.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+            // For Image
+            double factorSize = 2;
+            awidth.Value = ((int)System.Math.Ceiling(factorSize * viewbox_width)).ToString("N2", nfi);
+            aheight.Value = ((int)System.Math.Ceiling(factorSize * viewbox_height)).ToString("N2", nfi);
+
+            // For PDF
+            // awidth.Value = ff1.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+            // aheight.Value = ff2.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
 
 
             gs.Width = "21.0cm";
@@ -285,7 +312,6 @@ background-color: red !important;
             gs.Height = aheight.Value;
             // gs.Height = "23.79cm"; 
             // gs.Height = "23.9cm"; // 23.66cm
-
 
             //gs.Width = aheight.Value;
             //gs.Height = awidth.Value;
@@ -399,6 +425,11 @@ background-color: red !important;
             imageSettings.Web.EnableIntelligentShrinking = false;
             imageSettings.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
             imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
+
+
+            imageSettings.SmartWidth = false;
+            imageSettings.ScreenWidth = (int)System.Math.Ceiling(factorSize * viewbox_width);
+
             
             // imageSettings.ScreenWidth = 5000;
             /*
@@ -410,15 +441,14 @@ background-color: red !important;
                 + @"""");
             */
             
+            /*
             double stretch_factor = 1.0;
             htmlData = htmlData
                 .Replace(@"width=""21.00cm""", @"width=""" + ((int)System.Math.Ceiling(2100 * stretch_factor)).ToString()
                 + @"""")
                 .Replace(@"height=""23.66cm""", @"height=""" + ((int)System.Math.Ceiling((2366 * stretch_factor))).ToString()
                 + @"""");
-            
-
-
+            */
 
 
             // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot

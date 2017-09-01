@@ -20,26 +20,25 @@ namespace libWkHtml2X
         /// left/x coordinate of the window to capture in pixels. E.g. "200"
         /// </summary>
         [wkHtmlOptionName("crop.left")]
-        public double? CropLeft; // X
+        public int? CropLeft; // X
 
         /// <summary>
         /// top/y coordinate of the window to capture in pixels. E.g. "200"
         /// </summary>
         [wkHtmlOptionName("crop.top")]
-        public double? CropTop; // Y
+        public int? CropTop; // Y
 
         /// <summary>
         /// Width of the window to capture in pixels. E.g. "200"
         /// </summary>
         [wkHtmlOptionName("crop.width")]
-        public double? CropWidth;
+        public int? CropWidth;
 
         /// <summary>
         /// Height of the window to capture in pixels. E.g. "200"
         /// </summary>
         [wkHtmlOptionName("crop.height")]
-        public double? CropHeight;
-
+        public int? CropHeight;
 
         /// <summary>
         /// Path of file used to load and store cookies.
@@ -56,11 +55,16 @@ namespace libWkHtml2X
         public LoadSettings Load = new LoadSettings();
 
 
+
+
         // 
         /// <summary>
         /// web.* https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageWeb
         /// </summary>
         public WebPageSpecificSettings Web = new WebPageSpecificSettings();
+
+
+
 
         /// <summary>
         /// When outputting a PNG or SVG, make the white background transparent. Must be either "true" or "false"
@@ -73,7 +77,6 @@ namespace libWkHtml2X
         /// </summary>
         [wkHtmlOptionName("in")]
         public string InputFileUrl;
-
 
         /// <summary>
         /// The path of the output file, if "-" stdout is used, if empty the content is stored to a internalBuffer.
@@ -93,12 +96,11 @@ namespace libWkHtml2X
         [wkHtmlOptionName("screenWidth")]
         public int? ScreenWidth;
 
-
         /// <summary>
         /// Should we expand the screenWidth if the content does not fit? must be either "true" or "false".
         /// </summary>
         [wkHtmlOptionName("smartWidth")]
-        public int? SmartWidth;
+        public bool? SmartWidth;
 
         /// <summary>
         /// The compression factor to use when outputting a JPEG image. E.g. "94"
@@ -119,4 +121,4 @@ namespace libWkHtml2X
     } // End Class ImageSettings 
 
 
-}
+} // End Namespace libWkHtml2X 
