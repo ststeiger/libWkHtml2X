@@ -2,6 +2,7 @@
 namespace libWkHtml2X
 {
 
+    // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageHeaderFooter
     public class HeaderSettings
     {
 

@@ -53,6 +53,9 @@ namespace TestWkHtmlToX
 
 
 
+
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -294,14 +297,17 @@ background-color: red !important;
             double ff1 = newWidth * f;
             double ff2 = newHeight * f;
 
+#if DO_IMAGE
             // For Image
             double factorSize = 2;
-            awidth.Value = ((int)System.Math.Ceiling(factorSize * viewbox_width)).ToString("N2", nfi);
-            aheight.Value = ((int)System.Math.Ceiling(factorSize * viewbox_height)).ToString("N2", nfi);
-
+            awidth.Value = ((int)System.Math.Ceiling(factorSize * viewbox_width)).ToString("N2", nfi) + "px";
+            aheight.Value = ((int)System.Math.Ceiling(factorSize * viewbox_height)).ToString("N2", nfi) + "px";
+#else
             // For PDF
-            // awidth.Value = ff1.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
-            // aheight.Value = ff2.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+            awidth.Value = ff1.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+            aheight.Value = ff2.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
+#endif
+
 
 
             gs.Width = "21.0cm";
@@ -391,7 +397,7 @@ background-color: red !important;
 
             gs.ImageDPI = 600;
             gs.DPI = 96;
-            
+
             // gs.PageSize = "20cm 10cm";
             // gs.Resolution = "2000x1000";
 
@@ -412,23 +418,22 @@ background-color: red !important;
             // https://stackoverflow.com/questions/37454957/wkhtmltopdf-fit-output-to-whole-page-width
             // https://stackoverflow.com/questions/33528780/any-way-to-reduce-file-size-using-wkhtmltopdf
 
-            // wkHtmlToXCore.TestPDF.CreatePdf(xml, gs, os);
+            wkHtmlToXCore.TestPDF.CreatePdf(xml, gs, os);
 
-#if true // DO_IMAGE 
+#if DO_IMAGE 
 
             htmlData = xml;
 
             libWkHtml2X.ImageSettings imageSettings = new libWkHtml2X.ImageSettings();
 
-            imageSettings.Quality = 50;
-            imageSettings.Web.PrintBackground = true;
-            imageSettings.Web.EnableIntelligentShrinking = false;
-            imageSettings.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
             imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
-
-
-            imageSettings.SmartWidth = false;
             imageSettings.ScreenWidth = (int)System.Math.Ceiling(factorSize * viewbox_width);
+            imageSettings.SmartWidth = false;
+            imageSettings.Quality = 50;
+            
+            imageSettings.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
+            imageSettings.Web.EnableIntelligentShrinking = false;
+            imageSettings.Web.PrintBackground = true;
 
             
             // imageSettings.ScreenWidth = 5000;

@@ -3,6 +3,7 @@ namespace libWkHtml2X
 {
 
 
+    // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageWeb
     public class WebPageSpecificSettings
     {
 

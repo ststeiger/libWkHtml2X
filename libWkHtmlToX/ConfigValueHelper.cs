@@ -8,8 +8,39 @@ namespace libWkHtml2X
 
     public class ConfigValueHelper
     {
-        
 
+        // private static object s_initLock = new object();
+        private static System.Globalization.NumberFormatInfo s_webNumberFormat;
+
+
+        private static System.Globalization.NumberFormatInfo CreateWebNumberFormat()
+        {
+            //System.Globalization.NumberFormatInfo nfi = (System.Globalization.NumberFormatInfo)System.Globalization.CultureInfo.InvariantCulture.NumberFormat.Clone();
+            System.Globalization.NumberFormatInfo nfi = new System.Globalization.NumberFormatInfo();
+            nfi.NumberGroupSeparator = "";
+            nfi.NumberDecimalSeparator = ".";
+
+            nfi.CurrencyGroupSeparator = "";
+            nfi.CurrencyDecimalSeparator = ".";
+            nfi.CurrencySymbol = "";
+
+            return nfi;
+        } // End Function SetupNumberFormatInfo
+
+
+        // https://stackoverflow.com/questions/7095/is-the-c-sharp-static-constructor-thread-safe
+        static ConfigValueHelper()
+        {
+            // lock (s_initLock)
+            // {
+            //     if (s_webNumberFormat == null)
+            s_webNumberFormat = CreateWebNumberFormat();
+            // } // End Lock 
+
+        } // End Static Constructor 
+
+
+        
 
         /// <summary>
         /// 
@@ -41,14 +72,11 @@ namespace libWkHtml2X
                 {
                     System.Type tField = fi.FieldType;
 
-                    
-
-
-                    bool isSystemNullableType = (System.Reflection.IntrospectionExtensions.GetTypeInfo(tField).IsGenericType 
+                    bool isOfTypeSystemNullable = (System.Reflection.IntrospectionExtensions.GetTypeInfo(tField).IsGenericType 
                         && object.ReferenceEquals(tField.GetGenericTypeDefinition(), typeof(System.Nullable<>))
                     );
 
-                    if(isSystemNullableType)
+                    if (isOfTypeSystemNullable)
                         tField = System.Nullable.GetUnderlyingType(tField);
 
                     string strValue = null;
@@ -60,7 +88,12 @@ namespace libWkHtml2X
                     else if (object.ReferenceEquals(tField, typeof(double)))
                     {
                         double dblVal = (double)objVal;
-                        strValue = dblVal.ToString("N2", System.Globalization.CultureInfo.InvariantCulture);
+                        strValue = dblVal.ToString("N2", s_webNumberFormat);
+                    }
+                    else if (object.ReferenceEquals(tField, typeof(int)))
+                    {
+                        int iVal = (int)objVal;
+                        strValue = iVal.ToString(s_webNumberFormat);
                     }
                     else
                         strValue = System.Convert.ToString(objVal, System.Globalization.CultureInfo.InvariantCulture);

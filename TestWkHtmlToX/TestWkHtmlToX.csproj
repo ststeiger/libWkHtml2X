@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libs\0.12.1.2\Win\info.txt" />
+    <Compile Include="Paperkinds.cs" />
     <Compile Include="Trash\CsvImporter.cs" />
     <Compile Include="Trash\DL.cs" />
     <Compile Include="Trash\ImageImport.cs" />
@@ -63,6 +64,9 @@
     <Compile Include="Trash\myCSV.cs" />
     <Compile Include="Trash\TestAsyncMethod.cs" />
     <Compile Include="XmlHelper.cs" />
+    <Content Include="Trash\various_pageSizes.txt" />
+    <Content Include="Trash\wkhtmltoimage.txt" />
+    <Content Include="Trash\wkhtmltopdf.txt" />
     <Content Include="Trash\wkhtml_commands.txt" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

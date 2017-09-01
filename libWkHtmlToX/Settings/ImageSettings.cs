@@ -3,7 +3,7 @@ namespace libWkHtml2X
 {
 
 
-    // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html
+    // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageImageGlobal
     public class ImageSettings
     {
 
