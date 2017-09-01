@@ -40,8 +40,6 @@ namespace TestWkHtmlToX
         [System.STAThread]
         static void Main()
         {
-            Trash.CsvImporter.TestImport();
-
             // TestAsyncMethod.EntryPoint();
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
