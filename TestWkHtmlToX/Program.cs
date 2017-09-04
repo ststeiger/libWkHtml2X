@@ -192,20 +192,8 @@ background-color: red !important;
 </html>
 ";
 
-            string inputSvg = System.IO.Path.GetFullPath(
-                System.IO.Path.Combine(
-                    System.IO.Path.Combine(
-                        System.IO.Path.Combine(
-                            System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location)
-                            , "../..")
-                    , "TestFiles"
-                )
-                //, "TestBug.svg")
-                , "TestFixed.svg")
-            );
-
-
-            inputSvg = MapSolutionPath(@"~/TestFiles/1503497977772.svg");
+            
+            string inputSvg = MapSolutionPath(@"~/TestFiles/1503497977772.svg");
             inputSvg = MapSolutionPath(@"~/TestFiles/1503647812149.svg");
             // inputSvg = MapSolutionPath(@"~/TestFiles/1503666084152.svg");
             // inputSvg = MapSolutionPath(@"~/TestFiles/1503666154395.svg");
