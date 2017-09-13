@@ -54,7 +54,21 @@ div
             // TestPDF.CreatePdf(htmlData);
 
 
-            TestImage.CreateImg(htmlData);
+
+            libWkHtml2X.ImageSettings imageSettings = new libWkHtml2X.ImageSettings();
+
+            imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
+            // imageSettings.ScreenWidth = (int)System.Math.Ceiling(factorSize * viewbox_width); // Width will be fixed at small sizes, if this property isn't set
+            imageSettings.SmartWidth = false;
+            imageSettings.Quality = 50;
+
+            imageSettings.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
+            imageSettings.Web.EnableIntelligentShrinking = false;
+            imageSettings.Web.PrintBackground = true;
+
+            // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
+            // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
+            TestImage.CreateImg(htmlData, imageSettings);
 
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue");

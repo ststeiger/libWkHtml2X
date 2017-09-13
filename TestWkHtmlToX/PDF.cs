@@ -12,7 +12,7 @@ namespace wkHtmlToXCore
         public static void CreatePdf(string htmlData)
         {
             CreatePdf(htmlData, null, null);
-        }
+        } // End Sub CreatePdf(string htmlData) 
 
 
         public static void CreatePdf(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings)
@@ -28,7 +28,7 @@ namespace wkHtmlToXCore
             if (globalSettings != null)
             {
                 globalSettings.SetConfigValues(ptrGlobalSettings);
-            }
+            } // End if (globalSettings != null) 
 
 
 
@@ -37,7 +37,8 @@ namespace wkHtmlToXCore
             if (objectSettings != null)
             {
                 objectSettings.SetConfigValues(ptrObjectSettings);
-            }
+            } // End if (objectSettings != null) 
+
 
 
             System.IntPtr converter = libWkHtml2X.CallsPDF.wkhtmltopdf_create_converter(ptrGlobalSettings);
@@ -60,10 +61,10 @@ namespace wkHtmlToXCore
             int deinitSuccess = libWkHtml2X.CallsPDF.wkhtmltopdf_deinit();
 
             System.Console.WriteLine(ver);
-        }
+        } // End Sub CreatePdf(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings)
 
 
-    }
+    } // End Class TestPDF 
 
 
-}
+} // End Namespace wkHtmlToXCore

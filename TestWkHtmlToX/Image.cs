@@ -12,9 +12,7 @@ namespace wkHtmlToXCore
         public static void CreateImg(string htmlData, libWkHtml2X.ImageSettings imageSettings)
         {
             string ver = libWkHtml2X.CallsImage.wkhtmltoimage_version();
-
             int init = libWkHtml2X.CallsImage.wkhtmltoimage_init(0);
-
 
             System.IntPtr globalSettings = libWkHtml2X.CallsImage.wkhtmltoimage_create_global_settings();
             imageSettings.SetConfigValues(globalSettings);
@@ -25,21 +23,12 @@ namespace wkHtmlToXCore
             // format = "png";
             // format = "bmp";
             // format = ""; // nothingness
+
             // libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting(globalSettings, "fmt", format);
-
             // libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting(globalSettings, "screen 0", "5024x5768x24");
-
-            
-
-
             // libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting(globalSettings, "in", "https://www.google.com/");
-
             // libWkHtml2X.CallsImage.wkhtmltoimage_get_global_setting(globalSettings, "", "", 0);
-
-
-
-
-
+            
 
             // System.IntPtr data = System.IntPtr.Zero;
             System.IntPtr data = libWkHtml2X.Utf8Marshaler._staticInstance.MarshalManagedToNative(htmlData);
@@ -57,16 +46,15 @@ namespace wkHtmlToXCore
             System.IO.File.WriteAllBytes(fn + imageSettings.SupportedFormat.ToString().ToLowerInvariant(), imgBytes);
             
 
-
             libWkHtml2X.CallsImage.wkhtmltoimage_destroy_converter(converter);
             libWkHtml2X.Utf8Marshaler._staticInstance.CleanUpNativeData(data);
 
             int deinitSuccess = libWkHtml2X.CallsImage.wkhtmltoimage_deinit();
             System.Console.WriteLine(ver);
-        }
+        } // End Sub CreateImg(string htmlData, libWkHtml2X.ImageSettings imageSettings) 
 
 
-    }
+    } // End Class TestImage 
 
 
-}
+} // End Namespace wkHtmlToXCore 
