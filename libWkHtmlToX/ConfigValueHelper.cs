@@ -40,12 +40,19 @@ namespace libWkHtml2X
         } // End Static Constructor 
 
 
-        
+
+
+        public static void SetConfigValues(System.IntPtr config, object instance, set_config_value_t setter)
+        {
+            SetConfigValues1(config, instance, setter);
+            System.Diagnostics.Debug.WriteLine("Debug: SetConfigValues finished");
+        }
+
 
         /// <summary>
         /// 
         /// </summary>
-        public static void SetConfigValues(System.IntPtr config, object instance, set_config_value_t setter)
+        public static void SetConfigValues1(System.IntPtr config, object instance, set_config_value_t setter)
         {
             if (config == System.IntPtr.Zero)
                 throw new System.ArgumentNullException("config");
@@ -63,7 +70,7 @@ namespace libWkHtml2X
 
                 if (attName == null)
                 {
-                    SetConfigValues(config, objVal, setter);
+                    SetConfigValues1(config, objVal, setter);
                     continue;
                 } // End if (attName == null)
 

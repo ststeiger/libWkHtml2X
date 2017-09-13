@@ -66,9 +66,13 @@ div
             imageSettings.Web.EnableIntelligentShrinking = false;
             imageSettings.Web.PrintBackground = true;
 
+
             // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
             // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
-            TestImage.CreateImg(htmlData, imageSettings);
+            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image.png");
+            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image1.png");
+            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.png");
+            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.jpg");
 
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue");

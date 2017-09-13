@@ -406,8 +406,7 @@ background-color: red !important;
             // https://stackoverflow.com/questions/37454957/wkhtmltopdf-fit-output-to-whole-page-width
             // https://stackoverflow.com/questions/33528780/any-way-to-reduce-file-size-using-wkhtmltopdf
 
-            wkHtmlToXCore.TestPDF.CreatePdf(xml, gs, os);
-
+            wkHtmlToXCore.TestPDF.CreatePdfFile(xml, gs, os, @"D:\Test_Lines.pdf");
 #if DO_IMAGE 
 
             htmlData = xml;
@@ -446,9 +445,9 @@ background-color: red !important;
 
             // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
             // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
-            wkHtmlToXCore.TestImage.CreateImg(htmlData, imageSettings);
+            wkHtmlToXCore.TestImage.CreateImageFile(htmlData, imageSettings, @"D:\wktest.png");
 #endif
-            
+
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();

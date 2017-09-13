@@ -15,12 +15,16 @@ namespace wkHtmlToXCore
         } // End Sub CreatePdf(string htmlData) 
 
 
-        public static void CreatePdf(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings)
+        public static byte[] CreatePdf(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings)
         {
+            byte[] output = null;
+            
             // System.IO.File.WriteAllText(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.htm", htmlData, System.Text.Encoding.UTF8);
 
 
             string ver = libWkHtml2X.CallsPDF.wkhtmltopdf_version();
+            // System.Console.WriteLine(ver);
+
             int init = libWkHtml2X.CallsPDF.wkhtmltopdf_init(0);
 
             System.IntPtr ptrGlobalSettings = libWkHtml2X.CallsPDF.wkhtmltopdf_create_global_settings();
@@ -47,9 +51,9 @@ namespace wkHtmlToXCore
 
             libWkHtml2X.CallsPDF.wkhtmltopdf_convert(converter);
 
-            byte[] output = libWkHtml2X.CallsPDF.wkhtmltopdf_get_output(converter);
+            output = libWkHtml2X.CallsPDF.wkhtmltopdf_get_output(converter);
             //System.IO.File.WriteAllBytes(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.pdf", output);
-            System.IO.File.WriteAllBytes(@"D:\Test_Lines.pdf", output);
+            
 
             libWkHtml2X.CallsPDF.wkhtmltopdf_destroy_converter(converter);
 
@@ -60,8 +64,20 @@ namespace wkHtmlToXCore
 
             int deinitSuccess = libWkHtml2X.CallsPDF.wkhtmltopdf_deinit();
 
-            System.Console.WriteLine(ver);
+            return output;
         } // End Sub CreatePdf(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings)
+
+        
+        public static void CreatePdfFile(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings, string fileName)
+        {
+            byte[] pdfBytes = CreatePdf(htmlData, globalSettings, objectSettings);
+
+
+            if (!fileName.EndsWith(".pdf", System.StringComparison.InvariantCultureIgnoreCase))
+                fileName += ".pdf";
+
+            System.IO.File.WriteAllBytes(fileName, pdfBytes);
+        } // End Sub CreatePdfFile(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings)
 
 
     } // End Class TestPDF 

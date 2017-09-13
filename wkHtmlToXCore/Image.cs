@@ -9,9 +9,13 @@ namespace wkHtmlToXCore
 
 
         // https://wkhtmltopdf.org/libwkhtmltox/
-        public static void CreateImg(string htmlData, libWkHtml2X.ImageSettings imageSettings)
+        public static byte[] CreateImage(string htmlData, libWkHtml2X.ImageSettings imageSettings)
         {
-            string ver = libWkHtml2X.CallsImage.wkhtmltoimage_version();
+            byte[] imgBytes = null;
+
+            // string ver = libWkHtml2X.CallsImage.wkhtmltoimage_version();
+            // System.Console.WriteLine(ver);
+
             int init = libWkHtml2X.CallsImage.wkhtmltoimage_init(0);
 
             System.IntPtr globalSettings = libWkHtml2X.CallsImage.wkhtmltoimage_create_global_settings();
@@ -33,25 +37,30 @@ namespace wkHtmlToXCore
             // System.IntPtr data = System.IntPtr.Zero;
             System.IntPtr data = libWkHtml2X.Utf8Marshaler._staticInstance.MarshalManagedToNative(htmlData);
 
-
             System.IntPtr converter = libWkHtml2X.CallsImage.wkhtmltoimage_create_converter(globalSettings, data);
 
             int res = libWkHtml2X.CallsImage.wkhtmltoimage_convert(converter);
+            imgBytes = libWkHtml2X.CallsImage.wkhtmltoimage_get_output(converter);
 
-            byte[] imgBytes = libWkHtml2X.CallsImage.wkhtmltoimage_get_output(converter);
-
-            string fn = @"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\Test.";
-            fn = @"D:\username\Documents\Visual Studio 2013\Projects\libWkHtml2X\TestWkHtmlToX\Libs\0.12.4\Win\x86-64\Test.";
-
-            System.IO.File.WriteAllBytes(fn + imageSettings.SupportedFormat.ToString().ToLowerInvariant(), imgBytes);
-
-
-            libWkHtml2X.CallsImage.wkhtmltoimage_destroy_converter(converter);
+            // libWkHtml2X.CallsImage.wkhtmltoimage_destroy_converter(converter);
             libWkHtml2X.Utf8Marshaler._staticInstance.CleanUpNativeData(data);
 
             int deinitSuccess = libWkHtml2X.CallsImage.wkhtmltoimage_deinit();
-            System.Console.WriteLine(ver);
-        } // End Sub CreateImg(string htmlData, libWkHtml2X.ImageSettings imageSettings) 
+
+            return imgBytes;
+        } // End Sub CreateImage(string htmlData, libWkHtml2X.ImageSettings imageSettings) 
+
+
+        // CreateImageFile(htmlData, imageSettings, @"D:\test_image");
+        public static void CreateImageFile(string htmlData, libWkHtml2X.ImageSettings imageSettings, string fileName)
+        {
+            byte[] imgBytes = CreateImage(htmlData, imageSettings);
+
+            if (!fileName.EndsWith("." + imageSettings.SupportedFormat.ToString().ToLowerInvariant(), System.StringComparison.OrdinalIgnoreCase))
+                fileName += "." + imageSettings.SupportedFormat.ToString().ToLowerInvariant();
+
+            System.IO.File.WriteAllBytes(fileName, imgBytes);
+        } // End Sub CreateImageFile 
 
 
     } // End Class TestImage 
