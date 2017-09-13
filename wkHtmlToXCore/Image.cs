@@ -41,7 +41,7 @@ namespace wkHtmlToXCore
             int res = libWkHtml2X.CallsImage.wkhtmltoimage_convert(converter);
 
             byte[] imgBytes = libWkHtml2X.CallsImage.wkhtmltoimage_get_output(converter);
-            System.IO.File.WriteAllBytes(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file." + format, imgBytes);
+            System.IO.File.WriteAllBytes(@"D:\wkHtmlToImageTestFile." + format, imgBytes);
 
 
 

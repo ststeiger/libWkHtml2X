@@ -21,7 +21,7 @@ namespace wkHtmlToXCore
             // System.IO.Compression.GZipStream
 
 
-            libWkHtml2X.TestScheduler.Test();
+            // libWkHtml2X.TestScheduler.Test();
 
 
             string htmlData = @"<!doctype html>
@@ -55,7 +55,6 @@ div
 
 
             TestImage.CreateImg(htmlData);
-
 
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue");

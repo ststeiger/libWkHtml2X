@@ -233,35 +233,58 @@ namespace libWkHtml2X
         }
 
 
+
+        internal static string GetOsDirectory()
+        {
+            if (IsWindows)
+                return "/Win";
+
+            if (IsLinux)
+                return "/Linux";
+
+            if (IsMac)
+                return "/Mac";
+
+            if (IsUnix)
+                return "/Unix";
+
+            return "/Win";
+        }
+
+
         internal static void Init()
         {
+            
+
             // string dllDirectory = @"C:\PortableApps\wkhtmltopdf\x" + (System.IntPtr.Size * 8).ToString() + @"\bin";
-            string dllDirectory = @"C:\PortableApps\wkhtmltopdf\0.12.4\x" + (System.IntPtr.Size * 8).ToString() + @"\bin";
-
-
-            if (System.StringComparer.OrdinalIgnoreCase.Equals("COR", System.Environment.GetEnvironmentVariable("USERDOMAIN")))
-            {
-                dllDirectory = System.IO.Path.GetFullPath(
+            string dllDirectory = System.IO.Path.GetFullPath(
                     System.IO.Path.Combine(
                         System.IO.Path.Combine(
                             System.IO.Path.GetDirectoryName(
                                 System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(NativeMethods)).Assembly.Location
                             )
-#if VER_NEU
-                            , "../../Libs/0.13.0-alpha/Win")
+                            //#if VER_NEU
 
-#elif true 
-                            , "../../Libs/0.12.1.2/Win")
+                            , (IsNetCore ? "../../../../" : "../../../")
+                            + "TestWkHtmlToX/Libs/" + 
+
+#if false 
+                             "0.13.0-alpha"
+
+#elif false
+                             "0.12.1.2"
 #else
-
-
-                            , "../../Libs/0.12.4/Win")
+                             "0.12.4"
 #endif
+                             + GetOsDirectory() 
+                             )
+
                         , "x86-" + (System.IntPtr.Size * 8).ToString()
                     )
-                );
+            );
 
-            }
+
+            
 
             Init(dllDirectory);
         }
