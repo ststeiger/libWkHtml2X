@@ -34,22 +34,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttributeHelper.cs" />
-    <Compile Include="bidi.cs" />
-    <Compile Include="CallsImage.cs" />
-    <Compile Include="CallsPDF.cs" />
-    <Compile Include="ConfigValueHelper.cs" />
-    <Compile Include="LibraryLoader.cs" />
-    <Compile Include="MarshalerConstUtf8.cs" />
-    <Compile Include="MarshalerUtf8.cs" />
-    <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IntrospectionExtensions.cs" />
-    <Compile Include="wkHtmlOptionNameAttribute.cs" />
   </ItemGroup>
+  <Import Project="..\libWkHtmlToX\libWkHtmlToX.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
