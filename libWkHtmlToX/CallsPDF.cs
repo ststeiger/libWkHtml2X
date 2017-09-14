@@ -9,7 +9,7 @@ namespace libWkHtml2X
     public static class CallsPDF
     {
         private const string DLL_NAME = NativeMethods.DLL_NAME;
-
+        private static bool? s_wkHtmlInitialized;
 
         static CallsPDF()
         {
@@ -17,6 +17,7 @@ namespace libWkHtml2X
             //////WkHtmlToXLibrariesManager.InitializeNativeLibrary();
 
             NativeMethods.Init();
+            wkhtmltopdf_init(false);
         }
 
 
@@ -41,13 +42,36 @@ namespace libWkHtml2X
 
         
 
-        [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
-        public static extern int wkhtmltopdf_init(int use_graphics);
+        [DllImport(DLL_NAME, EntryPoint = "wkhtmltopdf_init", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
+        public static extern int wkhtmltopdf_init_internal(int use_graphics);
         // CAPI(int) wkhtmltopdf_init(int use_graphics);
 
+
+
+        public static int wkhtmltopdf_init(bool use_graphics)
+        {
+            if (s_wkHtmlInitialized.HasValue)
+                return 1;
+
+            int ret = wkhtmltopdf_init_internal(use_graphics ? 1 : 0);
+            s_wkHtmlInitialized = true;
+
+            return ret;
+        }
+
+
         [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
-        public static extern int wkhtmltopdf_deinit();
+        private static extern int wkhtmltopdf_deinit_internal();
         // CAPI(int) wkhtmltopdf_deinit(); 
+
+
+        public static int wkhtmltopdf_deinit()
+        {
+            // return wkhtmltopdf_deinit_internal();
+            System.Diagnostics.Debug.WriteLine("You cannot call wkhtmltopdf_deinit. If you do, it silently fails when you re-initialize...");
+            return 1;
+        }
+
 
         [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
         public static extern int wkhtmltopdf_extended_qt();

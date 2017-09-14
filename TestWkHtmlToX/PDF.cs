@@ -25,7 +25,7 @@ namespace wkHtmlToXCore
             string ver = libWkHtml2X.CallsPDF.wkhtmltopdf_version();
             // System.Console.WriteLine(ver);
 
-            int init = libWkHtml2X.CallsPDF.wkhtmltopdf_init(0);
+            int init = libWkHtml2X.CallsPDF.wkhtmltopdf_init(false);
 
             System.IntPtr ptrGlobalSettings = libWkHtml2X.CallsPDF.wkhtmltopdf_create_global_settings();
             // libWkHtml2X.CallsPDF.wkhtmltopdf_set_global_setting(ptrGlobalSettings, "", "");

@@ -11,6 +11,7 @@ namespace libWkHtml2X
     {
 
         private const string DLL_NAME = NativeMethods.DLL_NAME;
+        private static bool? s_wkHtmlInitialized;
 
 
         static CallsImage()
@@ -19,6 +20,7 @@ namespace libWkHtml2X
             //////WkHtmlToXLibrariesManager.InitializeNativeLibrary();
 
             NativeMethods.Init();
+            wkhtmltoimage_init(false);
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -40,13 +42,33 @@ namespace libWkHtml2X
         
         
 
-        [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
-        public static extern int wkhtmltoimage_init(int use_graphics);
+        [DllImport(DLL_NAME, EntryPoint = "wkhtmltoimage_init", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
+        private static extern int wkhtmltoimage_init_internal(int use_graphics);
         // CAPI(int) wkhtmltoimage_init(int use_graphics);
+        
+        
+        public static int wkhtmltoimage_init(bool use_graphics)
+        {
+            if (s_wkHtmlInitialized.HasValue)
+                return 1;
 
-        [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
-        public static extern int wkhtmltoimage_deinit();
+            int ret = wkhtmltoimage_init_internal(use_graphics ? 1 : 0);
+            s_wkHtmlInitialized = true;
+
+            return ret;
+        }
+
+
+        [DllImport(DLL_NAME, EntryPoint = "wkhtmltoimage_deinit", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
+        private static extern int wkhtmltoimage_deinit_internal();
         // CAPI(int) wkhtmltoimage_deinit();
+
+        public static int wkhtmltoimage_deinit()
+        {
+            System.Diagnostics.Debug.WriteLine("You cannot call wkhtmltoimage_deinit. If you do, it silently fails when you re-initialize...");
+            return 1;
+        }
+
 
         [DllImport(DLL_NAME, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
         public static extern int wkhtmltoimage_extended_qt();

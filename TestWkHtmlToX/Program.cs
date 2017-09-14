@@ -30,11 +30,7 @@ namespace TestWkHtmlToX
 
             return file;
         } // End Function MapSolutionPath 
-
-
-
-
-
+        
 
         // F*** Win 8.1
         private static System.Globalization.NumberFormatInfo CreateWebNumberFormat()

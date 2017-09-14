@@ -7,7 +7,6 @@ namespace wkHtmlToXCore
     public class TestImage
     {
 
-
         // https://wkhtmltopdf.org/libwkhtmltox/
         public static byte[] CreateImage(string htmlData, libWkHtml2X.ImageSettings imageSettings)
         {
@@ -15,8 +14,11 @@ namespace wkHtmlToXCore
 
             // string ver = libWkHtml2X.CallsImage.wkhtmltoimage_version();
             // System.Console.WriteLine(ver);
+            int init = libWkHtml2X.CallsImage.wkhtmltoimage_init(false);
 
-            int init = libWkHtml2X.CallsImage.wkhtmltoimage_init(0);
+
+
+
 
             System.IntPtr globalSettings = libWkHtml2X.CallsImage.wkhtmltoimage_create_global_settings();
             imageSettings.SetConfigValues(globalSettings);

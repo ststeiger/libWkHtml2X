@@ -16,7 +16,7 @@ namespace wkHtmlToXCore
             // string ver = libWkHtml2X.CallsImage.wkhtmltoimage_version();
             // System.Console.WriteLine(ver);
 
-            int init = libWkHtml2X.CallsImage.wkhtmltoimage_init(0);
+            int init = libWkHtml2X.CallsImage.wkhtmltoimage_init(false);
 
             System.IntPtr globalSettings = libWkHtml2X.CallsImage.wkhtmltoimage_create_global_settings();
             imageSettings.SetConfigValues(globalSettings);
