@@ -1,4 +1,7 @@
 ﻿
+#define DO_IMAGE 
+
+
 namespace TestWkHtmlToX
 {
 
@@ -402,11 +405,10 @@ background-color: red !important;
             // https://stackoverflow.com/questions/37454957/wkhtmltopdf-fit-output-to-whole-page-width
             // https://stackoverflow.com/questions/33528780/any-way-to-reduce-file-size-using-wkhtmltopdf
 
-            wkHtmlToXCore.TestPDF.CreatePdfFile(xml, gs, os, @"D:\Test_Lines.pdf");
+            libWkHtml2X.Converter.CreatePdfFile(xml, gs, os, @"D:\Test_Lines.pdf");
 #if DO_IMAGE 
-
             htmlData = xml;
-
+            
             libWkHtml2X.ImageSettings imageSettings = new libWkHtml2X.ImageSettings();
 
             imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
@@ -418,7 +420,7 @@ background-color: red !important;
             imageSettings.Web.EnableIntelligentShrinking = false;
             imageSettings.Web.PrintBackground = true;
 
-            
+
             // imageSettings.ScreenWidth = 5000;
             /*
             double stretch_factor = 5.5;
@@ -428,7 +430,7 @@ background-color: red !important;
                 .Replace(@"height=""950""", @"height=""" + ((int)System.Math.Ceiling((950 * stretch_factor))).ToString() 
                 + @"""");
             */
-            
+
             /*
             double stretch_factor = 1.0;
             htmlData = htmlData
@@ -441,7 +443,7 @@ background-color: red !important;
 
             // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
             // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
-            wkHtmlToXCore.TestImage.CreateImageFile(htmlData, imageSettings, @"D:\wktest.png");
+            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_lines.png");
 #endif
 
             System.Console.WriteLine(System.Environment.NewLine);

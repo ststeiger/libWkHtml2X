@@ -1,4 +1,9 @@
 ﻿
+#if !NET_2_0
+    using System.Xml; // CreateNavigator: F*ing extension method in .NET Core
+#endif 
+
+
 namespace libWkHtml2X
 {
 
@@ -48,7 +53,7 @@ namespace libWkHtml2X
         } // End Function GetReportNamespaceManager
 
 
-    }
+    } // End Class XmlHelper 
 
 
-}
+} // End Namespace libWkHtml2X 

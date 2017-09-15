@@ -15,6 +15,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)CallsPDF.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoInitHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConfigValueHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Paperkinds.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Scheduler\ConversionTask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\DiffMatchPatch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\DiffMatchPatchTest.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Settings\WebPageSpecificSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\_SomeEnums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)wkHtmlOptionNameAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Libs\wkhtmltox\Win\x64\wkhtmltoimage.exe" />

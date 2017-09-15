@@ -5,7 +5,7 @@ namespace wkHtmlToXCore
 
     class Program
     {
-
+        
 
         [System.STAThread()]
         static void Main(string[] args)
@@ -68,10 +68,11 @@ div
 
             // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
             // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
-            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image.png");
-            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image1.png");
-            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.png");
-            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.jpg");
+
+            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image.png");
+            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image1.png");
+            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.png");
+            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.jpg");
 
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue");
