@@ -48,31 +48,6 @@ div
 </html>
 ";
 
-            string htmlData2 = @"<!doctype html>
-<html>
-<head>
-<title>Test</title>
-<script type=""text/javascript"">
-</script>
-
-<style type=""text/css"" media=""all"">
-
-div
-{
-    background-color: green !important;
-}
-
-</style>
-</head>
-<body>
-
-<div style=""display: block; width: 2000p; height: 2000px; background-color: hotpink;""></div>
-
-</body>
-</html>
-";
-
-
             // https://stackoverflow.com/questions/20525554/pyside-qt-could-not-initialize-ole-error-80010106
             // TestPDF.CreatePdf(htmlData);
             // TestPDF.CreatePdf(htmlData);
@@ -95,7 +70,7 @@ div
             // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
             TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image.png");
             TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image1.png");
-            TestImage.CreateImageFile(htmlData2, imageSettings, @"D:\test_image2.png");
+            TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.png");
             TestImage.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.jpg");
 
             System.Console.WriteLine(System.Environment.NewLine);
