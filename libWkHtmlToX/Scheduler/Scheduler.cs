@@ -9,6 +9,12 @@ namespace libWkHtml2X
     }
 
 
+    public enum fasddfs : int 
+    {
+
+    }
+
+
     public class Scheduler
     {
 
@@ -33,14 +39,14 @@ namespace libWkHtml2X
 
         private static ulong m_QueueId;
 
-        public static ConversionTask QueueConversion(string html, object id)
+        public static ConversionTask QueueConversion(string html, object id, ConversionTask.convert_callback_t cb)
         {
             ConversionTask ct = null;
             
             lock (s_queueLock)
             {
                 m_QueueId++;
-                ct = new ConversionTask(html, id, m_QueueId);
+                ct = new ConversionTask(html, id, m_QueueId, cb);
                 
                 s_TaskList.AddLast(ct);
             } // End Lock s_queueLock
@@ -49,16 +55,17 @@ namespace libWkHtml2X
         } // End Function QueueConversion 
 
 
-        public static byte[] ConvertFile(string html)
+        public static byte[] ConvertFile(string html, ConversionTask.convert_callback_t cb)
         {
-            return ConvertFile(html, null);
+            return ConvertFile(html, null, cb);
         } // End Sub ConvertFile 
 
-        public static byte[] ConvertFile(string html, object id)
+
+        public static byte[] ConvertFile(string html, object id, ConversionTask.convert_callback_t cb)
         {
             byte[] data = null;
 
-            ConversionTask ct = QueueConversion(html, id);
+            ConversionTask ct = QueueConversion(html, id, cb);
             System.Console.WriteLine("Queued YOUR item #" + System.Convert.ToString(ct.Id)
                 + " as qid[" + System.Convert.ToString(ct.QueueId) + "]"
             );
@@ -141,11 +148,9 @@ namespace libWkHtml2X
         }
 
 
-        public static byte[] Process(string html)
-        {
-            System.Threading.Thread.Sleep(5000);
-            return System.Text.Encoding.UTF8.GetBytes(html);
-        } // End Function Process 
+        // For Testing
+        // public static byte[] Process(string html)
+        // { System.Threading.Thread.Sleep(5000); return System.Text.Encoding.UTF8.GetBytes(html); } // End Function Process 
 
 
         public static void StartSingleThreadProcessing()
@@ -177,8 +182,10 @@ namespace libWkHtml2X
                                     continue;
                                 } // End if (string.IsNullOrEmpty(s.HTML) || s.HTML.Trim() == string.Empty)
 
-                                s.Data = Process(s.HTML);
-
+                                // Hier wird die Konvertierung ausgeführt.
+                                // s.Data = Process(s.HTML);
+                                s.Data = s.ConversionCallback(s.QueueId);
+                                
                                 if (s.Data == null)
                                 {
                                     s.Error = new System.Exception("Unknown conversion error...");

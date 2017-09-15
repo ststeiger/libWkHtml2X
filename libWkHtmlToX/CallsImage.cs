@@ -20,7 +20,8 @@ namespace libWkHtml2X
             //////WkHtmlToXLibrariesManager.InitializeNativeLibrary();
 
             NativeMethods.Init();
-            wkhtmltoimage_init(false);
+            CallsImage.wkhtmltoimage_init(false);
+            CallsPDF.wkhtmltopdf_init(false);
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

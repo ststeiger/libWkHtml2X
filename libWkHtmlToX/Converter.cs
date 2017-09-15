@@ -9,9 +9,9 @@ namespace libWkHtml2X
     {
 
 
-        public static void CreatePdf(string htmlData)
+        public static byte[] CreatePdf(string htmlData)
         {
-            CreatePdf(htmlData, null, null);
+            return CreatePdf(htmlData, null, null);
         } // End Sub CreatePdf(string htmlData) 
 
 

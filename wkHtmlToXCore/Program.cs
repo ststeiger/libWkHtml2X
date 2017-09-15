@@ -10,6 +10,16 @@ namespace wkHtmlToXCore
         [System.STAThread()]
         static void Main(string[] args)
         {
+
+
+            var x = new foo();
+            var y = new foo();
+            x.bar = true;
+            y.bar = false;
+
+            x.showMessage(x.getBar);
+
+
             // System.Threading.Thread.CurrentThread.SetApartmentState(System.Threading.ApartmentState.STA);
             // System.Threading.Thread.CurrentThread.ApartmentState = System.Threading.ApartmentState.STA;
             long coInit = libWkHtml2X.CoInitHelper.CoInitialize();
@@ -21,7 +31,7 @@ namespace wkHtmlToXCore
             // System.IO.Compression.GZipStream
 
 
-            // libWkHtml2X.TestScheduler.Test();
+            libWkHtml2X.TestScheduler.Test();
 
 
             string htmlData = @"<!doctype html>
@@ -51,6 +61,10 @@ div
             // https://stackoverflow.com/questions/20525554/pyside-qt-could-not-initialize-ole-error-80010106
             // TestPDF.CreatePdf(htmlData);
             // TestPDF.CreatePdf(htmlData);
+
+            libWkHtml2X.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf.pdf");
+            libWkHtml2X.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf1.pdf");
+            libWkHtml2X.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf2.pdf");
 
 
 

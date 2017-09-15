@@ -12,19 +12,65 @@ namespace libWkHtml2X
             Scheduler.Ver();
             // System.Threading.Thread.Sleep(5000);
 
+            string testHtmlTemplate = @"<!doctype html>
+<html>
+<head>
+<title>Test</title>
+<script type=""text/javascript"">
+</script>
+
+<style type=""text/css"" media=""all"">
+
+div
+{
+    background-color: red !important;
+}
+
+</style>
+</head>
+<body>
+
+<div style=""display: block; background-color: hotpink;"">Job {@threadid} QueueId {@qid} Message: {@testMessage}</div>
+
+</body>
+</html>
+";
+
+
             System.Random r = new System.Random();
-            for (int j = 0; j < 20; ++j)
+            for (int j = 0; j < 21; ++j)
             {
-                System.Threading.Thread thread = new System.Threading.Thread(delegate (object o)
+                System.Threading.Thread thread = new System.Threading.Thread(delegate (object args)
                 {
+                    // long coInit = libWkHtml2X.CoInitHelper.CoInitialize();
+                    // System.Console.WriteLine("CoInitialize: {0}", coInit);
+
                     int rInt = r.Next(1, 4); //for ints
                     System.Threading.Thread.Sleep(rInt * 1000);
 
-                    byte[] data = Scheduler.ConvertFile("Test " + System.Convert.ToString(o), (int)o);
-                    if (data == null)
-                        return;
+                    int threadId = (int)args;
+                    string treadIdString = System.Convert.ToString(threadId);
+                    string testMessage = testHtmlTemplate.Replace("{@threadid}", treadIdString).Replace("{@testMessage}", "Message " + treadIdString);
 
-                    System.Console.WriteLine(System.Text.Encoding.UTF8.GetString(data));
+                    // Hier wird konvertiert.
+                    // byte[] data = Scheduler.ConvertFile(testMessage, (int)o, null);
+                    byte[] data = Scheduler.ConvertFile(testMessage, threadId, delegate (object queueId) 
+                        {
+                            testMessage = testMessage.Replace("{@qid}", System.Convert.ToString(queueId));
+                            // System.Console.WriteLine("theoretically converting" + testMessage );
+                            // libWkHtml2X.Converter.CreatePdf(xml, gs, os);
+                            return libWkHtml2X.Converter.CreatePdf(testMessage);
+                        }
+                    );
+
+                    if (data == null)
+                    {
+                        System.Console.WriteLine("Converted job {0} got NO bytes.", treadIdString);
+                        return;
+                    }
+
+                    // System.Console.WriteLine(System.Text.Encoding.UTF8.GetString(data));
+                    System.IO.File.WriteAllBytes(@"D:\Test\Job" + treadIdString + ".pdf", data);
                 })
                 { IsBackground = true };
                 thread.Start(j);
