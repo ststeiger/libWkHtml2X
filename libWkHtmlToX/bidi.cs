@@ -434,6 +434,12 @@ namespace libWkHtml2X
             {
                 ((System.Collections.IDictionary)_owner._secondToFirst).CopyTo(array, index);
             }
-        }
-    }
-}
+
+
+        } // End Class ReverseDictionary 
+
+
+    } // End Class BiDictionary<TFirst, TSecond>
+
+
+} // End Namespace libWkHtml2X
