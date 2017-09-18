@@ -10,16 +10,6 @@ namespace wkHtmlToXCore
         [System.STAThread()]
         static void Main(string[] args)
         {
-
-
-            var x = new foo();
-            var y = new foo();
-            x.bar = true;
-            y.bar = false;
-
-            x.showMessage(x.getBar);
-
-
             // System.Threading.Thread.CurrentThread.SetApartmentState(System.Threading.ApartmentState.STA);
             // System.Threading.Thread.CurrentThread.ApartmentState = System.Threading.ApartmentState.STA;
             long coInit = libWkHtml2X.CoInitHelper.CoInitialize();
