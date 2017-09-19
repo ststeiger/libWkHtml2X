@@ -12,6 +12,7 @@
   <Import Project="..\libWkHtmlToX\libWkHtmlToX.projitems" Label="Shared" />
 
   <ItemGroup>
+    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />

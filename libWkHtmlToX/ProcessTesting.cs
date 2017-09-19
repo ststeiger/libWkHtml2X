@@ -41,7 +41,6 @@ Hello world: 안녕하세요...
             {
                 p.Start();
                 p.WriteStandardInput(html);
-
                 pdfBytes = p.ReadOutputStream();
 
                 System.Console.WriteLine("waiting");
