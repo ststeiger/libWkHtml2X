@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libs\0.12.1.2\Win\info.txt" />
+    <Compile Include="VisualStudioHelper.cs" />
     <Compile Include="Trash\CsvImporter.cs" />
     <Compile Include="Trash\DL.cs" />
     <Compile Include="Trash\ImageImport.cs" />

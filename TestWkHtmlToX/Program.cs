@@ -11,28 +11,7 @@ namespace TestWkHtmlToX
 
 
         private delegate System.IntPtr wkhtmltopdf_version_t();
-
-
-        public static string MapSolutionPath(string file)
-        {
-            file = file.Replace("/", System.IO.Path.DirectorySeparatorChar.ToString()).Replace(@"\", System.IO.Path.DirectorySeparatorChar.ToString());
-            string dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            dir = System.IO.Path.Combine(System.IO.Path.Combine(dir, ".."), "..");
-            dir = System.IO.Path.GetFullPath(dir);
-
-            if (file.StartsWith("~"))
-            {
-                file = file.Substring(1);
-
-                if (file.StartsWith(System.IO.Path.DirectorySeparatorChar.ToString()) )
-                    file = file.Substring(1);
-
-                file = System.IO.Path.Combine(dir, file);
-                return file;
-            } // End if (file.StartsWith("~")) 
-
-            return file;
-        } // End Function MapSolutionPath 
+        
         
 
         // F*** Win 8.1
@@ -62,6 +41,10 @@ namespace TestWkHtmlToX
         static void Main()
         {
             System.Globalization.NumberFormatInfo nfi = CreateWebNumberFormat();
+
+
+            libWkHtml2X.ProcessTesting.Test();
+
 
             // TestAsyncMethod.EntryPoint();
 #if false
@@ -192,17 +175,17 @@ background-color: red !important;
 ";
 
             
-            string inputSvg = MapSolutionPath(@"~/TestFiles/1503497977772.svg");
-            inputSvg = MapSolutionPath(@"~/TestFiles/1503647812149.svg");
-            // inputSvg = MapSolutionPath(@"~/TestFiles/1503666084152.svg");
-            // inputSvg = MapSolutionPath(@"~/TestFiles/1503666154395.svg");
-            // inputSvg = MapSolutionPath(@"~/TestFiles/TestBug.svg");
-            // inputSvg = MapSolutionPath(@"~/TestFiles/TestFixed.svg");
-            
+            string inputSvg = VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503497977772.svg");
+            inputSvg = VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg");
+            // inputSvg = VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666084152.svg");
+            // inputSvg = VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666154395.svg");
+            // inputSvg = VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestBug.svg");
+            // inputSvg = VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestFixed.svg");
+
             // wkhtmltopdf --page-size Letter -B 0 -L 0 -R 0 -T 0 input.html output.pdf
             // https://stackoverflow.com/questions/6394905/wkhtmltopdf-what-paper-sizes-are-valid
             // 96dpi/2.54cmpi = 37.7952755906 dpcm
-            
+
 
             htmlData = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
             //htmlData = @"<?xml version=""1.0"" encoding=""utf-8""?>" + System.Environment.NewLine + htmlData;
@@ -357,7 +340,7 @@ background-color: red !important;
 
             string xml = doc.OuterXml;
 
-            string simplePage2 = MapSolutionPath(@"~/TestFiles/simplePage2.htm");
+            string simplePage2 = VisualStudioHelper.MapSolutionPath(@"~/TestFiles/simplePage2.htm");
             simplePage2 = System.IO.File.ReadAllText(simplePage2, System.Text.Encoding.UTF8);
             xml = string.Format(simplePage2, xml);
 
