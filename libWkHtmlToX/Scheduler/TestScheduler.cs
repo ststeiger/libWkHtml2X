@@ -9,7 +9,7 @@ namespace libWkHtml2X
 
         public static void Test()
         {
-            Scheduler.Ver();
+            Scheduler.Init();
             // System.Threading.Thread.Sleep(5000);
 
             string testHtmlTemplate = @"<!doctype html>
@@ -54,7 +54,7 @@ div
 
                     // Hier wird konvertiert.
                     // byte[] data = Scheduler.ConvertFile(testMessage, (int)o, null);
-                    byte[] data = Scheduler.ConvertFile(testMessage, threadId, delegate (object queueId) 
+                    byte[] data = Scheduler.ConvertFile(delegate (ulong queueId) 
                         {
                             testMessage = testMessage.Replace("{@qid}", System.Convert.ToString(queueId));
                             // System.Console.WriteLine("theoretically converting" + testMessage );
@@ -73,12 +73,12 @@ div
                     System.IO.File.WriteAllBytes(@"D:\Test\Job" + treadIdString + ".pdf", data);
                 })
                 { IsBackground = true };
-                thread.Start(j);
 
+                thread.Start(j);
             } // Next j 
 
 
-#if false
+#if false      
 
             System.Threading.Thread.Sleep(10000);
 
@@ -91,13 +91,23 @@ div
                     int rInt = r.Next(0, 5); //for ints
                     System.Threading.Thread.Sleep(rInt * 1000);
 
-                    byte[] data = Scheduler.ConvertFile("hello " + i.ToString());
+                    // byte[] data = Scheduler.ConvertFile("hello " + i.ToString());
+
+                    byte[] data = Scheduler.ConvertFile(
+                        delegate (ulong id)
+                        {
+                            return libWkHtml2X.Converter.CreatePdf("hello " + i.ToString());
+                        }
+                    );
+
                     if (data == null)
                         return;
 
+                    // Print the PDF-Text
                     System.Console.WriteLine(System.Text.Encoding.UTF8.GetString(data));
                 })
                 { IsBackground = true };
+
                 thread.Start();
             } // Next j 
 #endif
@@ -107,7 +117,7 @@ div
         } // End Sub Test 
 
 
-    }
+    } // End Class TestScheduler 
 
 
-}
+} // End Namespace libWkHtml2X 

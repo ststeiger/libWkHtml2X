@@ -2,6 +2,7 @@
 namespace libWkHtml2X
 {
 
+
     // https://github.com/wkhtmltopdf/wkhtmltopdf/blob/master/examples/pdf_c_api.c
     // https://github.com/wkhtmltopdf/wkhtmltopdf/blob/master/examples/image_c_api.c
     // https://wkhtmltopdf.org/libwkhtmltox/
@@ -18,6 +19,9 @@ namespace libWkHtml2X
         public static byte[] CreatePdf(string htmlData, libWkHtml2X.PdfGlobalSettings globalSettings, libWkHtml2X.PdfObjectSettings objectSettings)
         {
             byte[] output = null;
+            
+            if (string.IsNullOrEmpty(htmlData) || htmlData.Trim() == string.Empty)
+                throw new System.IO.InvalidDataException("Invalid input data...");
 
             // System.IO.File.WriteAllText(@"C:\Users\username\Desktop\nreco.imagegenerator.1.1.0\file.htm", htmlData, System.Text.Encoding.UTF8);
 
@@ -73,7 +77,6 @@ namespace libWkHtml2X
         {
             byte[] pdfBytes = CreatePdf(htmlData, globalSettings, objectSettings);
 
-
             if (!fileName.EndsWith(".pdf", System.StringComparison.OrdinalIgnoreCase))
                 fileName += ".pdf";
 
@@ -84,12 +87,15 @@ namespace libWkHtml2X
         public static byte[] CreateImage(string htmlData)
         {
             return CreateImage(htmlData, null);
-        }
+        } // End Function CreateImage 
 
 
         public static byte[] CreateImage(string htmlData, libWkHtml2X.ImageSettings imageSettings)
         {
             byte[] imgBytes = null;
+
+            if (string.IsNullOrEmpty(htmlData) || htmlData.Trim() == string.Empty)
+                throw new System.IO.InvalidDataException("Invalid input data...");
 
             // string ver = libWkHtml2X.CallsImage.wkhtmltoimage_version();
             // System.Console.WriteLine(ver);
@@ -142,7 +148,7 @@ namespace libWkHtml2X
         } // End Sub CreateImageFile 
 
 
-    }
+    } // End Class Converter 
 
 
-}
+} // End Namespace libWkHtml2X 

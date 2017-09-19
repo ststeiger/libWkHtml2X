@@ -6,57 +6,82 @@ namespace libWkHtml2X
     public class ConversionTask
     {
 
-        public delegate byte[] convert_callback_t(object queueId);
+        public delegate byte[] convert_callback_t(ulong queueId);
 
-        public string HTML;
+        public ulong QueueId;
+
         public status_t Status;
         public System.Exception Error;
         public byte[] Data;
+
         public System.Threading.ManualResetEvent WaitHandle;
-        private System.Diagnostics.Stopwatch m_StopWatch;
+
+        private System.Diagnostics.Stopwatch m_QueueStopWatch;
+        private System.Diagnostics.Stopwatch m_ConverterStopWatch;
 
         public convert_callback_t ConversionCallback;
 
 
-        public long Duration
+        public long QueueDuration
         {
             get
             {
-                return this.m_StopWatch.ElapsedMilliseconds;
+                return this.m_QueueStopWatch.ElapsedMilliseconds;
             }
-        }
+
+        } // End Property Duration 
+
+
+        public long ConversionDuration
+        {
+            get
+            {
+                return this.m_ConverterStopWatch.ElapsedMilliseconds;
+            }
+
+        } // End Property Duration 
+
+
+        public void ToggleConverterStopwatch()
+        {
+            if (this.m_ConverterStopWatch.IsRunning)
+                this.m_ConverterStopWatch.Stop();
+            else 
+                this.m_ConverterStopWatch.Start();
+        } // End Sub TaskComplete 
 
 
         public void TaskComplete(bool withHandle)
         {
-            this.m_StopWatch.Stop();
+            this.m_QueueStopWatch.Stop();
 
             if (withHandle)
                 this.WaitHandle.Set();
-        }
+        } // End Sub TaskComplete 
+
 
         public void TaskComplete()
         {
             TaskComplete(true);
-        }
+        } // End Sub TaskComplete 
 
-        public ulong QueueId;
-        public object Id;
 
-        public ConversionTask(string html, object id, ulong queueId, convert_callback_t conversionCallback)
+        public ConversionTask(ulong queueId, convert_callback_t conversionCallback)
         {
-            this.Id = id;
+            this.m_QueueStopWatch = new System.Diagnostics.Stopwatch();
+            this.m_QueueStopWatch.Start();
+
+            this.m_ConverterStopWatch = new System.Diagnostics.Stopwatch();
+
             this.QueueId = queueId;
             this.ConversionCallback = conversionCallback;
 
-            this.m_StopWatch = new System.Diagnostics.Stopwatch();
-            this.m_StopWatch.Start();
             this.WaitHandle = new System.Threading.ManualResetEvent(false);
             this.Status = status_t.PENDING;
-            this.HTML = html;
-        }
-
-    }
+        } // End Constructor 
 
 
-}
+    } // End Class ConversionTask 
+
+
+} // End Namespace libWkHtml2X 

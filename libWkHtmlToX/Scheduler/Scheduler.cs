@@ -6,18 +6,13 @@ namespace libWkHtml2X
     public enum status_t : int
     {
         PENDING = 0, OK = 1, ERROR = 2
-    }
-
-
-    public enum fasddfs : int 
-    {
-
-    }
+    } // End Enum status_t 
 
 
     public class Scheduler
     {
 
+        private static ulong m_QueueId;
         private static readonly object s_queueLock;
         private static System.Threading.Thread s_BackgroundThread;
         private static System.Collections.Generic.LinkedList<ConversionTask> s_TaskList;
@@ -31,22 +26,20 @@ namespace libWkHtml2X
         } // End Constructor 
 
 
-        public static void Ver()
+        public static void Init()
         {
-            System.Console.WriteLine("v1");
-        } // End Sub Ver 
+            System.Console.WriteLine("Static objects constructed.");
+        } // End Sub Init 
 
 
-        private static ulong m_QueueId;
-
-        public static ConversionTask QueueConversion(string html, object id, ConversionTask.convert_callback_t cb)
+        private static ConversionTask QueueConversion(ConversionTask.convert_callback_t cb)
         {
             ConversionTask ct = null;
             
             lock (s_queueLock)
             {
                 m_QueueId++;
-                ct = new ConversionTask(html, id, m_QueueId, cb);
+                ct = new ConversionTask(m_QueueId, cb);
                 
                 s_TaskList.AddLast(ct);
             } // End Lock s_queueLock
@@ -55,20 +48,12 @@ namespace libWkHtml2X
         } // End Function QueueConversion 
 
 
-        public static byte[] ConvertFile(string html, ConversionTask.convert_callback_t cb)
-        {
-            return ConvertFile(html, null, cb);
-        } // End Sub ConvertFile 
-
-
-        public static byte[] ConvertFile(string html, object id, ConversionTask.convert_callback_t cb)
+        public static byte[] ConvertFile(ConversionTask.convert_callback_t cb)
         {
             byte[] data = null;
 
-            ConversionTask ct = QueueConversion(html, id, cb);
-            System.Console.WriteLine("Queued YOUR item #" + System.Convert.ToString(ct.Id)
-                + " as qid[" + System.Convert.ToString(ct.QueueId) + "]"
-            );
+            ConversionTask ct = QueueConversion(cb);
+            System.Console.WriteLine("Queued job as qid[" + System.Convert.ToString(ct.QueueId) + "]");
 
 #if NET_2_0
             bool timeout = !ct.WaitHandle.WaitOne(31000, false);
@@ -86,18 +71,14 @@ namespace libWkHtml2X
                 // OMG, lock will keep timeout...
                 if (ct.Status != status_t.OK)
                 {
-                    System.Console.WriteLine("Cancelled YOUR item #" + ct.Id
-                        + ", qid[" + System.Convert.ToString(ct.QueueId) + "]"
-                    );
-
+                    System.Console.WriteLine("Cancelled qid[" + System.Convert.ToString(ct.QueueId) + "]");
                     return null;
                 } // End if (ct.Status != status_t.OK) 
 
             } // End if (timeout) 
 
-            System.Console.WriteLine("Output for YOUR item #" + System.Convert.ToString(ct.Id) 
-                + ", qid[" + ct.QueueId.ToString()
-                + "] - Duration " + ct.Duration.ToString()
+            System.Console.WriteLine("Output for qid[" + ct.QueueId.ToString() + "] - Duration " + ct.QueueDuration.ToString()
+                + "(Actual: " + ct.ConversionDuration.ToString() + ")"
             );
 
             if (ct.Status == status_t.ERROR)
@@ -107,7 +88,7 @@ namespace libWkHtml2X
                 ct.Error = null;
                 ct = null;
                 throw ex;
-            }
+            } // End if (ct.Status == status_t.ERROR) 
 
             data = ct.Data;
 
@@ -118,7 +99,7 @@ namespace libWkHtml2X
         } // End Function ConvertFile 
 
 
-        public static ConversionTask Dequeue(ConversionTask s)
+        private static ConversionTask Dequeue(ConversionTask s)
         {
             ConversionTask ret = null;
 
@@ -142,10 +123,10 @@ namespace libWkHtml2X
         } // End Sub Dequeue 
 
 
-        public static ConversionTask Dequeue()
+        private static ConversionTask Dequeue()
         {
             return Dequeue(null);
-        }
+        } // End Sub Dequeue 
 
 
         // For Testing
@@ -153,7 +134,7 @@ namespace libWkHtml2X
         // { System.Threading.Thread.Sleep(5000); return System.Text.Encoding.UTF8.GetBytes(html); } // End Function Process 
 
 
-        public static void StartSingleThreadProcessing()
+        private static void StartSingleThreadProcessing()
         {
             s_BackgroundThread = new System.Threading.Thread(
                 delegate()
@@ -174,18 +155,22 @@ namespace libWkHtml2X
                                 s.Data = null;
                                 s.Error = null;
 
-                                if (string.IsNullOrEmpty(s.HTML) || s.HTML.Trim() == string.Empty)
-                                {
-                                    s.Error = new System.IO.InvalidDataException("Invalid input data...");
-                                    s.Status = status_t.ERROR;
-                                    s.TaskComplete();
-                                    continue;
-                                } // End if (string.IsNullOrEmpty(s.HTML) || s.HTML.Trim() == string.Empty)
-
                                 // Hier wird die Konvertierung ausgeführt.
-                                // s.Data = Process(s.HTML);
-                                s.Data = s.ConversionCallback(s.QueueId);
+                                // s.Data = Process("<html><head><title>Test</title></head><body>Test 123</body></html>");
+                                s.ToggleConverterStopwatch();
+
+                                try
+                                {
+                                    s.Data = s.ConversionCallback(s.QueueId);
+                                    s.ToggleConverterStopwatch();
+                                }
+                                catch 
+                                {
+                                    s.ToggleConverterStopwatch();
+                                    throw;
+                                }
                                 
+
                                 if (s.Data == null)
                                 {
                                     s.Error = new System.Exception("Unknown conversion error...");
@@ -212,6 +197,7 @@ namespace libWkHtml2X
                 } // End Delegate 
 
             ) { IsBackground = true };
+
             s_BackgroundThread.Start();
         } // End Sub StartSingleThreadProcessing 
 
