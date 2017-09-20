@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ConfigValueHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Paperkinds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProcessManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProcessTesting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Scheduler\ConversionTask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiffMatchPatch\DiffMatchPatch.cs" />
