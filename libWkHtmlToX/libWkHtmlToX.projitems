@@ -59,6 +59,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Settings\PdfObjectSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\WebPageSpecificSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\_SomeEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VisualStudioHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)wkHtmlOptionNameAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XmlHelper.cs" />
   </ItemGroup>

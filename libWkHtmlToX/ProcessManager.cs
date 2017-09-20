@@ -70,7 +70,8 @@ namespace libWkHtml2X
 
             this.m_inputStream.WriteLine(command);
             this.m_inputStream.Flush();
-            // this.m_inputStream.Close();
+            // this.m_inputStream.Close(); // not present in .NET Core - call Dispose instead
+            this.m_inputStream.Dispose();
         } // End Sub Execute
 
 

@@ -5,7 +5,7 @@ namespace wkHtmlToXCore
 
     class Program
     {
-        
+
 
         [System.STAThread()]
         static void Main(string[] args)
