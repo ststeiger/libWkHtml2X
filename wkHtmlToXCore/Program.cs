@@ -6,10 +6,12 @@ namespace wkHtmlToXCore
     class Program
     {
 
-
         [System.STAThread()]
         static void Main(string[] args)
         {
+            libWkHtmlToX.ResourceLoader.EmbeddedResourceToFile("", "tgt");
+
+
             // System.Threading.Thread.CurrentThread.SetApartmentState(System.Threading.ApartmentState.STA);
             // System.Threading.Thread.CurrentThread.ApartmentState = System.Threading.ApartmentState.STA;
             long coInit = libWkHtml2X.CoInitHelper.CoInitialize();

@@ -10,19 +10,9 @@ namespace libWkHtml2X
     public class CallsImage
     {
 
-        private const string DLL_NAME = NativeMethods.DLL_NAME;
+        private const string DLL_NAME = CallsPDF.DLL_NAME;
         private static bool? s_wkHtmlInitialized;
-
-
-        static CallsImage()
-        {
-            // Deploy native assemblies..
-            //////WkHtmlToXLibrariesManager.InitializeNativeLibrary();
-
-            NativeMethods.Init();
-            CallsImage.wkhtmltoimage_init(false);
-            CallsPDF.wkhtmltopdf_init(false);
-        }
+        
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void wkhtmltoimage_str_callback(System.IntPtr converter, [MarshalAs(UnmanagedType.LPStr)] string str);

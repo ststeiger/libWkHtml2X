@@ -3,13 +3,8 @@ namespace libWkHtml2X
 {
 
 
-    internal static class NativeMethods
+    internal static class OsHelper 
     {
-        internal const string DLL_NAME = "wkhtmltox";
-
-        //[System.Runtime.InteropServices.DllImport("kernel32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
-        //static extern bool SetDllDirectory(string lpPathName);
-
 
         private static object s_initLock = new object();
         private static string s_osName = null;
@@ -153,7 +148,7 @@ namespace libWkHtml2X
 
 #endif
         
-        static NativeMethods()
+        static OsHelper()
         {
             lock (s_initLock)
             {
@@ -224,15 +219,6 @@ namespace libWkHtml2X
             get { return s_isNetCore.Value; }
         }
 
-        internal static void Init(string dllDirectory)
-        {
-            System.Environment.SetEnvironmentVariable("PATH", System.Environment.GetEnvironmentVariable("PATH") + ";" + dllDirectory);
-
-            ConstUtf8Marshaler.GetInstance();
-            Utf8Marshaler.GetInstance();
-        }
-
-
 
         internal static string GetOsDirectory()
         {
@@ -249,44 +235,6 @@ namespace libWkHtml2X
                 return "/Unix";
 
             return "/Win";
-        }
-
-
-        internal static void Init()
-        {
-            
-
-            // string dllDirectory = @"C:\PortableApps\wkhtmltopdf\x" + (System.IntPtr.Size * 8).ToString() + @"\bin";
-            string dllDirectory = System.IO.Path.GetFullPath(
-                    System.IO.Path.Combine(
-                        System.IO.Path.Combine(
-                            System.IO.Path.GetDirectoryName(
-                                System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(NativeMethods)).Assembly.Location
-                            )
-                            //#if VER_NEU
-
-                            , (IsNetCore ? "../../../../" : "../../../")
-                            + "TestWkHtmlToX/Libs/" + 
-
-#if false 
-                             "0.13.0-alpha"
-
-#elif false
-                             "0.12.1.2"
-#else
-                             "0.12.4"
-#endif
-                             + GetOsDirectory() 
-                             )
-
-                        , "x86-" + (System.IntPtr.Size * 8).ToString()
-                    )
-            );
-
-
-            
-
-            Init(dllDirectory);
         }
 
 

@@ -8,18 +8,8 @@ namespace libWkHtml2X
     // pdf.h
     public static class CallsPDF
     {
-        private const string DLL_NAME = NativeMethods.DLL_NAME;
+        internal const string DLL_NAME = "wkhtmltoX";
         private static bool? s_wkHtmlInitialized;
-
-        static CallsPDF()
-        {
-            // Deploy native assemblies..
-            //////WkHtmlToXLibrariesManager.InitializeNativeLibrary();
-
-            NativeMethods.Init();
-            CallsPDF.wkhtmltopdf_init(false);
-            CallsImage.wkhtmltoimage_init(false);
-        }
 
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

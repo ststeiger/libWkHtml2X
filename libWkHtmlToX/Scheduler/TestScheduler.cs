@@ -9,24 +9,26 @@ namespace libWkHtml2X
 
         public static void Test()
         {
+            libWkHtml2X.CallsInitializer.InitWkhtmlToX();
             Scheduler.Init();
             // System.Threading.Thread.Sleep(5000);
 
             string testHtmlTemplate = @"<!doctype html>
 <html>
 <head>
-<title>Test</title>
-<script type=""text/javascript"">
-</script>
-
-<style type=""text/css"" media=""all"">
-
-div
-{
-    background-color: red !important;
-}
-
-</style>
+    <title>Test</title>
+    <script type=""text/javascript"">
+        
+    </script>
+    
+    <style type=""text/css"" media=""all"">
+    
+    div
+    {
+        background-color: red !important;
+    }
+    
+    </style>
 </head>
 <body>
 
@@ -37,7 +39,7 @@ div
 ";
 
             string[] sourceFiles = new string[] {
-                libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503497977772.svg")
+                 libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503497977772.svg")
                 ,libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg")
                 ,libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666084152.svg")
                 ,libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666154395.svg")
@@ -59,7 +61,7 @@ div
             margin: 0px;
             padding: 0px;
         }}
-
+        
         body
         {{
             display: block;
@@ -68,9 +70,7 @@ div
 </head>
 <body>{0}</body></html>
 ";
-
-
-
+            
 
             System.Random r = new System.Random();
             for (int j = 0; j < 21; ++j)
@@ -132,24 +132,24 @@ div
                     int i = j;
                     int rInt = r.Next(0, 5); //for ints
                     System.Threading.Thread.Sleep(rInt * 1000);
-
+                    
                     // byte[] data = Scheduler.ConvertFile("hello " + i.ToString());
-
+                    
                     byte[] data = Scheduler.ConvertFile(
                         delegate (ulong id)
                         {
                             return libWkHtml2X.Converter.CreatePdf("hello " + i.ToString());
                         }
                     );
-
+                    
                     if (data == null)
                         return;
-
-                    // Print the PDF-Text
+                    
+                    // Print the PDF-Text 
                     System.Console.WriteLine(System.Text.Encoding.UTF8.GetString(data));
                 })
                 { IsBackground = true };
-
+                
                 thread.Start();
             } // Next j 
 #endif

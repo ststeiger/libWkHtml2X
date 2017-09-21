@@ -1,10 +1,10 @@
 ﻿
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
 
     [System.Diagnostics.DebuggerDisplay("Count = {Count}")]
-    public class BiDictionary<TFirst, TSecond> :
+    public class BiDiDictionary<TFirst, TSecond> :
           System.Collections.Generic.IDictionary<TFirst, TSecond>
         , System.Collections.IDictionary
 #if !NET_2_0
@@ -19,7 +19,7 @@ namespace libWkHtml2X
 
         private readonly ReverseDictionary _reverseDictionary;
 
-        public BiDictionary()
+        public BiDiDictionary()
         {
             _reverseDictionary = new ReverseDictionary(this);
         }
@@ -231,9 +231,9 @@ namespace libWkHtml2X
             , System.Collections.Generic.IReadOnlyDictionary<TSecond, TFirst>
 #endif
         {
-            private readonly BiDictionary<TFirst, TSecond> _owner;
+            private readonly BiDiDictionary<TFirst, TSecond> _owner;
 
-            public ReverseDictionary(BiDictionary<TFirst, TSecond> owner)
+            public ReverseDictionary(BiDiDictionary<TFirst, TSecond> owner)
             {
                 _owner = owner;
             }
