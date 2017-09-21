@@ -1,5 +1,5 @@
 ﻿
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
 

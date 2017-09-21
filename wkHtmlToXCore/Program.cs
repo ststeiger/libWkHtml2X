@@ -14,7 +14,7 @@ namespace wkHtmlToXCore
 
             // System.Threading.Thread.CurrentThread.SetApartmentState(System.Threading.ApartmentState.STA);
             // System.Threading.Thread.CurrentThread.ApartmentState = System.Threading.ApartmentState.STA;
-            long coInit = libWkHtml2X.CoInitHelper.CoInitialize();
+            long coInit = libWkHtmlToX.CoInitHelper.CoInitialize();
             // long oleInit = CoInitHelper.InitOle();
             // System.Console.WriteLine(coInit);
             // System.Console.WriteLine(oleInit);
@@ -23,7 +23,7 @@ namespace wkHtmlToXCore
             // System.IO.Compression.GZipStream
 
 
-            libWkHtml2X.TestScheduler.Test();
+            libWkHtmlToX.TestScheduler.Test();
 
 
             string htmlData = @"<!doctype html>
@@ -54,15 +54,15 @@ div
             // TestPDF.CreatePdf(htmlData);
             // TestPDF.CreatePdf(htmlData);
 
-            libWkHtml2X.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf.pdf");
-            libWkHtml2X.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf1.pdf");
-            libWkHtml2X.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf2.pdf");
+            libWkHtmlToX.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf.pdf");
+            libWkHtmlToX.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf1.pdf");
+            libWkHtmlToX.Converter.CreatePdfFile(htmlData, null, null, @"D:\test_pdf2.pdf");
 
 
 
-            libWkHtml2X.ImageSettings imageSettings = new libWkHtml2X.ImageSettings();
+            libWkHtmlToX.ImageSettings imageSettings = new libWkHtmlToX.ImageSettings();
 
-            imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
+            imageSettings.SupportedFormat = libWkHtmlToX.SupportedFormat.PNG;
             // imageSettings.ScreenWidth = (int)System.Math.Ceiling(factorSize * viewbox_width); // Width will be fixed at small sizes, if this property isn't set
             imageSettings.SmartWidth = false;
             imageSettings.Quality = 50;
@@ -75,10 +75,10 @@ div
             // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
             // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
 
-            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image.png");
-            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image1.png");
-            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.png");
-            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.jpg");
+            libWkHtmlToX.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image.png");
+            libWkHtmlToX.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image1.png");
+            libWkHtmlToX.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.png");
+            libWkHtmlToX.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_image2.jpg");
 
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue");

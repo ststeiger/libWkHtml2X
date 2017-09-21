@@ -4,7 +4,7 @@
 #endif 
 
 
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
 
@@ -56,4 +56,4 @@ namespace libWkHtml2X
     } // End Class XmlHelper 
 
 
-} // End Namespace libWkHtml2X 
+} // End namespace libWkHtmlToX 

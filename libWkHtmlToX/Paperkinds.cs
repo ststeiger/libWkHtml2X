@@ -1,5 +1,5 @@
 ﻿
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
 
@@ -8,13 +8,13 @@ namespace libWkHtml2X
         public string Width;
         public string Height;
         public string Dimension;
-        libWkHtml2X.PaperKind PaperKind;
+        libWkHtmlToX.PaperKind PaperKind;
 
 
         public PaperSizeString()
         { }
 
-        public PaperSizeString(string width, string height, libWkHtml2X.PaperKind kind)
+        public PaperSizeString(string width, string height, libWkHtmlToX.PaperKind kind)
         {
             this.Width = width;
             this.Height = height;
@@ -141,119 +141,119 @@ namespace libWkHtml2X
     public class PaperManager
     {
     
-        internal static readonly System.Collections.Generic.Dictionary<libWkHtml2X.PaperKind, libWkHtml2X.PaperSizeString> s_PaperSizes =
-            new System.Collections.Generic.Dictionary<libWkHtml2X.PaperKind, libWkHtml2X.PaperSizeString>();
+        internal static readonly System.Collections.Generic.Dictionary<libWkHtmlToX.PaperKind, libWkHtmlToX.PaperSizeString> s_PaperSizes =
+            new System.Collections.Generic.Dictionary<libWkHtmlToX.PaperKind, libWkHtmlToX.PaperSizeString>();
 
 
         public static void SetupPageSizes()
         {
             // paper sizes from http://msdn.microsoft.com/en-us/library/system.drawing.printing.paperkind.aspx
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Letter, new PaperSizeString("8.5in", "11in", PaperKind.Letter));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Legal, new PaperSizeString("8.5in", "14in", PaperKind.Legal));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A4, new PaperSizeString("210mm", "297mm", PaperKind.A4));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.CSheet, new PaperSizeString("17in", "22in", PaperKind.CSheet));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.DSheet, new PaperSizeString("22in", "34in", PaperKind.DSheet));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.ESheet, new PaperSizeString("34in", "44in", PaperKind.ESheet));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.LetterSmall, new PaperSizeString("8.5in", "11in", PaperKind.LetterSmall));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Tabloid, new PaperSizeString("11in", "17in", PaperKind.Tabloid));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Ledger, new PaperSizeString("17in", "11in", PaperKind.Ledger));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Statement, new PaperSizeString("5.5in", "8.5in", PaperKind.Statement));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Executive, new PaperSizeString("7.25in", "10.5in", PaperKind.Executive));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A3, new PaperSizeString("297mm", "420mm", PaperKind.A3));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A4Small, new PaperSizeString("210mm", "297mm", PaperKind.A4Small));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A5, new PaperSizeString("148mm", "210mm", PaperKind.A5));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B4, new PaperSizeString("250mm", "353mm", PaperKind.B4));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B5, new PaperSizeString("176mm", "250mm", PaperKind.B5));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Folio, new PaperSizeString("8.5in", "13in", PaperKind.Folio));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Quarto, new PaperSizeString("215mm", "275mm", PaperKind.Quarto));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Standard10x14, new PaperSizeString("10in", "14in", PaperKind.Standard10x14));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Standard11x17, new PaperSizeString("11in", "17in", PaperKind.Standard11x17));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Note, new PaperSizeString("8.5in", "11in", PaperKind.Note));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Number9Envelope, new PaperSizeString("3.875in", "8.875in", PaperKind.Number9Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Number10Envelope, new PaperSizeString("4.125in", "9.5in", PaperKind.Number10Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Number11Envelope, new PaperSizeString("4.5in", "10.375in", PaperKind.Number11Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Number12Envelope, new PaperSizeString("4.75in", "11in", PaperKind.Number12Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Number14Envelope, new PaperSizeString("5in", "11.5in", PaperKind.Number14Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.DLEnvelope, new PaperSizeString("110mm", "220mm", PaperKind.DLEnvelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.C5Envelope, new PaperSizeString("162mm", "229mm", PaperKind.C5Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.C3Envelope, new PaperSizeString("324mm", "458mm", PaperKind.C3Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.C4Envelope, new PaperSizeString("229mm", "324mm", PaperKind.C4Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.C6Envelope, new PaperSizeString("114mm", "162mm", PaperKind.C6Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.C65Envelope, new PaperSizeString("114mm", "229mm", PaperKind.C65Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B4Envelope, new PaperSizeString("250mm", "353mm", PaperKind.B4Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B5Envelope, new PaperSizeString("176mm", "250mm", PaperKind.B5Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B6Envelope, new PaperSizeString("176mm", "125mm", PaperKind.B6Envelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.ItalyEnvelope, new PaperSizeString("110mm", "230mm", PaperKind.ItalyEnvelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.MonarchEnvelope, new PaperSizeString("3.875in", "7.5in", PaperKind.MonarchEnvelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PersonalEnvelope, new PaperSizeString("3.625in", "6.5in", PaperKind.PersonalEnvelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.USStandardFanfold, new PaperSizeString("14.875in", "11in", PaperKind.USStandardFanfold));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.GermanStandardFanfold, new PaperSizeString("8.5in", "12in", PaperKind.GermanStandardFanfold));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.GermanLegalFanfold, new PaperSizeString("8.5in", "13in", PaperKind.GermanLegalFanfold));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.IsoB4, new PaperSizeString("250mm", "353mm", PaperKind.IsoB4));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.JapanesePostcard, new PaperSizeString("100mm", "148mm", PaperKind.JapanesePostcard));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Standard9x11, new PaperSizeString("9in", "11in", PaperKind.Standard9x11));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Standard10x11, new PaperSizeString("10in", "11in", PaperKind.Standard10x11));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Standard15x11, new PaperSizeString("15in", "11in", PaperKind.Standard15x11));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.InviteEnvelope, new PaperSizeString("220mm", "220mm", PaperKind.InviteEnvelope));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.LetterExtra, new PaperSizeString("9.275in", "12in", PaperKind.LetterExtra));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.LegalExtra, new PaperSizeString("9.275in", "15in", PaperKind.LegalExtra));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.TabloidExtra, new PaperSizeString("11.69in", "18in", PaperKind.TabloidExtra));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A4Extra, new PaperSizeString("236mm", "322mm", PaperKind.A4Extra));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.LetterTransverse, new PaperSizeString("8.275in", "11in", PaperKind.LetterTransverse));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A4Transverse, new PaperSizeString("210mm", "297mm", PaperKind.A4Transverse));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.LetterExtraTransverse, new PaperSizeString("9.275in", "12in", PaperKind.LetterExtraTransverse));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.APlus, new PaperSizeString("227mm", "356mm", PaperKind.APlus));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.BPlus, new PaperSizeString("305mm", "487mm", PaperKind.BPlus));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.LetterPlus, new PaperSizeString("8.5in", "12.69in", PaperKind.LetterPlus));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A4Plus, new PaperSizeString("210mm", "330mm", PaperKind.A4Plus));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A5Transverse, new PaperSizeString("148mm", "210mm", PaperKind.A5Transverse));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B5Transverse, new PaperSizeString("182mm", "257mm", PaperKind.B5Transverse));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A3Extra, new PaperSizeString("322mm", "445mm", PaperKind.A3Extra));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A5Extra, new PaperSizeString("174mm", "235mm", PaperKind.A5Extra));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B5Extra, new PaperSizeString("201mm", "276mm", PaperKind.B5Extra));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A2, new PaperSizeString("420mm", "594mm", PaperKind.A2));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A3Transverse, new PaperSizeString("297mm", "420mm", PaperKind.A3Transverse));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A3ExtraTransverse, new PaperSizeString("322mm", "445mm", PaperKind.A3ExtraTransverse));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.JapaneseDoublePostcard, new PaperSizeString("200mm", "148mm", PaperKind.JapaneseDoublePostcard));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A6, new PaperSizeString("105mm", "148mm", PaperKind.A6));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.LetterRotated, new PaperSizeString("11in", "8.5in", PaperKind.LetterRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A3Rotated, new PaperSizeString("420mm", "297mm", PaperKind.A3Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A4Rotated, new PaperSizeString("297mm", "210mm", PaperKind.A4Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A5Rotated, new PaperSizeString("210mm", "148mm", PaperKind.A5Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B4JisRotated, new PaperSizeString("364mm", "257mm", PaperKind.B4JisRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B5JisRotated, new PaperSizeString("257mm", "182mm", PaperKind.B5JisRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.JapanesePostcardRotated, new PaperSizeString("148mm", "100mm", PaperKind.JapanesePostcardRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.JapaneseDoublePostcardRotated, new PaperSizeString("148mm", "200mm", PaperKind.JapaneseDoublePostcardRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.A6Rotated, new PaperSizeString("148mm", "105mm", PaperKind.A6Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B6Jis, new PaperSizeString("128mm", "182mm", PaperKind.B6Jis));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.B6JisRotated, new PaperSizeString("182mm", "128mm", PaperKind.B6JisRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Standard12x11, new PaperSizeString("12in", "11in", PaperKind.Standard12x11));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Prc16K, new PaperSizeString("146mm", "215mm", PaperKind.Prc16K));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Prc32K, new PaperSizeString("97mm", "151mm", PaperKind.Prc32K));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Prc32KBig, new PaperSizeString("97mm", "151mm", PaperKind.Prc32KBig));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber1, new PaperSizeString("102mm", "165mm", PaperKind.PrcEnvelopeNumber1));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber2, new PaperSizeString("102mm", "176mm", PaperKind.PrcEnvelopeNumber2));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber3, new PaperSizeString("125mm", "176mm", PaperKind.PrcEnvelopeNumber3));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber4, new PaperSizeString("110mm", "208mm", PaperKind.PrcEnvelopeNumber4));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber5, new PaperSizeString("110mm", "220mm", PaperKind.PrcEnvelopeNumber5));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber6, new PaperSizeString("120mm", "230mm", PaperKind.PrcEnvelopeNumber6));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber7, new PaperSizeString("160mm", "230mm", PaperKind.PrcEnvelopeNumber7));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber8, new PaperSizeString("120mm", "309mm", PaperKind.PrcEnvelopeNumber8));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber9, new PaperSizeString("229mm", "324mm", PaperKind.PrcEnvelopeNumber9));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber10, new PaperSizeString("324mm", "458mm", PaperKind.PrcEnvelopeNumber10));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Prc16KRotated, new PaperSizeString("146mm", "215mm", PaperKind.Prc16KRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Prc32KRotated, new PaperSizeString("97mm", "151mm", PaperKind.Prc32KRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.Prc32KBigRotated, new PaperSizeString("97mm", "151mm", PaperKind.Prc32KBigRotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber1Rotated, new PaperSizeString("165mm", "102mm", PaperKind.PrcEnvelopeNumber1Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber2Rotated, new PaperSizeString("176mm", "102mm", PaperKind.PrcEnvelopeNumber2Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber3Rotated, new PaperSizeString("176mm", "125mm", PaperKind.PrcEnvelopeNumber3Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber4Rotated, new PaperSizeString("208mm", "110mm", PaperKind.PrcEnvelopeNumber4Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber5Rotated, new PaperSizeString("220mm", "110mm", PaperKind.PrcEnvelopeNumber5Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber6Rotated, new PaperSizeString("230mm", "120mm", PaperKind.PrcEnvelopeNumber6Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber7Rotated, new PaperSizeString("230mm", "160mm", PaperKind.PrcEnvelopeNumber7Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber8Rotated, new PaperSizeString("309mm", "120mm", PaperKind.PrcEnvelopeNumber8Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber9Rotated, new PaperSizeString("324mm", "229mm", PaperKind.PrcEnvelopeNumber9Rotated));
-            s_PaperSizes.Add(libWkHtml2X.PaperKind.PrcEnvelopeNumber10Rotated, new PaperSizeString("458mm", "324mm", PaperKind.PrcEnvelopeNumber10Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Letter, new PaperSizeString("8.5in", "11in", PaperKind.Letter));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Legal, new PaperSizeString("8.5in", "14in", PaperKind.Legal));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A4, new PaperSizeString("210mm", "297mm", PaperKind.A4));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.CSheet, new PaperSizeString("17in", "22in", PaperKind.CSheet));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.DSheet, new PaperSizeString("22in", "34in", PaperKind.DSheet));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.ESheet, new PaperSizeString("34in", "44in", PaperKind.ESheet));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.LetterSmall, new PaperSizeString("8.5in", "11in", PaperKind.LetterSmall));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Tabloid, new PaperSizeString("11in", "17in", PaperKind.Tabloid));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Ledger, new PaperSizeString("17in", "11in", PaperKind.Ledger));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Statement, new PaperSizeString("5.5in", "8.5in", PaperKind.Statement));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Executive, new PaperSizeString("7.25in", "10.5in", PaperKind.Executive));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A3, new PaperSizeString("297mm", "420mm", PaperKind.A3));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A4Small, new PaperSizeString("210mm", "297mm", PaperKind.A4Small));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A5, new PaperSizeString("148mm", "210mm", PaperKind.A5));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B4, new PaperSizeString("250mm", "353mm", PaperKind.B4));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B5, new PaperSizeString("176mm", "250mm", PaperKind.B5));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Folio, new PaperSizeString("8.5in", "13in", PaperKind.Folio));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Quarto, new PaperSizeString("215mm", "275mm", PaperKind.Quarto));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Standard10x14, new PaperSizeString("10in", "14in", PaperKind.Standard10x14));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Standard11x17, new PaperSizeString("11in", "17in", PaperKind.Standard11x17));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Note, new PaperSizeString("8.5in", "11in", PaperKind.Note));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Number9Envelope, new PaperSizeString("3.875in", "8.875in", PaperKind.Number9Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Number10Envelope, new PaperSizeString("4.125in", "9.5in", PaperKind.Number10Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Number11Envelope, new PaperSizeString("4.5in", "10.375in", PaperKind.Number11Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Number12Envelope, new PaperSizeString("4.75in", "11in", PaperKind.Number12Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Number14Envelope, new PaperSizeString("5in", "11.5in", PaperKind.Number14Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.DLEnvelope, new PaperSizeString("110mm", "220mm", PaperKind.DLEnvelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.C5Envelope, new PaperSizeString("162mm", "229mm", PaperKind.C5Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.C3Envelope, new PaperSizeString("324mm", "458mm", PaperKind.C3Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.C4Envelope, new PaperSizeString("229mm", "324mm", PaperKind.C4Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.C6Envelope, new PaperSizeString("114mm", "162mm", PaperKind.C6Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.C65Envelope, new PaperSizeString("114mm", "229mm", PaperKind.C65Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B4Envelope, new PaperSizeString("250mm", "353mm", PaperKind.B4Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B5Envelope, new PaperSizeString("176mm", "250mm", PaperKind.B5Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B6Envelope, new PaperSizeString("176mm", "125mm", PaperKind.B6Envelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.ItalyEnvelope, new PaperSizeString("110mm", "230mm", PaperKind.ItalyEnvelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.MonarchEnvelope, new PaperSizeString("3.875in", "7.5in", PaperKind.MonarchEnvelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PersonalEnvelope, new PaperSizeString("3.625in", "6.5in", PaperKind.PersonalEnvelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.USStandardFanfold, new PaperSizeString("14.875in", "11in", PaperKind.USStandardFanfold));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.GermanStandardFanfold, new PaperSizeString("8.5in", "12in", PaperKind.GermanStandardFanfold));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.GermanLegalFanfold, new PaperSizeString("8.5in", "13in", PaperKind.GermanLegalFanfold));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.IsoB4, new PaperSizeString("250mm", "353mm", PaperKind.IsoB4));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.JapanesePostcard, new PaperSizeString("100mm", "148mm", PaperKind.JapanesePostcard));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Standard9x11, new PaperSizeString("9in", "11in", PaperKind.Standard9x11));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Standard10x11, new PaperSizeString("10in", "11in", PaperKind.Standard10x11));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Standard15x11, new PaperSizeString("15in", "11in", PaperKind.Standard15x11));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.InviteEnvelope, new PaperSizeString("220mm", "220mm", PaperKind.InviteEnvelope));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.LetterExtra, new PaperSizeString("9.275in", "12in", PaperKind.LetterExtra));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.LegalExtra, new PaperSizeString("9.275in", "15in", PaperKind.LegalExtra));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.TabloidExtra, new PaperSizeString("11.69in", "18in", PaperKind.TabloidExtra));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A4Extra, new PaperSizeString("236mm", "322mm", PaperKind.A4Extra));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.LetterTransverse, new PaperSizeString("8.275in", "11in", PaperKind.LetterTransverse));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A4Transverse, new PaperSizeString("210mm", "297mm", PaperKind.A4Transverse));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.LetterExtraTransverse, new PaperSizeString("9.275in", "12in", PaperKind.LetterExtraTransverse));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.APlus, new PaperSizeString("227mm", "356mm", PaperKind.APlus));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.BPlus, new PaperSizeString("305mm", "487mm", PaperKind.BPlus));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.LetterPlus, new PaperSizeString("8.5in", "12.69in", PaperKind.LetterPlus));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A4Plus, new PaperSizeString("210mm", "330mm", PaperKind.A4Plus));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A5Transverse, new PaperSizeString("148mm", "210mm", PaperKind.A5Transverse));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B5Transverse, new PaperSizeString("182mm", "257mm", PaperKind.B5Transverse));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A3Extra, new PaperSizeString("322mm", "445mm", PaperKind.A3Extra));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A5Extra, new PaperSizeString("174mm", "235mm", PaperKind.A5Extra));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B5Extra, new PaperSizeString("201mm", "276mm", PaperKind.B5Extra));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A2, new PaperSizeString("420mm", "594mm", PaperKind.A2));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A3Transverse, new PaperSizeString("297mm", "420mm", PaperKind.A3Transverse));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A3ExtraTransverse, new PaperSizeString("322mm", "445mm", PaperKind.A3ExtraTransverse));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.JapaneseDoublePostcard, new PaperSizeString("200mm", "148mm", PaperKind.JapaneseDoublePostcard));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A6, new PaperSizeString("105mm", "148mm", PaperKind.A6));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.LetterRotated, new PaperSizeString("11in", "8.5in", PaperKind.LetterRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A3Rotated, new PaperSizeString("420mm", "297mm", PaperKind.A3Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A4Rotated, new PaperSizeString("297mm", "210mm", PaperKind.A4Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A5Rotated, new PaperSizeString("210mm", "148mm", PaperKind.A5Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B4JisRotated, new PaperSizeString("364mm", "257mm", PaperKind.B4JisRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B5JisRotated, new PaperSizeString("257mm", "182mm", PaperKind.B5JisRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.JapanesePostcardRotated, new PaperSizeString("148mm", "100mm", PaperKind.JapanesePostcardRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.JapaneseDoublePostcardRotated, new PaperSizeString("148mm", "200mm", PaperKind.JapaneseDoublePostcardRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.A6Rotated, new PaperSizeString("148mm", "105mm", PaperKind.A6Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B6Jis, new PaperSizeString("128mm", "182mm", PaperKind.B6Jis));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.B6JisRotated, new PaperSizeString("182mm", "128mm", PaperKind.B6JisRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Standard12x11, new PaperSizeString("12in", "11in", PaperKind.Standard12x11));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Prc16K, new PaperSizeString("146mm", "215mm", PaperKind.Prc16K));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Prc32K, new PaperSizeString("97mm", "151mm", PaperKind.Prc32K));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Prc32KBig, new PaperSizeString("97mm", "151mm", PaperKind.Prc32KBig));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber1, new PaperSizeString("102mm", "165mm", PaperKind.PrcEnvelopeNumber1));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber2, new PaperSizeString("102mm", "176mm", PaperKind.PrcEnvelopeNumber2));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber3, new PaperSizeString("125mm", "176mm", PaperKind.PrcEnvelopeNumber3));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber4, new PaperSizeString("110mm", "208mm", PaperKind.PrcEnvelopeNumber4));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber5, new PaperSizeString("110mm", "220mm", PaperKind.PrcEnvelopeNumber5));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber6, new PaperSizeString("120mm", "230mm", PaperKind.PrcEnvelopeNumber6));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber7, new PaperSizeString("160mm", "230mm", PaperKind.PrcEnvelopeNumber7));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber8, new PaperSizeString("120mm", "309mm", PaperKind.PrcEnvelopeNumber8));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber9, new PaperSizeString("229mm", "324mm", PaperKind.PrcEnvelopeNumber9));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber10, new PaperSizeString("324mm", "458mm", PaperKind.PrcEnvelopeNumber10));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Prc16KRotated, new PaperSizeString("146mm", "215mm", PaperKind.Prc16KRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Prc32KRotated, new PaperSizeString("97mm", "151mm", PaperKind.Prc32KRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.Prc32KBigRotated, new PaperSizeString("97mm", "151mm", PaperKind.Prc32KBigRotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber1Rotated, new PaperSizeString("165mm", "102mm", PaperKind.PrcEnvelopeNumber1Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber2Rotated, new PaperSizeString("176mm", "102mm", PaperKind.PrcEnvelopeNumber2Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber3Rotated, new PaperSizeString("176mm", "125mm", PaperKind.PrcEnvelopeNumber3Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber4Rotated, new PaperSizeString("208mm", "110mm", PaperKind.PrcEnvelopeNumber4Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber5Rotated, new PaperSizeString("220mm", "110mm", PaperKind.PrcEnvelopeNumber5Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber6Rotated, new PaperSizeString("230mm", "120mm", PaperKind.PrcEnvelopeNumber6Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber7Rotated, new PaperSizeString("230mm", "160mm", PaperKind.PrcEnvelopeNumber7Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber8Rotated, new PaperSizeString("309mm", "120mm", PaperKind.PrcEnvelopeNumber8Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber9Rotated, new PaperSizeString("324mm", "229mm", PaperKind.PrcEnvelopeNumber9Rotated));
+            s_PaperSizes.Add(libWkHtmlToX.PaperKind.PrcEnvelopeNumber10Rotated, new PaperSizeString("458mm", "324mm", PaperKind.PrcEnvelopeNumber10Rotated));
         }
 
 

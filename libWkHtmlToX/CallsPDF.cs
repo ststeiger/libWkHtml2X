@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
     // pdf.h

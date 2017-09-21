@@ -1,5 +1,5 @@
 ﻿
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
 
@@ -55,4 +55,4 @@ Hello world: 안녕하세요...
     } // End Class ProcessTesting 
 
 
-} // End Namespace libWkHtml2X 
+} // End namespace libWkHtmlToX 

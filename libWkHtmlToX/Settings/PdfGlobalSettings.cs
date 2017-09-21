@@ -1,5 +1,5 @@
 ﻿
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
     // https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pagePdfGlobal
@@ -108,7 +108,7 @@ namespace libWkHtml2X
         /// </summary>
         public void SetConfigValues(System.IntPtr config)
         {
-            libWkHtml2X.ConfigValueHelper.SetConfigValues(config, this, libWkHtml2X.CallsPDF.wkhtmltopdf_set_global_setting);
+            libWkHtmlToX.ConfigValueHelper.SetConfigValues(config, this, libWkHtmlToX.CallsPDF.wkhtmltopdf_set_global_setting);
         } // End Sub SetConfigValues 
 
 

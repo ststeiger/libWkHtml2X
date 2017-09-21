@@ -45,17 +45,17 @@ namespace TestWkHtmlToX
 #endif
 
             // TestAsyncMethod.EntryPoint();
-            // libWkHtml2X.TestScheduler.Test();
-            // libWkHtml2X.ProcessTesting.Test();
+            // libWkHtmlToX.TestScheduler.Test();
+            // libWkHtmlToX.ProcessTesting.Test();
 
-            libWkHtml2X.PdfGlobalSettings gs = new libWkHtml2X.PdfGlobalSettings();
-            libWkHtml2X.PdfObjectSettings os = new libWkHtml2X.PdfObjectSettings();
+            libWkHtmlToX.PdfGlobalSettings gs = new libWkHtmlToX.PdfGlobalSettings();
+            libWkHtmlToX.PdfObjectSettings os = new libWkHtmlToX.PdfObjectSettings();
 
             
             gs.DocumentTitle = "Legende";
-            gs.Orientation = libWkHtml2X.Orientation.Portrait;
+            gs.Orientation = libWkHtmlToX.Orientation.Portrait;
             // gs.PageSize = "width height";
-            gs.OutputFormat = libWkHtml2X.OutputFormat_t.pdf;
+            gs.OutputFormat = libWkHtmlToX.OutputFormat_t.pdf;
             
             //  A4: 210 × 297 millimeters 
             gs.Width = "21.0cm";
@@ -126,14 +126,14 @@ namespace TestWkHtmlToX
             os.Web.EnableIntelligentShrinking = false;
             
 
-            //libWkHtml2X.NativeMethods.Init();
-            //System.IntPtr hSO = libWkHtml2X.LibraryLoader.Load("wkhtmltox");
-            //wkhtmltopdf_version_t getVersion = libWkHtml2X.LibraryLoader.LoadSymbol<wkhtmltopdf_version_t>(hSO, "wkhtmltopdf_version");
+            //libWkHtmlToX.NativeMethods.Init();
+            //System.IntPtr hSO = libWkHtmlToX.LibraryLoader.Load("wkhtmltox");
+            //wkhtmltopdf_version_t getVersion = libWkHtmlToX.LibraryLoader.LoadSymbol<wkhtmltopdf_version_t>(hSO, "wkhtmltopdf_version");
 
             //System.IntPtr ptrVersion = getVersion();
-            //string ver = libWkHtml2X.ConstUtf8Marshaler._staticInstance.MarshalNativeToManaged(ptrVersion);
+            //string ver = libWkHtmlToX.ConstUtf8Marshaler._staticInstance.MarshalNativeToManaged(ptrVersion);
             //System.Console.WriteLine(ver);
-            //libWkHtml2X.LibraryLoader.Unload(hSO);
+            //libWkHtmlToX.LibraryLoader.Unload(hSO);
 
 
 
@@ -161,12 +161,12 @@ background-color: red !important;
 ";
 
             
-            string inputSvg = libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503497977772.svg");
-            inputSvg = libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg");
-            // inputSvg = libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666084152.svg");
-            // inputSvg = libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666154395.svg");
-            // inputSvg = libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestBug.svg");
-            // inputSvg = libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestFixed.svg");
+            string inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503497977772.svg");
+            inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg");
+            // inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666084152.svg");
+            // inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666154395.svg");
+            // inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestBug.svg");
+            // inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestFixed.svg");
 
             // wkhtmltopdf --page-size Letter -B 0 -L 0 -R 0 -T 0 input.html output.pdf
             // https://stackoverflow.com/questions/6394905/wkhtmltopdf-what-paper-sizes-are-valid
@@ -189,7 +189,7 @@ background-color: red !important;
 
 
 
-            System.Xml.XmlNamespaceManager nsmgr = libWkHtml2X.XmlHelper.GetNamespaceManager(doc);
+            System.Xml.XmlNamespaceManager nsmgr = libWkHtmlToX.XmlHelper.GetNamespaceManager(doc);
             string realDefaultNamespace = nsmgr.LookupNamespace("dft");
 
             // if (viewbox_width.EndsWith("px", System.StringComparison.InvariantCultureIgnoreCase))
@@ -325,7 +325,7 @@ background-color: red !important;
 
             string xml = doc.OuterXml;
             
-            string simplePage2 = libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/simplePage2.htm");
+            string simplePage2 = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/simplePage2.htm");
             simplePage2 = System.IO.File.ReadAllText(simplePage2, System.Text.Encoding.UTF8);
             xml = string.Format(simplePage2, xml);
 
@@ -338,9 +338,9 @@ background-color: red !important;
             inputSvg = MapSolutionPath(@"~/TestFiles/simplePage.htm");
             xml = System.IO.File.ReadAllText(inputSvg, System.Text.Encoding.UTF8);
 
-            gs = new libWkHtml2X.PdfGlobalSettings();
+            gs = new libWkHtmlToX.PdfGlobalSettings();
 
-            gs.Orientation = libWkHtml2X.Orientation.Portrait;
+            gs.Orientation = libWkHtmlToX.Orientation.Portrait;
             gs.Width = "20cm";
             gs.Height = "30cm";
 
@@ -361,7 +361,7 @@ background-color: red !important;
 
 
 
-            os = new libWkHtml2X.PdfObjectSettings();
+            os = new libWkHtmlToX.PdfObjectSettings();
             os.Web.EnableIntelligentShrinking = false;
             //os.Web.PrintMediaType = true;
             // os.Load.ZoomFactor = 1.0;
@@ -373,13 +373,13 @@ background-color: red !important;
             // https://stackoverflow.com/questions/37454957/wkhtmltopdf-fit-output-to-whole-page-width
             // https://stackoverflow.com/questions/33528780/any-way-to-reduce-file-size-using-wkhtmltopdf
 
-            libWkHtml2X.Converter.CreatePdfFile(xml, gs, os, @"D:\Test_Lines.pdf");
+            libWkHtmlToX.Converter.CreatePdfFile(xml, gs, os, @"D:\Test_Lines.pdf");
 #if DO_IMAGE 
             htmlData = xml;
             
-            libWkHtml2X.ImageSettings imageSettings = new libWkHtml2X.ImageSettings();
+            libWkHtmlToX.ImageSettings imageSettings = new libWkHtmlToX.ImageSettings();
 
-            imageSettings.SupportedFormat = libWkHtml2X.SupportedFormat.PNG;
+            imageSettings.SupportedFormat = libWkHtmlToX.SupportedFormat.PNG;
             imageSettings.ScreenWidth = (int)System.Math.Ceiling(factorSize * viewbox_width);
             imageSettings.SmartWidth = false;
             imageSettings.Quality = 50;
@@ -411,7 +411,7 @@ background-color: red !important;
 
             // https://stackoverflow.com/questions/20577991/wkhtmltoimage-mention-size-when-taking-screenshot
             // wkhtmltoimage.exe"  --width 1024 --height 768 http://www.google.com/ D:\example.jpg 
-            libWkHtml2X.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_lines.png");
+            libWkHtmlToX.Converter.CreateImageFile(htmlData, imageSettings, @"D:\test_lines.png");
 #endif
 
             System.Console.WriteLine(System.Environment.NewLine);

@@ -1,5 +1,5 @@
 ﻿
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
 
@@ -9,7 +9,8 @@ namespace libWkHtml2X
 
         public static void Test()
         {
-            libWkHtml2X.CallsInitializer.InitWkhtmlToX();
+            
+            libWkHtmlToX.CallsInitializer.InitWkhtmlToX();
             Scheduler.Init();
             // System.Threading.Thread.Sleep(5000);
 
@@ -39,12 +40,12 @@ namespace libWkHtml2X
 ";
 
             string[] sourceFiles = new string[] {
-                 libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503497977772.svg")
-                ,libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg")
-                ,libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666084152.svg")
-                ,libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666154395.svg")
-                ,libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestBug.svg")
-                ,libWkHtml2X.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestFixed.svg")
+                 libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503497977772.svg")
+                ,libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg")
+                ,libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666084152.svg")
+                ,libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666154395.svg")
+                ,libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestBug.svg")
+                ,libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestFixed.svg")
         };
 
 
@@ -77,7 +78,7 @@ namespace libWkHtml2X
             {
                 System.Threading.Thread thread = new System.Threading.Thread(delegate (object args)
                 {
-                    // long coInit = libWkHtml2X.CoInitHelper.CoInitialize();
+                    // long coInit = libWkHtmlToX.CoInitHelper.CoInitialize();
                     // System.Console.WriteLine("CoInitialize: {0}", coInit);
 
                     int rInt = r.Next(1, 4); //for ints
@@ -99,9 +100,9 @@ namespace libWkHtml2X
                         {
                             testMessage = testMessage.Replace("{@qid}", System.Convert.ToString(queueId));
                             // System.Console.WriteLine("theoretically converting" + testMessage );
-                            // libWkHtml2X.Converter.CreatePdf(xml, gs, os);
-                            // return libWkHtml2X.Converter.CreatePdf(testMessage);
-                            return libWkHtml2X.Converter.CreatePdf(inputSvg);
+                            // libWkHtmlToX.Converter.CreatePdf(xml, gs, os);
+                            // return libWkHtmlToX.Converter.CreatePdf(testMessage);
+                            return libWkHtmlToX.Converter.CreatePdf(inputSvg);
                         }
                     );
 
@@ -138,7 +139,7 @@ namespace libWkHtml2X
                     byte[] data = Scheduler.ConvertFile(
                         delegate (ulong id)
                         {
-                            return libWkHtml2X.Converter.CreatePdf("hello " + i.ToString());
+                            return libWkHtmlToX.Converter.CreatePdf("hello " + i.ToString());
                         }
                     );
                     
@@ -162,4 +163,4 @@ namespace libWkHtml2X
     } // End Class TestScheduler 
 
 
-} // End Namespace libWkHtml2X 
+} // End namespace libWkHtmlToX 

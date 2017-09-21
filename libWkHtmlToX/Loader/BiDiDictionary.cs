@@ -442,4 +442,4 @@ namespace libWkHtmlToX
     } // End Class BiDictionary<TFirst, TSecond>
 
 
-} // End Namespace libWkHtml2X
+} // End namespace libWkHtmlToX

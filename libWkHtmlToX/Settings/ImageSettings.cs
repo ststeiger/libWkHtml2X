@@ -1,5 +1,5 @@
 ﻿
-namespace libWkHtml2X
+namespace libWkHtmlToX
 {
 
 
@@ -114,11 +114,11 @@ namespace libWkHtml2X
         /// </summary>
         public void SetConfigValues(System.IntPtr config)
         {
-            libWkHtml2X.ConfigValueHelper.SetConfigValues(config, this, libWkHtml2X.CallsImage.wkhtmltoimage_set_global_setting);
+            libWkHtmlToX.ConfigValueHelper.SetConfigValues(config, this, libWkHtmlToX.CallsImage.wkhtmltoimage_set_global_setting);
         } // End Sub SetConfigValues 
 
 
     } // End Class ImageSettings 
 
 
-} // End Namespace libWkHtml2X 
+} // End namespace libWkHtmlToX 
