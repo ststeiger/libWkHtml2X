@@ -9,9 +9,8 @@ namespace libWkHtmlToX
 
         public static void Test()
         {
-            
-            libWkHtmlToX.CallsInitializer.InitWkhtmlToX();
-            Scheduler.Init();
+            System.Threading.Thread th = libWkHtmlToX.Scheduler.Init(libWkHtmlToX.VisualStudioHelper.GetDllDirectory());
+
             // System.Threading.Thread.Sleep(5000);
 
             string testHtmlTemplate = @"<!doctype html>

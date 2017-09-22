@@ -22,14 +22,8 @@ namespace libWkHtmlToX
         {
             s_queueLock = new object();
             s_TaskList = new System.Collections.Generic.LinkedList<ConversionTask>();
-            StartSingleThreadProcessing();
         } // End Constructor 
 
-
-        public static void Init()
-        {
-            System.Console.WriteLine("Static objects constructed.");
-        } // End Sub Init 
 
 
         private static ConversionTask QueueConversion(ConversionTask.convert_callback_t cb)
@@ -132,13 +126,21 @@ namespace libWkHtmlToX
         // For Testing
         // public static byte[] Process(string html)
         // { System.Threading.Thread.Sleep(5000); return System.Text.Encoding.UTF8.GetBytes(html); } // End Function Process 
+        
 
-
-        private static void StartSingleThreadProcessing()
+        public static System.Threading.Thread Init(string dllDirectory)
         {
+            if (string.IsNullOrEmpty(dllDirectory))
+                throw new System.ArgumentNullException("dllDirectory cannot be NULL or string.emtpy.");
+
+            System.Console.WriteLine("Starting background thread.");
+            
             s_BackgroundThread = new System.Threading.Thread(
                 delegate()
                 {
+                    libWkHtmlToX.CallsInitializer.InitWkhtmlToX(dllDirectory);
+
+
                     while (true)
                     {
                         // System.Console.WriteLine("Idle waiting");
@@ -199,7 +201,9 @@ namespace libWkHtmlToX
             ) { IsBackground = true };
 
             s_BackgroundThread.Start();
-        } // End Sub StartSingleThreadProcessing 
+
+            return s_BackgroundThread;
+        } // End Sub Init 
 
 
     } // End Class Scheduler 

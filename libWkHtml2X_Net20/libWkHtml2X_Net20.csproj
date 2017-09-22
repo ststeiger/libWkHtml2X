@@ -7,8 +7,8 @@
     <ProjectGuid>{F49DB170-8F4C-4AEF-972F-B74945A88811}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>libWkHtml2X_Net20</RootNamespace>
-    <AssemblyName>libWkHtml2X_Net20</AssemblyName>
+    <RootNamespace>libWkHtmlToX</RootNamespace>
+    <AssemblyName>libWkHtmlToX</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

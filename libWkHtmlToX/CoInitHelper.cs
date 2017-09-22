@@ -87,7 +87,7 @@ namespace libWkHtmlToX
         public static long CoInitialize()
         {
             int ret = CoInitializeEx(System.IntPtr.Zero, COINIT.COINIT_APARTMENTTHREADED);
-            //int ret = CoInitializeEx(System.IntPtr.Zero, COINIT.COINIT_MULTITHREADED);
+            // int ret = CoInitializeEx(System.IntPtr.Zero, COINIT.COINIT_MULTITHREADED);
             return ret;
         } // End Function CoInitialize 
 
