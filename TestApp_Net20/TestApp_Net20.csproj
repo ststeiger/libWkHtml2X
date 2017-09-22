@@ -34,6 +34,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PdfSharp, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\PdfSharp\1_5\PdfSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -74,6 +78,11 @@
       <Project>{f49db170-8f4c-4aef-972f-b74945a88811}</Project>
       <Name>libWkHtml2X_Net20</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libs\PdfSharp\1_5\License.txt" />
+    <Content Include="Libs\PdfSharp\1_5\PdfSharp.dll" />
+    <EmbeddedResource Include="Resources\SvgHtmlWrapper.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

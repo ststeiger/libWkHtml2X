@@ -8,7 +8,7 @@ namespace libWkHtmlToX
 {
 
 
-    internal class XmlHelper
+    public class XmlHelper
     {
 
         public static System.Xml.XmlNamespaceManager GetNamespaceManager(System.Xml.XmlDocument doc)

@@ -1,5 +1,5 @@
 ﻿
-#define DO_IMAGE 
+// #define DO_IMAGE 
 
 
 namespace TestWkHtmlToX
@@ -162,7 +162,7 @@ background-color: red !important;
 
             
             string inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503497977772.svg");
-            inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg");
+            // inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg");
             // inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666084152.svg");
             // inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503666154395.svg");
             // inputSvg = libWkHtmlToX.VisualStudioHelper.MapSolutionPath(@"~/TestFiles/TestBug.svg");
@@ -233,6 +233,8 @@ background-color: red !important;
             int[] v = new int[sv.Length];
             for (int i = 0; i < sv.Length; ++i) double.TryParse(sv[i], out dv[i]);
 
+            double viewbox_x = dv[0];
+            double viewbox_y = dv[1];
             double viewbox_width = dv[2];
             double viewbox_height = dv[3];
 
@@ -245,13 +247,13 @@ background-color: red !important;
             double newWidth = factor * viewbox_width;
             double newHeight = factor * viewbox_height;
 
-            double f1 = 21.0 / newWidth;
-            double f2 = 29.7 / newHeight;
-            double f = System.Math.Min(f1, f2);
+            double fWidth = 21.0 / newWidth;
+            double fHeight = 29.7 / newHeight;
+            double fPaperSizeFactor = System.Math.Min(fWidth, fHeight);
 
             // Adjust width & height so it fits onto a A4/custom page 
-            double ff1 = newWidth * f;
-            double ff2 = newHeight * f;
+            double newPaperWidth = newWidth * fPaperSizeFactor;
+            double newPaperHeight = newHeight * fPaperSizeFactor;
 
 #if DO_IMAGE
             // For Image
@@ -260,10 +262,11 @@ background-color: red !important;
             aheight.Value = ((int)System.Math.Ceiling(factorSize * viewbox_height)).ToString("N2", nfi) + "px";
 #else
             // For PDF
-            awidth.Value = ff1.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
-            aheight.Value = ff2.ToString("N2", System.Globalization.CultureInfo.InvariantCulture) + "cm";
-#endif
             
+            awidth.Value = newPaperWidth.ToString("N2", nfi) + "cm";
+            aheight.Value = newPaperHeight.ToString("N2", nfi) + "cm";
+#endif
+
 
             gs.Width = "21.0cm";
             gs.Height = "29.7cm";

@@ -106,6 +106,188 @@ div
         } // End Sub Main(string[] args)
 
 
+        private static System.Globalization.NumberFormatInfo CreateWebNumberFormat()
+        {
+            return new System.Globalization.NumberFormatInfo
+            {
+                NumberGroupSeparator = "",
+                NumberDecimalSeparator = ".",
+                CurrencyGroupSeparator = "",
+                CurrencyDecimalSeparator = ".",
+                CurrencySymbol = ""
+            };
+        }
+
+
+
+        public static System.IO.Stream FirstPageOnly(byte[] pdfBytes)
+        {
+            System.IO.MemoryStream msOutput = new System.IO.MemoryStream();
+
+            // using(System.IO.MemoryStream msOutput = new System.IO.MemoryStream())
+            //{
+
+            using (System.IO.MemoryStream msInput = new System.IO.MemoryStream(pdfBytes))
+            {
+
+                using (PdfSharp.Pdf.PdfDocument pdfOutputDoc = new PdfSharp.Pdf.PdfDocument())
+                {
+
+                    using (PdfSharp.Pdf.PdfDocument pdfInputDocument = PdfSharp.Pdf.IO.PdfReader.Open(msInput, PdfSharp.Pdf.IO.PdfDocumentOpenMode.Import))
+                    {
+
+                        if (pdfInputDocument.Pages.Count > 0)
+                        {
+                            pdfOutputDoc.AddPage(pdfInputDocument.Pages[0]);
+                        } // End if (pdfInputDocument.Pages.Count > 0) 
+
+                    } // End Using pdfInputDocument
+
+                    pdfOutputDoc.Save(msOutput);
+                } // End Using pdfOutputDoc
+
+            } // End Using msInput
+
+            // } //End Using ' msOutput
+
+            return msOutput;
+        } // End Sub FirstPageOnly 
+
+
+        // [OperationContract, WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+
+        // [OperationContract]
+        // [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        // [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        public static System.IO.Stream toPDF2(string File, bool Current_view)
+        {
+            // Portal.Converter.Log tLog = new Portal.Converter.Log();
+
+            System.IO.Stream retValue = null;
+
+            File = System.IO.File.ReadAllText("D:\\Stefan.Steiger\\Documents\\Visual Studio 2017\\Projects\\libWkHtml2X\\TestWkHtmlToX\\TestFiles\\1503497977772.svg", System.Text.Encoding.UTF8);
+            double paper_maxWidth = 21.0;
+            double paper_maxHeight = 29.7;
+
+            try
+            {
+                System.Globalization.NumberFormatInfo nfi = CreateWebNumberFormat();
+                System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                doc.XmlResolver = null;
+                doc.PreserveWhitespace = true;
+                doc.LoadXml(File);
+
+                System.Xml.XmlAttribute awidth = doc.DocumentElement.Attributes["width"];
+                System.Xml.XmlAttribute aheight = doc.DocumentElement.Attributes["height"];
+                System.Xml.XmlAttribute aviewBox = doc.DocumentElement.Attributes["viewBox"];
+
+                double width = -1.0;
+                double.TryParse(awidth.Value, out width);
+
+                double height = -1.0;
+                double.TryParse(aheight.Value, out height);
+
+                string[] sv = aviewBox.Value.Split(new char[] { ' ', ','}, System.StringSplitOptions.RemoveEmptyEntries);
+
+                double viewbox_width;
+                double viewbox_height;
+                double factor;
+
+                checked
+                {
+                    double[] dv = new double[sv.Length - 1 + 1];
+                    int[] v = new int[sv.Length - 1 + 1];
+                    int num = sv.Length - 1;
+                    for (int i = 0; i <= num; i++)
+                    {
+                        double.TryParse(sv[i], out dv[i]);
+                    }
+
+                    double viewbox_x = dv[0];
+                    double viewbox_y = dv[1];
+                    viewbox_width = dv[2];
+                    viewbox_height = dv[3];
+
+                    double r = width / viewbox_width;
+                    double r2 = height / viewbox_height;
+                    factor = System.Math.Min(r, r2);
+                }
+
+                double newWidth = factor * viewbox_width;
+                double newHeight = factor * viewbox_height;
+
+                double fWidth = paper_maxWidth / newWidth;
+                double fHeight = paper_maxHeight / newHeight;
+                double fPaperSizeFactor = System.Math.Min(fWidth, fHeight);
+
+                double newPaperWidth = newWidth * fPaperSizeFactor;
+                double newPaperHeight = newHeight * fPaperSizeFactor;
+
+                awidth.Value = newPaperWidth.ToString("N2", nfi) + "cm";
+                aheight.Value = newPaperHeight.ToString("N2", nfi) + "cm";
+
+                string svg = doc.OuterXml;
+                string svgHtmlWrapper = libWkHtmlToX.ResourceLoader.ReadEmbeddedResource(typeof(Program).Assembly, ".SvgHtmlWrapper.htm");
+
+
+                string html = string.Format(svgHtmlWrapper, svg);
+                // System.IO.File.WriteAllText(@"D:\Test\svgHtmlWrapper.htm", html);
+
+
+                libWkHtmlToX.PdfGlobalSettings pdfGlobalSettings = new libWkHtmlToX.PdfGlobalSettings();
+                pdfGlobalSettings.DocumentTitle = "Legende";
+                pdfGlobalSettings.Orientation = new libWkHtmlToX.Orientation?(libWkHtmlToX.Orientation.Portrait);
+                pdfGlobalSettings.OutputFormat = new libWkHtmlToX.OutputFormat_t?(libWkHtmlToX.OutputFormat_t.pdf);
+
+                pdfGlobalSettings.MarginBottom = "0px";
+                pdfGlobalSettings.MarginTop = "0px";
+                pdfGlobalSettings.MarginLeft = "0px";
+                pdfGlobalSettings.MarginRight = "0px";
+
+                pdfGlobalSettings.ImageQuality = 50;
+                pdfGlobalSettings.UseCompression = false;
+
+                pdfGlobalSettings.Outline = true;
+                pdfGlobalSettings.Copies = 1;
+
+                pdfGlobalSettings.ImageDPI = 600;
+                // pdfGlobalSettings.DPI = 96;
+                pdfGlobalSettings.DPI = 300;
+
+                pdfGlobalSettings.Width = awidth.Value;
+                pdfGlobalSettings.Height = aheight.Value;
+
+
+                libWkHtmlToX.PdfObjectSettings pdfObjectSettings = new libWkHtmlToX.PdfObjectSettings();
+                pdfObjectSettings.Web.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
+                pdfObjectSettings.Web.EnableIntelligentShrinking = false;
+                // pdfObjectSettings.Web.PrintBackground = True
+                // pdfObjectSettings.Web.PrintMediaType = true;
+                // pdfObjectSettings.Load.ZoomFactor = 1.0;
+
+                byte[] pdfBytes = libWkHtmlToX.Scheduler.ConvertFile(
+                    delegate (ulong queueId)
+                    {
+                        return libWkHtmlToX.Converter.CreatePdf(html, pdfGlobalSettings, pdfObjectSettings);
+                    }
+                );
+
+                retValue = FirstPageOnly(pdfBytes);
+            }
+            catch (System.Exception ex)
+            {
+                // tLog.addMessage(ex)
+                retValue = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes("@@Error: " + ex.Message));
+            }
+            finally
+            {
+                // tLog.Write();
+            }
+
+            return retValue;
+        } // End Sub toPDF2 
+
+
     } // End Class Program 
 
 

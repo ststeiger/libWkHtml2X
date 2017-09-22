@@ -3,7 +3,7 @@ namespace libWkHtmlToX
 {
 
 
-    internal class ResourceLoader
+    public class ResourceLoader
     {
 
 
