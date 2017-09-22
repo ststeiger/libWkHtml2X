@@ -44,15 +44,17 @@ namespace libWkHtmlToX
 
         public static byte[] ConvertFile(ConversionTask.convert_callback_t cb)
         {
+            const int DEFAULT_TIMEOUT = 31000;
+
             byte[] data = null;
 
             ConversionTask ct = QueueConversion(cb);
             System.Console.WriteLine("Queued job as qid[" + System.Convert.ToString(ct.QueueId) + "]");
 
 #if NET_2_0
-            bool timeout = !ct.WaitHandle.WaitOne(31000, false);
+            bool timeout = !ct.WaitHandle.WaitOne(DEFAULT_TIMEOUT, false);
 #else
-            bool timeout = !ct.WaitHandle.WaitOne(31000);
+            bool timeout = !ct.WaitHandle.WaitOne(DEFAULT_TIMEOUT);
 #endif
 
             if (timeout)
@@ -65,8 +67,9 @@ namespace libWkHtmlToX
                 // OMG, lock will keep timeout...
                 if (ct.Status != status_t.OK)
                 {
-                    System.Console.WriteLine("Cancelled qid[" + System.Convert.ToString(ct.QueueId) + "]");
-                    return null;
+                    System.Console.WriteLine("Canceled qid[" + System.Convert.ToString(ct.QueueId) + "]");
+                    throw new System.TimeoutException("DEFAULT_TIMEOUT exceeded. Canceled qid[" + System.Convert.ToString(ct.QueueId) + "]");
+                    // return null;
                 } // End if (ct.Status != status_t.OK) 
 
             } // End if (timeout) 

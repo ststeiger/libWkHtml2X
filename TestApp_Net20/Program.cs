@@ -83,29 +83,30 @@ div
             // os.Load.ZoomFactor = 1.0;
 
             ////////////////////
-
-
+            
 
             byte[] data = libWkHtmlToX.Scheduler.ConvertFile(
                 delegate (ulong queueId)
                 {
-                    return libWkHtmlToX.Converter.CreatePdf(htmlData, gs, os);
+                    //return libWkHtmlToX.Converter.CreatePdf(htmlData, gs, os);
+                    return libWkHtmlToX.Converter.CreatePdf(htmlData, null, null);
                 }
             );
 
             if (data != null)
             {
+                System.IO.File.WriteAllBytes(@"D:\Test\testfile.pdf", data);
                 string pdfMarkup = System.Text.Encoding.UTF8.GetString(data);
                 System.Console.WriteLine(pdfMarkup);
-            }
+            } // End if (data != null) 
 
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();
-        }
+        } // End Sub Main(string[] args)
 
 
-    }
+    } // End Class Program 
 
 
-}
+} // End Namespace TestApp_Net20 
