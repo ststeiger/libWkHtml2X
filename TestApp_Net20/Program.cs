@@ -14,6 +14,16 @@ namespace TestApp_Net20
         static void Main(string[] args)
         {
 
+            libWkHtmlToX.WkHtmlToPdfCommandLineOptions cmd = new libWkHtmlToX.WkHtmlToPdfCommandLineOptions();
+
+            cmd.DisableSmartShrinking = false;
+
+            cmd.Width = "21cm";
+            cmd.Height = "29.7cm";
+
+            string lala = cmd.CommandLine;
+            System.Console.WriteLine(lala);
+
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
@@ -46,6 +56,16 @@ div
 </body>
 </html>
 ";
+
+
+
+            string fn = "1503497977772.svg";
+            fn = "1506332283409.svg";
+
+            string fileName = libWkHtmlToX.VisualStudioHelper.MapSolutionPath("~TestFiles/" + fn);
+            htmlData = System.IO.File.ReadAllText(fileName, System.Text.Encoding.UTF8);
+
+
 
             ////////////////////
             libWkHtmlToX.PdfGlobalSettings gs = new libWkHtmlToX.PdfGlobalSettings();
@@ -165,7 +185,10 @@ div
 
             System.IO.Stream retValue = null;
 
-            File = System.IO.File.ReadAllText("D:\\Stefan.Steiger\\Documents\\Visual Studio 2017\\Projects\\libWkHtml2X\\TestWkHtmlToX\\TestFiles\\1503497977772.svg", System.Text.Encoding.UTF8);
+
+            //File = System.IO.File.ReadAllText(@"", System.Text.Encoding.UTF8);
+
+            
             double paper_maxWidth = 21.0;
             double paper_maxHeight = 29.7;
 

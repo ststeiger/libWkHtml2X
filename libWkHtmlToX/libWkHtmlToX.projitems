@@ -58,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Calls_Initializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Scheduler\Scheduler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Scheduler\TestScheduler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\CommandLineOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\FooterSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\HeaderSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\ImageSettings.cs" />

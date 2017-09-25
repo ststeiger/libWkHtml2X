@@ -60,6 +60,7 @@
     <Compile Include="Trash\CsvParser.cs" />
     <Compile Include="Trash\myCSV.cs" />
     <Compile Include="Trash\TestAsyncMethod.cs" />
+    <Content Include="TestFiles\1506332283409.svg" />
     <Content Include="Trash\various_pageSizes.txt" />
     <Content Include="Trash\wkhtmltoimage.txt" />
     <Content Include="Trash\wkhtmltopdf.txt" />
