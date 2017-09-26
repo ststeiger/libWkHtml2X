@@ -3,7 +3,7 @@ namespace libWkHtmlToX
 {
 
 
-    public class ProcessTesting
+    public class TestProcessManager
     {
 
 
@@ -30,14 +30,26 @@ Hello world: 안녕하세요...
 </body>
 </html>
 ";
+            html = VisualStudioHelper.MapSolutionPath(@"~/TestFiles/1503647812149.svg");
+            html = @"D:\Stefan.Steiger\Downloads\1506414857353.svg";
+            html = System.IO.File.ReadAllText(html);
 
-
-            string args = "--page-height 30cm --page-width 20cm  -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 300 - \"simpleP.pdf\" ";
-            args = "--page-height 30cm --page-width 20cm  -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 300 - - ";
+            // string args = "--page-height 30cm --page-width 20cm  -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 300 - \"simpleP.pdf\" ";
+            // args = "--page-height 30cm --page-width 20cm  -T 0px -B 0px -L 0px -R 0px --zoom 1.0 --disable-smart-shrinking --dpi 300 - - ";
 
             byte[] pdfBytes = null;
 
-            using (ProcessManager p = new ProcessManager(html, wkPdf, args))
+            WkHtmlToPdfCommandLineOptions opts = new WkHtmlToPdfCommandLineOptions();
+            opts.ExecutableDirectory = VisualStudioHelper.GetDllDirectory();
+
+            opts.Orientation = Orientation_t.Portrait;
+            opts.Width = "21cm";
+            opts.Height = "29.7cm";
+            opts.DisableSmartShrinking = true;
+            
+
+
+            using (ProcessManager p = new ProcessManager(html, opts))
             {
                 p.Start();
                 p.WriteStandardInput(html);
@@ -49,6 +61,7 @@ Hello world: 안녕하세요...
             } // End Using p 
 
             System.IO.File.WriteAllBytes(@"d:\test\pdfBytes.pdf", pdfBytes);
+            System.Console.WriteLine("Finished converting...");
         } // End Sub Test
 
 

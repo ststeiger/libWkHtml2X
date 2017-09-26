@@ -6,12 +6,27 @@ namespace libWkHtmlToX
     public abstract class wkHtmlToXCommandLineOptions
     {
 
+        private string m_ExecutableDirectory;
+
+        public virtual string ExecutableDirectory
+        {
+            get { return this.m_ExecutableDirectory; }
+            set { this.m_ExecutableDirectory = value; }
+        }
+
+
+        public abstract string Executable
+        {
+            get;
+        }
+
+
         public string CommandLine
         {
 
             get
             {
-                return ConfigValueHelper.GetCommandLineArguments(this).Trim();
+                return ConfigValueHelper.GetCommandLineArguments(this).Trim() + " - -";
             }
 
         } // End Property CommandLine 
@@ -22,7 +37,14 @@ namespace libWkHtmlToX
     // https://www.mankier.com/1/wkhtmltoimage#--images
     public class WkHtmlToImageCommandLineOptions : wkHtmlToXCommandLineOptions
     {
-        libWkHtmlToX.ImageSettings imageSettings = new libWkHtmlToX.ImageSettings();
+
+        public override string Executable
+        {
+            get
+            {
+                return System.IO.Path.Combine(this.ExecutableDirectory, "wkhtmltoimage.exe");
+            }
+        }
 
 
         [wkHtmlOptionName("--image-quality")]
@@ -39,7 +61,7 @@ namespace libWkHtmlToX
         /// The output format to use, must be either "", "jpg", "png", "bmp" or "svg".
         /// </summary>
         [wkHtmlOptionName("--format")]
-        public SupportedFormat? Format;
+        public SupportedFormat_t? Format;
 
         /// <summary>
         /// The with of the screen used to render is pixels, e.g "800".
@@ -75,7 +97,7 @@ namespace libWkHtmlToX
 
         public WkHtmlToImageCommandLineOptions()
         {
-            this.Format = libWkHtmlToX.SupportedFormat.PNG;
+            this.Format = SupportedFormat_t.PNG;
             this.Quality = 50;
             this.LoadOrPrintImages = true;
             this.DefaultEncoding = System.Text.Encoding.UTF8.WebName;
@@ -91,12 +113,23 @@ namespace libWkHtmlToX
     public class WkHtmlToPdfCommandLineOptions : wkHtmlToXCommandLineOptions
     {
 
+
+        public override string Executable
+        {
+            get
+            {
+                return System.IO.Path.Combine(this.ExecutableDirectory, "wkhtmltopdf.exe");
+            }
+        }
+
+
         [wkHtmlOptionName("--orientation")]
-        public Orientation? Orientation;
-        
-        [wkHtmlOptionName("--output-format")]
-        public OutputFormat_t? OutputFormat;
-        
+        public Orientation_t? Orientation;
+
+        // unknown long argument --output-format...
+        // [wkHtmlOptionName("--output-format")]
+        // public OutputFormat_t? OutputFormat;
+
         // The width of the output document, e.g. "4cm".
         [wkHtmlOptionName("--page-width")]
         public string Width;
@@ -131,6 +164,9 @@ namespace libWkHtmlToX
         [wkHtmlOptionName("--copies")]
         public int? Copies;
 
+        [wkHtmlOptionName("--zoom")]
+        public float? ZoomFactor;
+
 
         // The maximal DPI to use for images in the pdf document.
         [wkHtmlOptionName("--image-dpi")]
@@ -152,8 +188,10 @@ namespace libWkHtmlToX
 
         public WkHtmlToPdfCommandLineOptions()
         {
-            this.Orientation = libWkHtmlToX.Orientation.Portrait;
-            this.OutputFormat = OutputFormat_t.pdf;
+            this.Orientation = libWkHtmlToX.Orientation_t.Portrait;
+
+            // unknown long argument --output-format
+            // this.OutputFormat = OutputFormat_t.pdf;
 
             this.MarginTop = "0px";
             this.MarginBottom = "0px";

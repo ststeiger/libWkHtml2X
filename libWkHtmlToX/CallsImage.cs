@@ -11,7 +11,7 @@ namespace libWkHtmlToX
     {
 
         private const string DLL_NAME = CallsPDF.DLL_NAME;
-        private static bool? s_wkHtmlInitialized;
+        private static bool? s_wkHtmlToImageInitialized;
         
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -40,11 +40,11 @@ namespace libWkHtmlToX
         
         public static int wkhtmltoimage_init(bool use_graphics)
         {
-            if (s_wkHtmlInitialized.HasValue)
+            if (s_wkHtmlToImageInitialized.HasValue)
                 return 1;
 
             int ret = wkhtmltoimage_init_internal(use_graphics ? 1 : 0);
-            s_wkHtmlInitialized = true;
+            s_wkHtmlToImageInitialized = true;
 
             return ret;
         }

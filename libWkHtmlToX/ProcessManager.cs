@@ -17,15 +17,16 @@ namespace libWkHtmlToX
         private System.IO.BinaryReader m_outputReader;
 
 
-        public ProcessManager(string html, string executable, string args)
-            : this(html, executable, args, new OutputCallback_t(OnOutputDefault))
+        public ProcessManager(string html, wkHtmlToXCommandLineOptions options)
+            : this(html, options, new OutputCallback_t(OnOutputDefault))
         { } // End Constructor
 
 
-        public ProcessManager(string html, string executable, string args, OutputCallback_t outputCallback)
+        public ProcessManager(string html, wkHtmlToXCommandLineOptions options, OutputCallback_t outputCallback)
         {
-            this.m_exePath = executable;
-            this.m_arguments = args;
+            
+            this.m_exePath = options.Executable;
+            this.m_arguments = options.CommandLine;
 
             OutputCallback = outputCallback;
         } // End Constructor
@@ -123,6 +124,7 @@ namespace libWkHtmlToX
         {
             System.Console.WriteLine("Process stopped.");
         } // End Sub ProcessExited
+
 
         public bool WaitForExit(int milliseconds)
         {

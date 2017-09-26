@@ -42,7 +42,7 @@ namespace libWkHtmlToX
         public bool? DebugJavascript;
 
         [wkHtmlOptionName("load.loadErrorHandling")]
-        public ErrorBehaviour? LoadErrorHandling;
+        public ErrorBehaviour_t? LoadErrorHandling;
 
         [wkHtmlOptionName("load.proxy")]
         public string Proxy;

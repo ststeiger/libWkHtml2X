@@ -9,7 +9,7 @@ namespace libWkHtmlToX
     public static class CallsPDF
     {
         internal const string DLL_NAME = "wkhtmltoX";
-        private static bool? s_wkHtmlInitialized;
+        private static bool? s_wkHtmlToPdfInitialized;
 
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -41,11 +41,11 @@ namespace libWkHtmlToX
 
         public static int wkhtmltopdf_init(bool use_graphics)
         {
-            if (s_wkHtmlInitialized.HasValue)
+            if (s_wkHtmlToPdfInitialized.HasValue)
                 return 1;
 
             int ret = wkhtmltopdf_init_internal(use_graphics ? 1 : 0);
-            s_wkHtmlInitialized = true;
+            s_wkHtmlToPdfInitialized = true;
 
             return ret;
         }

@@ -53,7 +53,7 @@ namespace TestWkHtmlToX
 
             
             gs.DocumentTitle = "Legende";
-            gs.Orientation = libWkHtmlToX.Orientation.Portrait;
+            gs.Orientation = libWkHtmlToX.Orientation_t.Portrait;
             // gs.PageSize = "width height";
             gs.OutputFormat = libWkHtmlToX.OutputFormat_t.pdf;
             

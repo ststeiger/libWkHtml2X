@@ -13,7 +13,6 @@ namespace TestApp_Net20
         [System.STAThread]
         static void Main(string[] args)
         {
-
             libWkHtmlToX.WkHtmlToPdfCommandLineOptions cmdPdf = new libWkHtmlToX.WkHtmlToPdfCommandLineOptions();
 
             cmdPdf.DisableSmartShrinking = false;
@@ -37,6 +36,8 @@ namespace TestApp_Net20
 
             string cmdLineImage = cmdImg.CommandLine;
             System.Console.WriteLine(cmdLineImage);
+
+            libWkHtmlToX.TestProcessManager.Test();
 
 
 
@@ -89,7 +90,7 @@ div
 
             gs.DocumentTitle = "Legende";
             // gs.PageSize = "width height";
-            gs.Orientation = libWkHtmlToX.Orientation.Portrait;
+            gs.Orientation = libWkHtmlToX.Orientation_t.Portrait;
             gs.OutputFormat = libWkHtmlToX.OutputFormat_t.pdf;
 
             gs.MarginBottom = "0px";
@@ -139,6 +140,7 @@ div
             System.Console.WriteLine(System.Environment.NewLine);
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();
+            th.Abort();
         } // End Sub Main(string[] args)
 
 
@@ -240,7 +242,7 @@ div
                     for (int i = 0; i <= num; i++)
                     {
                         double.TryParse(sv[i], out dv[i]);
-                    }
+                    } // Next i 
 
                     double viewbox_x = dv[0];
                     double viewbox_y = dv[1];
@@ -275,8 +277,8 @@ div
 
                 libWkHtmlToX.PdfGlobalSettings pdfGlobalSettings = new libWkHtmlToX.PdfGlobalSettings();
                 pdfGlobalSettings.DocumentTitle = "Legende";
-                pdfGlobalSettings.Orientation = new libWkHtmlToX.Orientation?(libWkHtmlToX.Orientation.Portrait);
-                pdfGlobalSettings.OutputFormat = new libWkHtmlToX.OutputFormat_t?(libWkHtmlToX.OutputFormat_t.pdf);
+                pdfGlobalSettings.Orientation = libWkHtmlToX.Orientation_t.Portrait;
+                pdfGlobalSettings.OutputFormat = libWkHtmlToX.OutputFormat_t.pdf;
 
                 pdfGlobalSettings.MarginBottom = "0px";
                 pdfGlobalSettings.MarginTop = "0px";

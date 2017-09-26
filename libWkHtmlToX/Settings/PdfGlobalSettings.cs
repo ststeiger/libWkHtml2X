@@ -20,11 +20,11 @@ namespace libWkHtmlToX
 
         // The orientation of the output document, must be either "Landscape" or "Portrait".
         [wkHtmlOptionName("orientation")]
-        public Orientation? Orientation; 
+        public Orientation_t? Orientation; 
 
         // Should the output be printed in color or gray scale, must be either "Color" or "Grayscale"
         [wkHtmlOptionName("colorMode")]
-        public ColorMode? ColorMode;
+        public ColorMode_t? ColorMode;
 
         // Most likely has no effect.
         [wkHtmlOptionName("resolution")]

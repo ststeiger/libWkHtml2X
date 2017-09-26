@@ -3,25 +3,25 @@ namespace libWkHtmlToX
 {
 
 
-    public enum ColorMode
+    public enum ColorMode_t
     {
         Color, Grayscale
     }
 
 
-    public enum Orientation
+    public enum Orientation_t
     {
         Landscape, Portrait
     }
 
 
-    public enum ErrorBehaviour
+    public enum ErrorBehaviour_t
     {
         abort, skip, ignore
     }
 
 
-    public enum SupportedFormat
+    public enum SupportedFormat_t
     {
         BMP, JPG, PNG, NONE
     }

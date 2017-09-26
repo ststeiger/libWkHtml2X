@@ -88,7 +88,7 @@ namespace libWkHtmlToX
         /// The output format to use, must be either "", "jpg", "png", "bmp" or "svg".
         /// </summary>
         [wkHtmlOptionName("fmt")]
-        public SupportedFormat? SupportedFormat;
+        public SupportedFormat_t? SupportedFormat;
 
         /// <summary>
         /// The with of the screen used to render is pixels, e.g "800".

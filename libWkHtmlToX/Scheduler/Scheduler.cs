@@ -166,6 +166,8 @@ namespace libWkHtmlToX
 
                                 try
                                 {
+                                    s.ConversionCallback.Invoke(s.QueueId);
+
                                     s.Data = s.ConversionCallback(s.QueueId);
                                     s.ToggleConverterStopwatch();
                                 }

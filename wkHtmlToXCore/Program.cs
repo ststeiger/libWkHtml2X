@@ -62,7 +62,7 @@ div
 
             libWkHtmlToX.ImageSettings imageSettings = new libWkHtmlToX.ImageSettings();
 
-            imageSettings.SupportedFormat = libWkHtmlToX.SupportedFormat.PNG;
+            imageSettings.SupportedFormat = libWkHtmlToX.SupportedFormat_t.PNG;
             // imageSettings.ScreenWidth = (int)System.Math.Ceiling(factorSize * viewbox_width); // Width will be fixed at small sizes, if this property isn't set
             imageSettings.SmartWidth = false;
             imageSettings.Quality = 50;
