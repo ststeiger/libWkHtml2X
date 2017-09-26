@@ -17,7 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Compression\Deflate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Compression\GZIP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Compression\LZF2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ConfigValueHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\__ConfigValueHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Loader\AbstractLibraryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Loader\ResourceLoader.cs" />

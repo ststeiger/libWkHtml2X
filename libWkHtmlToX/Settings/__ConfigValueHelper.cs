@@ -41,6 +41,84 @@ namespace libWkHtmlToX
 
 
 
+        public static string GetCommandLineArguments(object instance)
+        {
+            string retValue = null;
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            System.Type t = instance.GetType();
+
+            System.Reflection.FieldInfo[] fis = System.Reflection.IntrospectionExtensions.GetTypeInfo(t).GetFields();
+
+            for (int i = 0; i < fis.Length; ++i)
+            {
+                System.Reflection.FieldInfo fi = fis[i];
+
+                string attName = AttributeHelper.GetAttributValue<wkHtmlOptionNameAttribute, string>(fi, a => a.Name);
+                object objVal = fi.GetValue(instance);
+
+                if (attName == null)
+                {
+                    // SetConfigValues(config, objVal, setter);
+                    continue;
+                } // End if (attName == null)
+
+                // Set Value
+                if (objVal != null)
+                {
+                    System.Type tField = fi.FieldType;
+
+                    bool isOfTypeSystemNullable = (System.Reflection.IntrospectionExtensions.GetTypeInfo(tField).IsGenericType
+                        && object.ReferenceEquals(tField.GetGenericTypeDefinition(), typeof(System.Nullable<>))
+                    );
+
+                    if (isOfTypeSystemNullable)
+                        tField = System.Nullable.GetUnderlyingType(tField);
+
+                    string strValue = null;
+
+                    if (object.ReferenceEquals(tField, typeof(bool)))
+                    {
+                        if (System.Convert.ToBoolean(objVal) != true)
+                            attName = "";
+
+                        strValue = "";
+                    }
+                    else if (object.ReferenceEquals(tField, typeof(double)))
+                    {
+                        double dblVal = (double)objVal;
+                        strValue = dblVal.ToString("N2", s_webNumberFormat);
+                    }
+                    else if (object.ReferenceEquals(tField, typeof(int)))
+                    {
+                        int iVal = (int)objVal;
+                        strValue = iVal.ToString(s_webNumberFormat);
+                    }
+                    else
+                        strValue = System.Convert.ToString(objVal, System.Globalization.CultureInfo.InvariantCulture);
+
+                    if (string.IsNullOrEmpty(attName))
+                        continue;
+
+                    sb.Append(" ");
+                    sb.Append(attName);
+
+                    if (string.IsNullOrEmpty(strValue))
+                        continue;
+
+                    sb.Append(" ");
+                    sb.Append(strValue);
+                } // End if (objVal != null) 
+
+            } // Next i 
+
+            retValue = sb.ToString();
+            sb.Length = 0;
+            sb = null;
+
+            return retValue;
+        } // End Sub SetConfigValues 
+
 
         public static void SetConfigValues(System.IntPtr config, object instance, set_config_value_t setter)
         {

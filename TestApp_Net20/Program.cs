@@ -14,15 +14,31 @@ namespace TestApp_Net20
         static void Main(string[] args)
         {
 
-            libWkHtmlToX.WkHtmlToPdfCommandLineOptions cmd = new libWkHtmlToX.WkHtmlToPdfCommandLineOptions();
+            libWkHtmlToX.WkHtmlToPdfCommandLineOptions cmdPdf = new libWkHtmlToX.WkHtmlToPdfCommandLineOptions();
 
-            cmd.DisableSmartShrinking = false;
+            cmdPdf.DisableSmartShrinking = false;
 
-            cmd.Width = "21cm";
-            cmd.Height = "29.7cm";
+            cmdPdf.Width = "21cm";
+            cmdPdf.Height = "29.7cm";
 
-            string lala = cmd.CommandLine;
-            System.Console.WriteLine(lala);
+            string cmdLinePdf = cmdPdf.CommandLine;
+            System.Console.WriteLine(cmdLinePdf);
+
+
+
+
+
+            libWkHtmlToX.WkHtmlToImageCommandLineOptions cmdImg = new libWkHtmlToX.WkHtmlToImageCommandLineOptions();
+
+            cmdImg.DisableSmartWidth = true;
+
+            cmdImg.ScreenWidth = 1024;
+            cmdImg.ScreenHeight = 768;
+
+            string cmdLineImage = cmdImg.CommandLine;
+            System.Console.WriteLine(cmdLineImage);
+
+
 
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
