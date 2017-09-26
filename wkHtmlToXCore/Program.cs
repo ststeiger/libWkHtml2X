@@ -9,7 +9,8 @@ namespace wkHtmlToXCore
         [System.STAThread()]
         static void Main(string[] args)
         {
-            libWkHtmlToX.ResourceLoader.EmbeddedResourceToFile("", "tgt");
+            // ScriptGenerator.FileToHexString();
+            // libWkHtmlToX.ResourceLoader.EmbeddedResourceToFile("", "tgt");
 
 
             // System.Threading.Thread.CurrentThread.SetApartmentState(System.Threading.ApartmentState.STA);
