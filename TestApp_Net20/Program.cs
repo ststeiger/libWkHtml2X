@@ -13,33 +13,8 @@ namespace TestApp_Net20
         [System.STAThread]
         static void Main(string[] args)
         {
-            libWkHtmlToX.WkHtmlToPdfCommandLineOptions cmdPdf = new libWkHtmlToX.WkHtmlToPdfCommandLineOptions();
-
-            cmdPdf.DisableSmartShrinking = false;
-
-            cmdPdf.Width = "21cm";
-            cmdPdf.Height = "29.7cm";
-
-            string cmdLinePdf = cmdPdf.CommandLine;
-            System.Console.WriteLine(cmdLinePdf);
-
-
-
-
-
-            libWkHtmlToX.WkHtmlToImageCommandLineOptions cmdImg = new libWkHtmlToX.WkHtmlToImageCommandLineOptions();
-
-            cmdImg.DisableSmartWidth = true;
-
-            cmdImg.ScreenWidth = 1024;
-            cmdImg.ScreenHeight = 768;
-
-            string cmdLineImage = cmdImg.CommandLine;
-            System.Console.WriteLine(cmdLineImage);
-
-            libWkHtmlToX.TestProcessManager.Test();
-
-
+            // libWkHtmlToX.TestProcessManager.TestPdf();
+            libWkHtmlToX.TestProcessManager.TestPng();
 
 #if false
             System.Windows.Forms.Application.EnableVisualStyles();
