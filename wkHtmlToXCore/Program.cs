@@ -6,9 +6,12 @@ namespace wkHtmlToXCore
     class Program
     {
 
+
         [System.STAThread()]
         static void Main(string[] args)
         {
+            // HtmlBeautifier.Beautify();
+            // XmlBeautifier.Beautify();
             // ScriptGenerator.FileToHexString();
             // libWkHtmlToX.ResourceLoader.EmbeddedResourceToFile("", "tgt");
 

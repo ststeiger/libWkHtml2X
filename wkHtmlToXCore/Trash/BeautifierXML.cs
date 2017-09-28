@@ -1,5 +1,5 @@
 ﻿
-namespace wkHtmlToXCore.Trash
+namespace wkHtmlToXCore
 {
 
 
