@@ -7,6 +7,12 @@ namespace libWkHtmlToX
     {
 
 
+        public static string GetResourceName(System.Type type, string resourceName)
+        {
+            return GetResourceName(System.Reflection.IntrospectionExtensions.GetTypeInfo(type).Assembly, resourceName);
+        }
+
+
         public static string GetResourceName(System.Reflection.Assembly asm, string resourceName)
         {
             if (resourceName == null)
@@ -45,6 +51,13 @@ namespace libWkHtmlToX
         } // End Function GetResourceName 
 
 
+
+        public static string ReadEmbeddedResource(System.Type type, string resourceName)
+        {
+            return ReadEmbeddedResource(System.Reflection.IntrospectionExtensions.GetTypeInfo(type).Assembly, resourceName);
+        }
+
+
         public static string ReadEmbeddedResource(System.Reflection.Assembly asm, string resourceName)
         {
             string retValue = null; 
@@ -75,6 +88,11 @@ namespace libWkHtmlToX
         } // End Sub ReadEmbeddedResource
 
 
+        public static void ReadEmbeddedResource(System.Type type, string resourceName, System.IO.Stream output)
+        {
+            ReadEmbeddedResource(System.Reflection.IntrospectionExtensions.GetTypeInfo(type).Assembly, resourceName, output);
+        }
+
         public static void ReadEmbeddedResource(System.Reflection.Assembly asm, string resourceName, System.IO.Stream output)
         {
             if (resourceName != null)
@@ -103,7 +121,13 @@ namespace libWkHtmlToX
             System.Reflection.Assembly asm = System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(ResourceLoader)).Assembly;
             ReadEmbeddedResource(asm, resourceName, output);
         } // End Sub ReadEmbeddedResource
-        
+
+
+        public static void EmbeddedResourceToFile(System.Type type, string resourceName, string targetFile)
+        {
+            EmbeddedResourceToFile(System.Reflection.IntrospectionExtensions.GetTypeInfo(type).Assembly, resourceName, targetFile);
+        }
+
 
         public static void EmbeddedResourceToFile(System.Reflection.Assembly asm, string resourceName, string targetFile)
         {
