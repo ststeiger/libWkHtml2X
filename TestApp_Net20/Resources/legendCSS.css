@@ -1,0 +1,106 @@
+﻿/*
+#Legend
+{
+    box-sizing: border-box;
+    padding: 10px 10px;
+    font-family: Arial;
+    font-size: 11px;
+    color: black;
+}
+*/
+
+
+    #Legend h1
+    {
+        #@@Found: 'VWS.Legend.css';
+        font-size: 14px;
+        margin: 15px 0;
+    }
+
+        #Legend h1:first-of-type
+        {
+            margin-top: 0
+        }
+
+    #Legend table
+    {
+        width: 100%;
+    }
+
+    #Legend td
+    {
+        border-bottom: 5px solid transparent;
+        position: relative;
+        vertical-align: top
+    }
+
+
+
+    #Legend th
+    {
+        border-bottom: 5px solid transparent;
+        text-align: left;
+        text-decoration: underline
+    }
+
+    #Legend td.asColor
+    {
+        width: 14px
+    }
+
+        #Legend td.asColor span
+        {
+            cursor: pointer;
+            height: 14px;
+            left: 50%;
+            position: absolute;
+            width: 14px;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0)
+        }
+
+            #Legend td.asColor span.Inactive
+            {
+                background-color: #fff !important;
+                border: 1px solid crimson
+            }
+
+    #Legend td.asImage
+    {
+        height: 25px;
+        width: 25px
+    }
+
+        #Legend td.asImage span
+        {
+            cursor: pointer;
+            left: 50%;
+            position: absolute;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0)
+        }
+
+            #Legend td.asImage span > svg
+            {
+                pointer-events: none
+            }
+
+            #Legend td.asImage span.Inactive
+            {
+                border: 1px solid crimson
+            }
+
+    #Legend td.Right, #Legend th.Right
+    {
+        text-align: right
+    }
+
+    #Legend tr.Sum td
+    {
+        font-weight: bold
+    }
+
+    #Legend.Visible
+    {
+        display: block !important
+    }

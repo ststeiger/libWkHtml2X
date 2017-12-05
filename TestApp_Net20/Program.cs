@@ -6,6 +6,153 @@ namespace TestApp_Net20
     static class Program
     {
 
+        private static void SetAttribute(System.Xml.XmlDocument svg, string attributeName, string value)
+        {
+            if (svg.DocumentElement.HasAttribute(attributeName))
+            {
+                // svg.DocumentElement.RemoveAttribute(attributeName);
+                svg.DocumentElement.Attributes[attributeName].Value = value;
+                return;
+            }
+            
+            System.Xml.XmlAttribute att = svg.CreateAttribute(attributeName);
+            att.Value = value;
+            svg.DocumentElement.Attributes.Append(att);
+        }
+
+        public static System.Collections.Generic.Dictionary<string, string> StyleToDict(string style)
+        {
+            System.Collections.Generic.Dictionary<string, string> nvc = new System.Collections.Generic.Dictionary<string, string>();
+
+            if (style == null)
+                return nvc;
+
+            string[] keyvaluepair = style.Split(';');
+
+            for (int i = 0; i < keyvaluepair.Length; ++i)
+            {
+                keyvaluepair[i] = keyvaluepair[i].Trim();
+                int pos = keyvaluepair[i].IndexOf(':');
+                if (pos != -1)
+                {
+                    string key = keyvaluepair[i].Substring(0, pos).Trim();
+                    string value = keyvaluepair[i].Substring(pos+1).Trim();
+                    nvc[key] = value;
+                }
+
+            }
+            
+            return nvc;
+        }
+
+        public static string DictToStyle(System.Collections.Generic.Dictionary<string, string> styles)
+        {
+            string style = "";
+
+            foreach (System.Collections.Generic.KeyValuePair<string,string> kvp in styles)
+            {
+                style += kvp.Key + ": " + kvp.Value + "; ";
+            }
+
+            return style;
+        }
+
+        public static void RemoveBgAndBorder(System.Xml.XmlNode node)
+        {
+            if (node.Attributes["style"] != null)
+            {
+                string style = node.Attributes["style"].Value;
+                System.Collections.Generic.Dictionary<string, string> styles = StyleToDict(style);
+
+                if (styles.ContainsKey("background-color"))
+                {
+                    styles.Remove("background-color");
+                    styles.Remove("border");
+                    style = DictToStyle(styles);
+                    node.Attributes["style"].Value = style;
+                }
+            }
+
+        }
+
+        public static void Leg()
+        {
+            string svgg = @"D:\Stefan.Steiger\Documents\Visual Studio 2017\Projects\libWkHtml2X\TestApp_Net20\Resources\1512467650594.svg";
+            svgg = System.IO.File.ReadAllText(svgg, System.Text.Encoding.UTF8);
+
+            string legendTemplate = @"D:\Stefan.Steiger\Documents\Visual Studio 2017\Projects\libWkHtml2X\TestApp_Net20\Resources\theLegend.htm";
+            legendTemplate = System.IO.File.ReadAllText(legendTemplate, System.Text.Encoding.UTF8);
+
+            System.Xml.XmlDocument svg = new System.Xml.XmlDocument();
+            svg.XmlResolver = null;
+            svg.LoadXml(svgg);
+
+            SetAttribute(svg, "width", "100%");
+            SetAttribute(svg, "height", "100%");
+            //SetAttribute(svg, "preserveAspectRatio", "xMinYMin");
+            SetAttribute(svg, "preserveAspectRatio", "xMidYMid");
+
+
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            doc.XmlResolver = null;
+            doc.LoadXml(legendTemplate);
+
+            System.Xml.XmlNamespaceManager nsm = 
+                new System.Xml.XmlNamespaceManager(doc.NameTable);
+            nsm.AddNamespace("dft", "http://www.w3.org/1999/xhtml");
+
+
+            //System.Xml.XmlNode titleNode = doc.SelectSingleNode("//*[local-name()='div'][@id='title']");
+            System.Xml.XmlNode title = doc.SelectSingleNode("//*[@id='title']");
+            title.FirstChild.InnerText = "Adliswil - Soodring 6 - Upper floor 3 - Space Type";
+
+            System.Xml.XmlNode logo = doc.SelectSingleNode("//*[@id='logo']");
+            
+            System.Xml.XmlNode printdate = doc.SelectSingleNode("//*[@id='printdate']");
+            string pd = System.DateTime.Now.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            printdate.FirstChild.InnerText = pd;
+
+            System.Xml.XmlNode Legend = doc.SelectSingleNode("//*[@id='Legend']");
+
+
+            System.Xml.XmlNode drawing = doc.SelectSingleNode("//*[@id='drawing']");
+            drawing.InnerXml = svg.DocumentElement.OuterXml;
+
+
+            System.Xml.XmlNode drawing_border = doc.SelectSingleNode("//*[@id='drawing_border']");
+
+
+            System.Console.WriteLine(title);
+            System.Console.WriteLine(logo);
+            System.Console.WriteLine(printdate);
+            System.Console.WriteLine(Legend);
+            System.Console.WriteLine(drawing);
+            System.Console.WriteLine(drawing_border);
+
+
+            RemoveBgAndBorder(title);
+            RemoveBgAndBorder(logo);
+            RemoveBgAndBorder(Legend);
+            RemoveBgAndBorder(printdate);
+            RemoveBgAndBorder(drawing);
+            RemoveBgAndBorder(drawing_border);
+
+
+            using (System.Xml.XmlTextWriter xtw = new System.Xml.XmlTextWriter(@"d:\test5.htm", System.Text.Encoding.UTF8))
+            {
+                xtw.Formatting = System.Xml.Formatting.Indented; // if you want it indented
+                xtw.Indentation = 4;
+                xtw.IndentChar = ' ';
+
+                doc.Save(xtw);
+                xtw.Flush();
+                xtw.Close();
+            } // End Using xtw
+
+
+        }
+
+
 
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
@@ -13,6 +160,11 @@ namespace TestApp_Net20
         [System.STAThread]
         static void Main(string[] args)
         {
+            Leg();
+
+
+
+
             // libWkHtmlToX.TestProcessManager.TestPdf();
             libWkHtmlToX.TestProcessManager.TestPng();
 
