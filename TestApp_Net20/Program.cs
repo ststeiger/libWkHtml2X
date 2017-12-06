@@ -6,6 +6,157 @@ namespace TestApp_Net20
     static class Program
     {
 
+
+        public class DrawingInfo
+        {
+            public DrawingInfo()
+            { }
+
+
+            protected string m_LC_Lang_en;
+            public string LC_Lang_en
+            {
+                get
+                {
+                    if (string.IsNullOrEmpty(this.m_LC_Lang_en))
+                        return "N/A"; ;
+
+                    return this.m_LC_Lang_en;
+                }
+                set
+                {
+                    this.m_LC_Lang_en = value;
+                }
+            }
+
+            protected string m_PR_Name;
+            public string PR_Name
+            {
+                get
+                {
+                    if (string.IsNullOrEmpty(this.m_PR_Name))
+                        return "N/A"; ;
+
+                    return this.m_PR_Name;
+                }
+                set
+                {
+                    this.m_PR_Name = value;
+                }
+            }
+            
+
+            protected string m_FloorDisplayString;
+            public string FloorDisplayString
+            {
+                get
+                {
+                    if (string.IsNullOrEmpty(m_FloorDisplayString))
+                        return "N/A"; ;
+
+                    return this.m_FloorDisplayString;
+                }
+                set
+                {
+                    this.m_FloorDisplayString = value;
+                }
+            }
+
+            public string Darstellung = "Space Type";
+
+            public string FL_Level;
+            public string ZO_FLArea_Area;
+            
+        }
+
+
+        public static DrawingInfo GetData()
+        {
+            // in_aperturedwg
+
+            string sql = @"
+SELECT TOP 1 
+	 T_Ref_Location.LC_Lang_en
+	 
+	,T_Premises.PR_Name
+	
+	,ISNULL(T_Ref_FloorType.FT_Lang_en + ' ', '') + CAST(T_Floor.FL_Level AS varchar(10)) AS FloorDisplayString  
+	,T_Ref_FloorType.FT_Lang_en
+	,T_Floor.FL_Level
+	,T_Floor.FL_Sort
+	 
+	,T_ZO_Premises_DWG.ZO_PRDWG_ApertureDWG
+	,T_ZO_Premises_DWG.ZO_PRDWG_ApertureObjID
+	 
+	,T_ZO_Floor_DWG.ZO_FLDWG_ApertureDWG
+	,T_ZO_Floor_DWG.ZO_FLDWG_ApertureObjID
+	,T_ZO_Floor_Area.ZO_FLArea_Area
+FROM T_Ref_Location 
+
+LEFT JOIN T_Ref_Country
+	ON T_Ref_Country.CTR_UID = T_Ref_Location.LC_CTR_UID 
+	AND T_Ref_Country.CTR_Status = 1 
+	
+LEFT JOIN T_Ref_Region
+	ON T_Ref_Region.RG_UID = T_Ref_Country.CTR_RG_UID 
+	AND T_Ref_Region.RG_Status = 1 
+	
+LEFT JOIN T_Premises 
+	ON T_Premises.PR_LC_UID = LC_UID 
+	AND T_Premises.PR_Status = 1 
+	AND {fn curdate()} BETWEEN T_Premises.PR_DateFrom AND T_Premises.PR_DateTo 
+	
+LEFT JOIN T_ZO_Premises_DWG
+	ON T_ZO_Premises_DWG.ZO_PRDWG_PR_UID = PR_UID 
+	AND T_ZO_Premises_DWG.ZO_PRDWG_Status = 1 
+	AND {fn curdate()} BETWEEN  T_ZO_Premises_DWG.ZO_PRDWG_DateFrom AND T_ZO_Premises_DWG.ZO_PRDWG_DateTo 
+	
+LEFT JOIN T_Floor 
+	ON T_Floor.FL_PR_UID = PR_UID 
+	AND T_Floor.FL_Status = 1 
+	AND {fn curdate()} BETWEEN  T_Floor.FL_DateFrom AND T_Floor.FL_DateTo 
+	
+LEFT JOIN T_Ref_FloorType
+	ON T_Ref_FloorType.FT_UID = T_Floor.FL_FT_UID 
+	AND T_Ref_FloorType.FT_Status = 1 
+	
+LEFT JOIN T_ZO_Floor_DWG 
+	ON T_ZO_Floor_DWG.ZO_FLDWG_FL_UID = T_Floor.FL_UID 
+	AND T_ZO_Floor_DWG.ZO_FLDWG_Status = 1 
+	AND {fn curdate()} BETWEEN  T_ZO_Floor_DWG.ZO_FLDWG_DateFrom AND T_ZO_Floor_DWG.ZO_FLDWG_DateTo 
+	
+LEFT JOIN T_ZO_Floor_Area
+	ON T_ZO_Floor_Area.ZO_FLArea_FL_UID = T_Floor.FL_UID 
+	AND T_ZO_Floor_Area.ZO_FLArea_Status = 1 
+	AND {fn curdate()} BETWEEN  T_ZO_Floor_Area.ZO_FLArea_DateFrom AND T_ZO_Floor_Area.ZO_FLArea_DateTo 
+	
+WHERE (1=1) 
+AND T_Ref_Location.LC_Status = 1 
+
+--AND PR_Name LIKE '%Soodring 33%'
+--AND FT_Lang_en = 'Upper floor'
+--AND FL_Level = 3
+AND 
+(
+	T_ZO_Floor_DWG.ZO_FLDWG_ApertureDWG = @in_aperturedwg 
+	OR 
+	T_ZO_Premises_DWG.ZO_PRDWG_ApertureDWG = @in_aperturedwg 
+) 
+";
+
+            // SQL.fromFile("");
+            DrawingInfo di = null;
+
+            using (System.Data.Common.DbCommand cmd = SQL.CreateCommand(sql))
+            {
+                SQL.AddParameter(cmd, "in_aperturedwg", "ADSW_2");
+                di = SQL.GetClass<DrawingInfo>(cmd);
+            }
+
+            return di;
+        }
+
+
         private static void SetAttribute(System.Xml.XmlDocument svg, string attributeName, string value)
         {
             if (svg.DocumentElement.HasAttribute(attributeName))
@@ -103,8 +254,11 @@ namespace TestApp_Net20
 
 
             //System.Xml.XmlNode titleNode = doc.SelectSingleNode("//*[local-name()='div'][@id='title']");
+            DrawingInfo di = GetData();
             System.Xml.XmlNode title = doc.SelectSingleNode("//*[@id='title']");
-            title.FirstChild.InnerText = "Adliswil - Soodring 6 - Upper floor 3 - Space Type";
+            title.FirstChild.InnerText = $"{di.LC_Lang_en} - {di.PR_Name} - {di.FloorDisplayString} - {di.Darstellung}";
+
+
 
             System.Xml.XmlNode logo = doc.SelectSingleNode("//*[@id='logo']");
             
