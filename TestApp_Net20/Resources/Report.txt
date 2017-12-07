@@ -1,0 +1,15 @@
+<RS:ReportViewerHost EnableExternalImages="true" 
+
+
+
+COR-Basic-V4\Portal\Portal_Share\0\VWS.Export.js
+svgID: VWS.Visualiser._getSVG()
+SVG_UID: VWS.Visualiser._getSVG(),
+Timestamp: VWS.Visualiser._getDate()
+
+
+' Dim strBuilder As StringBuilder = New StringBuilder("file path characters are: ")
+' Dim strWriter As System.IO.StringWriter = New System.IO.StringWriter(strBuilder)
+' Using xtw As System.Xml.XmlTextWriter = New System.Xml.XmlTextWriter(strWriter)
+
+

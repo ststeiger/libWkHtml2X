@@ -61,6 +61,12 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PdfSharp, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -95,6 +101,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="DB_Schema.xlsx" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -126,6 +133,10 @@
   <ItemGroup>
     <Content Include="Resources\1512467650594.svg" />
     <Content Include="Resources\legendCSS.css" />
+    <Content Include="Resources\ObjData.sql" />
+    <Content Include="Resources\pdfQuery.sql" />
+    <Content Include="Resources\Report.txt" />
+    <Content Include="Resources\tables_pdflegende.sql" />
     <Content Include="Resources\theLegend.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

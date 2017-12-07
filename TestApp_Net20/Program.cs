@@ -226,7 +226,7 @@ AND
 
         }
 
-        public static void Leg()
+        public static void Leg(string legendenText, string css)
         {
             string svgg = @"D:\Stefan.Steiger\Documents\Visual Studio 2017\Projects\libWkHtml2X\TestApp_Net20\Resources\1512467650594.svg";
             svgg = System.IO.File.ReadAllText(svgg, System.Text.Encoding.UTF8);
@@ -266,7 +266,11 @@ AND
             string pd = System.DateTime.Now.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             printdate.FirstChild.InnerText = pd;
 
+            System.Xml.XmlNode legendStyle = doc.SelectSingleNode("//*[@id='legendStyle']");
+            legendStyle.InnerXml = css;
+
             System.Xml.XmlNode Legend = doc.SelectSingleNode("//*[@id='Legend']");
+            Legend.InnerXml = legendenText;
 
 
             System.Xml.XmlNode drawing = doc.SelectSingleNode("//*[@id='drawing']");
@@ -275,15 +279,6 @@ AND
 
             System.Xml.XmlNode drawing_border = doc.SelectSingleNode("//*[@id='drawing_border']");
 
-
-            System.Console.WriteLine(title);
-            System.Console.WriteLine(logo);
-            System.Console.WriteLine(printdate);
-            System.Console.WriteLine(Legend);
-            System.Console.WriteLine(drawing);
-            System.Console.WriteLine(drawing_border);
-
-
             RemoveBgAndBorder(title);
             RemoveBgAndBorder(logo);
             RemoveBgAndBorder(Legend);
@@ -291,6 +286,26 @@ AND
             RemoveBgAndBorder(drawing);
             RemoveBgAndBorder(drawing_border);
 
+            System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings();
+            settings.Encoding = System.Text.Encoding.UTF8;
+            settings.Indent = true;
+            settings.IndentChars = "    ";
+            settings.NewLineChars = System.Environment.NewLine;
+
+
+            System.Text.StringBuilder builder = new System.Text.StringBuilder();
+
+            using (System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(builder, settings))
+            {
+                doc.Save(writer);
+            }
+
+            string str = builder.ToString();
+            System.Console.WriteLine(str);
+
+            // System.Text.StringBuilder strBuilder = new System.Text.StringBuilder("file path characters are: ");
+            // System.IO.StringWriter strWriter = new System.IO.StringWriter(strBuilder);
+            // using( System.Xml.XmlTextWriter xtw2 = new System.Xml.XmlTextWriter(strWriter))
 
             using (System.Xml.XmlTextWriter xtw = new System.Xml.XmlTextWriter(@"d:\test5.htm", System.Text.Encoding.UTF8))
             {
@@ -307,6 +322,138 @@ AND
         }
 
 
+        static void testme()
+        {
+            string legendenText = @"
+<h1>Space type</h1>
+<table>
+    <tr>
+        <th data-alias=""_LEG_Color-Spacetype"" style=""""></th>
+        <th data-alias=""Spacetype-Short name (Room)"" style=""""></th>
+        <th data-alias=""Spacetype-Name (Room)"" style=""""></th>
+        <th data-alias=""Area (Room)"" style=""text-align: right;"">Surface</th>
+        <th data-alias=""Area2 (Room)"" style=""text-align: right;"">Surface2</th>
+    </tr>
+    <tr class=""Sum"">
+        <td style=""""></td>
+        <td style=""""></td>
+        <td style=""""></td>
+        <td style=""text-align: right;"">2288.24</td>
+        <td style=""text-align: right;"">NaN</td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""9D176C6F-E7F8-40F4-B9B0-0C6B251ECF85"" style=""background-color: rgb(252, 210, 252);""></span></td>
+        <td style="""">1.3</td>
+        <td style="""">break room</td>
+        <td style=""text-align: right;"">46.60</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""2D020F6A-7537-4FF6-A037-5B926BEAEA22,31B043F6-3616-4A98-A22B-0290E3F45099,375F4955-CC7C-49B4-9464-F4C283EC0E98,51A14A2A-860E-4C9D-BB3E-538CD3ACE728,85860EDF-A7CB-4DBD-ABF1-9F6ED7B4CF27,861A26F7-F2D9-4783-8F15-9EB41143D3AA,AB016A12-D7A2-447E-BBFF-5893BE24855F,BB25A02B-5AAB-4006-8668-4AF9C3590ABB,CA49DAFE-1568-4153-92F9-17CC18D3DA73,E42C8447-4465-4487-BB7C-2AD97158478A"" style=""background-color: rgb(252, 170, 172);""></span></td>
+        <td style="""">2.1</td>
+        <td style="""">private office space</td>
+        <td style=""text-align: right;"">214.74</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""0D79F96B-E492-4298-B219-ACA534BE4674,101C6828-533E-4F80-958F-FBA52BB347AC,1ECCD315-60CE-494D-ADDB-847F532AF1F0,20A39D90-8EB8-4905-B505-94F497D5F799,3D0B70F5-1256-4331-99EC-B7744501E745,6BBEC095-979C-480C-9A27-3951F07D1F7E,82A13CF4-D5CC-421E-B580-9586191E8C2E,AE12598D-7404-4E11-9CDB-98B21DC01AC9,AFC57EE7-CB4D-4366-9FA8-31CBB0DB1C9D,C46E8C3B-9DFE-4082-A248-24D5CD1C010F,FCDD43D5-4C20-4083-911D-EEE5A4FBEB3B"" style=""background-color: rgb(180, 178, 252);""></span></td>
+        <td style="""">2.2</td>
+        <td style="""">open office space</td>
+        <td style=""text-align: right;"">1005.15</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""4AA729F7-3B67-4CC3-9FB4-3749BBB7C4FA,4ECFFA6D-99C3-4A23-8B53-5046CFDA7AE4,69D64644-6D3E-44AE-B267-970820BF5BBA"" style=""background-color: rgb(180, 255, 185);""></span></td>
+        <td style="""">2.2.2</td>
+        <td style="""">project zone</td>
+        <td style=""text-align: right;"">60.20</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""0495B5A3-CDCC-4063-A764-337B576E4475,29B69186-0DE5-463F-80C1-5835B214C67C,4889C0F7-CB80-454A-9F89-415DFB9C0A7F,528EAE51-F858-481C-98A9-7C2AE598E2D4,5BEA7EB8-F9FD-4578-B8BE-61150AF0DDC1,6BB82185-D563-4170-9349-72A7816F9727,6CED5A72-0C32-4485-A49A-A210FC984024,6D1B1409-E600-472E-ADEA-41DA6F483D17,81955BE2-27EE-4EEA-A6E9-0A8D35B2AAD3,8BAA1049-557C-4002-B8BE-7D79CA6805AA,A85B6EB7-7A16-43BF-AFAF-B4A7EF37D79F,F55FDA1A-E3FB-421B-921C-2252482350FA"" style=""background-color: rgb(255, 220, 164);""></span></td>
+        <td style="""">2.2.3</td>
+        <td style="""">think tank</td>
+        <td style=""text-align: right;"">105.84</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""97691C6A-270C-4424-A022-04ABE0EB5189"" style=""background-color: rgb(252, 166, 252);""></span></td>
+        <td style="""">2.3</td>
+        <td style="""">meeting room</td>
+        <td style=""text-align: right;"">42.05</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""FACF3AC8-6A1C-4992-AC60-3C88D1B7BA84"" style=""background-color: rgb(145, 50, 255);""></span></td>
+        <td style="""">2.3.1</td>
+        <td style="""">collaboration room</td>
+        <td style=""text-align: right;"">46.60</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""6D3298FF-3F65-4419-89AA-22D6AB0521D3,C06F5363-72CD-4343-A35D-A6B06E4145C2"" style=""background-color: rgb(228, 210, 252);""></span></td>
+        <td style="""">2.8</td>
+        <td style="""">office technology room</td>
+        <td style=""text-align: right;"">53.16</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""4BB3EDDF-D4A8-4937-9ED5-D1C2375ADE0B,6267A3FB-35F3-40A2-8573-C0C1CD42A08D,9AE859CC-BBDC-4DA6-B4FF-9E0036A28319,D79497E2-6AD5-4E12-AB43-7B04C3F84C17,F5E0460D-6451-4310-9B56-07110D8DDB48"" style=""background-color: rgb(84, 82, 244);""></span></td>
+        <td style="""">4.2</td>
+        <td style="""">archive room</td>
+        <td style=""text-align: right;"">96.12</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""065445CB-055A-46B6-8063-843E3B19CA18,2FDD0DFD-0B27-4070-B585-9987F4AE47E2,5E5FA0E9-9D33-4AA5-A1BC-4FA136951D00,6717AE47-8524-452C-A373-0C67508A3491,DCC05344-9187-4580-B25B-20F6CA88DDA5,DE789824-41E3-44F0-8079-6C21B29BD892,FD74F68C-5FFD-4271-9DD1-DB48F28A3969"" style=""background-color: rgb(160, 255, 255);""></span></td>
+        <td style="""">7.1</td>
+        <td style="""">sanitation facilities</td>
+        <td style=""text-align: right;"">61.53</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""00B21D11-1E28-4D44-937E-D6F2A663C8FD,CC4A60AF-C813-49C4-8263-0F238D880942"" style=""background-color: rgb(0, 223, 0);""></span></td>
+        <td style="""">8.5.1</td>
+        <td style="""">connectivity room</td>
+        <td style=""text-align: right;"">36.48</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""08662404-082A-4BA5-9CC1-8A99D76849AC,205A6C32-8159-4F1F-A727-7D375D47F603,5EF20B59-0B0A-4F77-987A-4ED4E26876CB,7293CB74-57E9-4419-B731-49019D8F308C,EADDDCBE-3B67-45D1-AC68-CE3E7E45B442,FD5DB521-6D08-4A13-B169-2A62CFB4B892"" style=""background-color: rgb(220, 2, 220);""></span></td>
+        <td style="""">8.9</td>
+        <td style="""">miscellaneous operational equipment</td>
+        <td style=""text-align: right;"">42.46</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""1220315D-CD42-48F6-9C84-1DA432E398D5,4C441CAA-6C62-4195-9D1E-B3906B2F1C79,ACBF7B42-90FC-4E43-B18B-3CB7DAABC10A,FDE975A1-3B8D-422A-AEA4-15E8CF800954"" style=""background-color: rgb(236, 234, 236);""></span></td>
+        <td style="""">9.1</td>
+        <td style="""">corridor, hall</td>
+        <td style=""text-align: right;"">407.51</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""0A608566-E8BA-4368-9FB4-A83FBA18371B,10E76833-E860-422D-870E-5836B49898A4,7CAE0E4C-4B1F-4440-8C3A-46945DE9D009"" style=""background-color: rgb(185, 185, 185);""></span></td>
+        <td style="""">9.2</td>
+        <td style="""">stairs</td>
+        <td style=""text-align: right;"">39.68</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+    <tr>
+        <td class=""asColor""><span data-primary=""243636C3-9F44-4704-BC5B-E348A7DE9CCB,53EF1425-17D1-4546-8208-F08270B1B933,876B148F-7879-47B4-955A-1C1F8CE715E9,C7FA503C-F593-4CB8-BCF6-A433B7BA0156,C8277F07-FD9C-4DA0-B938-1369F9EAED78"" style=""background-color: rgb(110, 110, 110);""></span></td>
+        <td style="""">9.3</td>
+        <td style="""">elevator shaft</td>
+        <td style=""text-align: right;"">30.12</td>
+        <td style=""text-align: right;""></td>
+    </tr>
+</table>
+";
+
+            string legCSS = System.IO.File.ReadAllText(@"D:\Stefan.Steiger\Documents\Visual Studio 2017\Projects\libWkHtml2X\TestApp_Net20\Resources\legendCSS.css", System.Text.Encoding.UTF8);
+            Leg(legendenText, legCSS);
+        }
+
+
 
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
@@ -314,11 +461,8 @@ AND
         [System.STAThread]
         static void Main(string[] args)
         {
-            Leg();
-
-
-
-
+            testme();
+            
             // libWkHtmlToX.TestProcessManager.TestPdf();
             libWkHtmlToX.TestProcessManager.TestPng();
 
