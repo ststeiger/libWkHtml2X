@@ -68,6 +68,10 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PdfSharp, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\PdfSharp\1_5\PdfSharp.dll</HintPath>
@@ -89,6 +93,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceLoader.cs" />
+    <Compile Include="RestInsert.cs" />
     <Compile Include="SecretManager.cs" />
     <Compile Include="SQL.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -131,6 +136,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libs\Newtonsoft.Json.dll" />
     <Content Include="Resources\1512467650594.svg" />
     <Content Include="Resources\legendCSS.css" />
     <Content Include="Resources\ObjData.sql" />

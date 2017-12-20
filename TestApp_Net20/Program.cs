@@ -454,7 +454,6 @@ AND
         }
 
 
-
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
