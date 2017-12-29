@@ -140,6 +140,7 @@
     <Content Include="Resources\1512467650594.svg" />
     <Content Include="Resources\legendCSS.css" />
     <Content Include="Resources\ObjData.sql" />
+    <Content Include="Resources\PdfLegend.TitleData.sql" />
     <Content Include="Resources\pdfQuery.sql" />
     <Content Include="Resources\Report.txt" />
     <Content Include="Resources\tables_pdflegende.sql" />
