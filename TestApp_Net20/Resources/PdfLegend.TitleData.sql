@@ -1,6 +1,7 @@
 ﻿
 DECLARE @BE_ID int 
 SET @BE_ID = 12435 -- BE_Hash 
+
 -- SELECT * FROM T_Benutzer 
 
 DECLARE @in_svg uniqueidentifier 
@@ -8,6 +9,10 @@ DECLARE @in_dar_uid uniqueidentifier
 SET @in_svg = 'C0A7720B-B6D9-46E0-84C4-2D2C6990EC7C' -- EG
 SET @in_svg = 'B558EB3D-52F0-4F38-9F2F-39620D9C674A' -- OG1
 SET @in_dar_uid = '71C16DAD-DADB-4BA2-A380-7ED3029DEEE0'  
+
+
+-- SELECT * FROM T_VWS_SVG WHERE SVG_SVG_UID IS NULL AND CURRENT_TIMESTAMP >= SVG_dateCreated AND SVG_dateDeleted IS NULL 
+
 
 
 SELECT 

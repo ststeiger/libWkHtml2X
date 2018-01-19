@@ -25,16 +25,16 @@ namespace TestApp_Net20.Rest
                     continue;
 
                 return m;
-            }
+            } // Next m 
 
             return null;
-        }
+        } // End Function GetToObjectMethod 
 
 
         static Insert()
         {
             s_ToObjectMethodInfo = GetToObjectMethod();
-        }
+        } // End Sub Insert 
 
 
         public static void Test()
@@ -78,10 +78,10 @@ namespace TestApp_Net20.Rest
             System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>> lss1 = Json2List(json1);
             System.Console.WriteLine(lss);
             System.Console.WriteLine(lss1);
-        }
+        } // End Sub Test 
 
 
-            private static System.Type MapJTokenTypeToDotNet(Newtonsoft.Json.Linq.JTokenType t)
+        private static System.Type MapJTokenTypeToDotNet(Newtonsoft.Json.Linq.JTokenType t)
         {
             //System.Collections.Generic.Dictionary<Newtonsoft.Json.Linq.JTokenType, System.Type> du = new System.Collections.Generic.Dictionary<Newtonsoft.Json.Linq.JTokenType, System.Type>();
 
@@ -121,14 +121,14 @@ namespace TestApp_Net20.Rest
                     return typeof(System.TimeSpan);
                 default:
                     throw new System.NotImplementedException($"JObject type mapping for type \"{t}\" not implemented.");
-            }
+            } // End Switch t 
 
             // Array = 2,
             // Constructor = 3,
             // Property = 4,
             // Comment = 5,
             // return null;
-        }
+        } // End Function MapJTokenTypeToDotNet 
 
 
 
@@ -141,7 +141,7 @@ namespace TestApp_Net20.Rest
             // System.Reflection.MethodInfo method = GetToObjectMethod();
             System.Reflection.MethodInfo generic = s_ToObjectMethodInfo.MakeGenericMethod(t);
             return generic.Invoke(value, null);
-        }
+        } // End Function GetValue 
 
 
         private delegate object GetValue_t(Newtonsoft.Json.Linq.JToken val);
@@ -159,7 +159,8 @@ namespace TestApp_Net20.Rest
             {
                 return generic.Invoke(val, null);
             };
-        }
+
+        } // End Function GetValueDelegate 
 
 
 
@@ -171,7 +172,7 @@ namespace TestApp_Net20.Rest
             // return getValue(value);
 
             return GetValue(value, t);
-        }
+        } // End Function GetValue 
 
 
         //public class Parameter
@@ -209,10 +210,10 @@ namespace TestApp_Net20.Rest
                 System.Console.WriteLine(value);
                 // ls.Add(new Parameter(name, value));
                 lss.Add(name, value);
-            }
+            } // Next kvp 
 
             return lss;
-        }
+        } // End Function ProcessObject 
 
 
         private static System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>
@@ -221,7 +222,7 @@ namespace TestApp_Net20.Rest
             if (json == null)
             {
                 throw new System.ArgumentNullException(nameof(json));
-            }
+            } // End if (json == null) 
 
             // System.Collections.Generic.List<System.Collections.Generic.List<Parameter>> ls = new System.Collections.Generic.List<System.Collections.Generic.List<Parameter>>();
             System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>> lss =
@@ -237,10 +238,10 @@ namespace TestApp_Net20.Rest
 
                 //ls.Add(ProcessObject(jtoken));
                 lss.Add(ProcessObject(jtoken));
-            }
+            } // Next i 
 
             return lss;
-        }
+        } // End Function ProcessArray 
 
 
         public static System.Collections.Generic.List<
@@ -250,7 +251,7 @@ namespace TestApp_Net20.Rest
             if (string.IsNullOrEmpty(json))
             {
                 throw new System.ArgumentNullException(nameof(json));
-            }
+            } // End if (string.IsNullOrEmpty(json)) 
 
             System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>> lss;
             Newtonsoft.Json.Linq.JToken jsonData = Newtonsoft.Json.Linq.JToken.Parse(json);
