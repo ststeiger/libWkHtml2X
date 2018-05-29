@@ -42,7 +42,7 @@ Hello world: 안녕하세요...
             opts.ScreenHeight = 768;
 
 
-            using (ProcessManager p = new ProcessManager(html, opts))
+            using (ProcessManager p = new ProcessManager(opts))
             {
                 p.Start();
                 p.WriteStandardInput(html);
@@ -99,7 +99,7 @@ Hello world: 안녕하세요...
             
 
 
-            using (ProcessManager p = new ProcessManager(html, opts))
+            using (ProcessManager p = new ProcessManager(opts))
             {
                 p.Start();
                 p.WriteStandardInput(html);

@@ -17,17 +17,17 @@ namespace libWkHtmlToX
         private System.IO.BinaryReader m_outputReader;
 
 
-        public ProcessManager(string html, wkHtmlToXCommandLineOptions options)
-            : this(html, options, new OutputCallback_t(OnOutputDefault))
+        public ProcessManager(wkHtmlToXCommandLineOptions options)
+            : this(options, new OutputCallback_t(OnOutputDefault))
         { } // End Constructor
 
 
-        public ProcessManager(string html, wkHtmlToXCommandLineOptions options, OutputCallback_t outputCallback)
+        public ProcessManager(wkHtmlToXCommandLineOptions options, OutputCallback_t outputCallback)
         {
             
             this.m_exePath = options.Executable;
             this.m_arguments = options.CommandLine;
-
+            
             OutputCallback = outputCallback;
         } // End Constructor
 
@@ -99,6 +99,7 @@ namespace libWkHtmlToX
             while ((bytesRead = this.m_outputReader.Read(buffer, 0, buffer.Length)) > 0)
             {
                 targetStream.Write(buffer, 0, bytesRead);
+                targetStream.Flush();
                 size += bytesRead;
             } // Whend 
 

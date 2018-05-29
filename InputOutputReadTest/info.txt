@@ -1,0 +1,4 @@
+﻿
+https://daveaglick.com/posts/capturing-standard-input-in-csharp
+
+https://msdn.microsoft.com/en-us/library/system.console.isinputredirected(v=vs.110).aspx
